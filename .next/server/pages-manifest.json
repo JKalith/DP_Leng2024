@@ -2,14 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-<<<<<<< HEAD
-  "/account/register": "pages/account/register.js",
-  "/account/login": "pages/account/login.js",
-  "/api/users/register": "pages/api/users/register.js",
-  "/api/users/authenticate": "pages/api/users/authenticate.js",
   "/": "pages/index.js"
-=======
-  "/api/cars/[id]": "pages/api/cars/[id].js",
-  "/api/cars": "pages/api/cars.js"
->>>>>>> c87d0b32ad7721536954ceb233ac2e79d671cb3d
 }
