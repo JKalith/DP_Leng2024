@@ -14,6 +14,8 @@ function jwtMiddleware(req, res) {
             '/api/users/authenticate',
             '/api/cars/register',
             '/api/cars',
+            '/api/persons',
+            '/api/activities',
             { url: /^\/api\/cars\/*/, methods: ['GET', 'PUT','POST'] }
 
         ]

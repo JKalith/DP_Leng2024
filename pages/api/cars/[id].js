@@ -1,4 +1,4 @@
-import { apiHandler, carsRepo } from 'helpers/api';
+import { apiHandler,carsRepo } from 'helpers/api';
 
 export default apiHandler({
     get: getById,
