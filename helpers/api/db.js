@@ -76,12 +76,13 @@ function activityModel() {
         startTime: { type: String, required: true },
         endTime: { type: String, required: true },
         activityDescription: { type: String, required: true },
-        activityCategory: { type: String, required: true },
+        activityCategory: [{ type: String, required: true }],
         allowRegistration: { type: Boolean, default: false },
         maxPersonRegistration: { type: Number, default: 0 },
         latitude: { type: String },
-        altitude: { type: String },
-        imageUrl:[{type: String}]
+        length: { type: String },
+        imageUrl:[{type: String}],
+        indiceImagenPrincipal:{type: Number}
         
     
     }, {
