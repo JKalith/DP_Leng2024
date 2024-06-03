@@ -2,9 +2,9 @@
     max-width: auto;
   
     padding: 20px;
-    border: 1px solid #ddd;
+
     border-radius: 8px;
-    background-color: #ff0000;
+
   }
   
   .resume {
@@ -19,13 +19,25 @@
   }
   .containerFlex {
     display: flex;
-  
+
     font-family: 'Lato', sans-serif;
-    margin-top: 20px;
+
     gap: 10px;
   
   
   }
+  .containerFlex .container{
+    display: flex;
+    margin-top: 20px;
+    font-family: 'Lato', sans-serif;
+
+    gap: 10px;
+  
+  
+  }
+
+
+  
   .left {
     position: relative;
     flex: 1;
@@ -63,13 +75,7 @@
   
   }
   
-  .containerSec:hover {
-  
-    border: solid 2px rgb(15, 189, 122);
-  
-  
-  
-  }
+
   .lCont {
   
     width: auto;
@@ -138,24 +144,10 @@
   
   }
   
-  .d {
+
   
   
-  
-    background-color: #ff0000;
-  }
-  
-  
-  
-  /* components/Tareas.module.css */
-  
-  
-  .ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-  
-  }
+
   
   .containerAux {
     width: auto;
@@ -163,54 +155,10 @@
   
   
     margin-top: 20px;
-  
-  
-  
-  
-  
   }
   
-  .tareas {
-    width: auto;
-    height: 202px;
-  
-    border-radius: 20px;
-    display: inline-block;
-    border: solid 1px black;
-    margin-top: 20px;
-  
-  
-    overflow-x: hidden;
-  
-  
-  }
-  
-  .tareas:hover {
-  
-    border-color: #1ABC9C;
-  
-  
-  }
-  
-  
-  
-  
-  .tareas::-webkit-scrollbar {
-    width: 10px;
-    /* Ancho de las barras de desplazamiento */
-  }
-  
-  .tareasr::-webkit-scrollbar-track {
-    background: transparent;
-    /* Color de fondo de las barras de desplazamiento */
-  }
-  
-  .tareas::-webkit-scrollbar-thumb {
-    background: #88888800;
-    /* Color del botón de las barras de desplazamiento */
-    border-radius: 5px;
-    /* Radio de borde del botón de las barras de desplazamiento */
-  }
+
+
   
   .input[type=checkbox] {
     display: none;
@@ -276,107 +224,10 @@
     top: 0px;
   }
   
-  .tarea1:checked+.label,
-  .tarea2:checked+.label,
-  .tarea3:checked+.label,
-  .tarea4:checked+.label,
-  .tarea5:checked+.label {
-    color: #000000;
-    border-top-right-radius: 10px;
-  
-    border-bottom-right-radius: 10px;
-    border-right: 5px solid #ff0000;
-  }
-  .tarea1:checked+.label {
-    border-right: 2px solid #40ff00;
-  
-    border-bottom: 2PX solid #40ff00;
+
   
   
-  }
-  
-  
-  .tarea2:checked+.label {
-  
-    border-right: 2px solid#e1ff00;
-  
-  
-    border-right: 2px solid #e1ff00;
-  
-  
-  
-    border-bottom: 2PX solid #e1ff00;
-  
-  }
-  
-  .tarea3:checked+.label {
-  
-    border-bottom: 2PX solid #1e00ff;
-    ;
-  
-    border-right: 2px solid #1e00ff;
-  }
-  
-  .tarea4:checked+.label {
-  
-    border-right: 2px solid #ff0000;
-  
-    border-bottom: 2PX solid #ff0000;
-  }
-  
-  
-  
-  
-  
-  
-  .tarea5:checked+.label {
-  
-  
-    border-bottom: 2PX solid #ff00ee;
-  
-    border-right: 2px solid #ff00ee;
-  
-  }
-  .tarea1:hover+.label {
-    background-color: #40ff00;
-  }
-  
-  .tarea2:hover+.label {
-    background-color: #e1ff00;
-  }
-  
-  .tarea3:hover+.label {
-    background-color: #1e00ff;
-  }
-  
-  .tarea4:hover+.label {
-  
-    background-color: #ff0000;
-  }
-  
-  .tarea5:hover+.label {
-  
-    background-color: #ff00ee;
-  }
-  
-  .tarea1:checked+.label h2 span,
-  .tarea2:checked+.label h2 span,
-  .tarea3:checked+.label h2 span,
-  .tarea4:checked+.label h2 span,
-  .tarea5:checked+.label h2 span {
-    color: #1ABC9C;
-    font-size: 15px;
-  }
-  
-  .tarea1:checked+.label:before,
-  .tarea2:checked+.label:before,
-  .tarea3:checked+.label:before,
-  .tarea4:checked+.label:before,
-  .tarea5:checked+.label:before {
-    border-color: #ffffff;
-    font-size: 15px;
-    background-color: rgb(93, 231, 93);
-  }
+
   
   /* styles/Form.module.css */
   .form__group {
@@ -404,6 +255,21 @@
     color: transparent;
   
   }
+
+  .formFieldTime {
+    font-family: inherit;
+    width: 110px;
+    border: 0;
+    border-bottom: 2px solid gray;
+  
+    outline: 0;
+    font-size: 1.1rem;
+    color: rgb(0, 0, 0);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+
   
   .formField:placeholder-shown~.formLabel {
     font-size: 1.3rem;
@@ -497,6 +363,7 @@
   .checkboxWrapper .tgl *:after,
   .checkboxWrapper .tgl *:before,
   .checkboxWrapper .tgl+.tglBtn {
+    border: solid 1px rgba(0, 0, 0, 0.23);
     box-sizing: border-box;
   }
   
@@ -562,12 +429,7 @@
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   
-  .checkboxWrapper .tglIos+.tglBtn:before {
-    content: "No";
-    left: 28px;
-    color: var(--g04);
-    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
+
   
   .checkboxWrapper .tglIos+.tglBtn:active {
     box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
@@ -589,12 +451,350 @@
     margin-left: -0.4em;
   }
   
-  .checkboxWrapper .tglIos:checked+.tglBtn:before {
-    content: "Yes";
-    left: 4px;
-    color: #000000;
+
+
+
+
+
+
+
+
+
+
+
+
+  .checkboxContainer {
+    display: flex;
+    
+
+    gap: 10px;
+
+
+}
+
+.checkboxContainer label {
+    display: flex;
+    padding-block-end: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkboxContainer input[type="checkbox"] {
+    display: none;
+}
+
+.checkboxContainer input[type="checkbox"] + span {
+
+  border: 1px solid;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 30PX;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+
+.checkboxContainer input[type="checkbox"] + span::before {
+
+
+
+  transition: opacity 0.3s;
+  
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.frame {
+  width: 90%;
+  margin: 40px auto;
+  text-align: center;
+}
+.button {
+  margin: 20px;
+}
+.customBtn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+
+
+
+
+
+
+/* 7 */
+.btnSave {
+  background: linear-gradient(0deg,  rgb(32, 245, 163) 0%,  rgb(15, 189, 122) 100%);
+    line-height: 42px;
+    padding: 0;
+    border: none;
+  }
+  .btnSave span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btnSave:before,
+  .btnSave:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    bottom: 0;
+    background:  rgb(15, 189, 122);;
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btnSave:before{
+     height: 0%;
+     width: 2px;
+  }
+  .btnSave:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btnSave:hover{
+    color:  rgb(15, 189, 122);;
+    background: transparent;
+  }
+  .btnSave:hover:before {
+    height: 100%;
+  }
+  .btnSave:hover:after {
+    width: 100%;
+  }
+  .btnSave span:before,
+  .btnSave span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background:  rgb(15, 189, 122);
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btnSave span:before {
+    width: 2px;
+    height: 0%;
+  }
+  .btnSave span:after {
+    height: 2px;
+    width: 0%;
+  }
+  .btnSave span:hover:before {
+    height: 100%;
+  }
+  .btnSave span:hover:after {
+    width: 100%;
   }
   
+
+  .btnCancel {
+    background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
+      line-height: 42px;
+      padding: 0;
+      border: none;
+    }
+    .btnCancel span {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .btnCancel:before,
+    .btnCancel:after {
+      position: absolute;
+      content: "";
+      right: 0;
+      bottom: 0;
+      background: rgba(251,75,2,1);
+      box-shadow:
+       -7px -7px 20px 0px rgba(255,255,255,.9),
+       -4px -4px 5px 0px rgba(255,255,255,.9),
+       7px 7px 20px 0px rgba(0,0,0,.2),
+       4px 4px 5px 0px rgba(0,0,0,.3);
+      transition: all 0.3s ease;
+    }
+    .btnCancel:before{
+       height: 0%;
+       width: 2px;
+    }
+    .btnCancel:after {
+      width: 0%;
+      height: 2px;
+    }
+    .btnCancel:hover{
+      color: rgba(251,75,2,1);
+      background: transparent;
+    }
+    .btnCancel:hover:before {
+      height: 100%;
+    }
+    .btnCancel:hover:after {
+      width: 100%;
+    }
+    .btnCancel span:before,
+    .btnCancel span:after {
+      position: absolute;
+      content: "";
+      left: 0;
+      top: 0;
+      background: rgba(251,75,2,1);
+      box-shadow:
+       -7px -7px 20px 0px rgba(255,255,255,.9),
+       -4px -4px 5px 0px rgba(255,255,255,.9),
+       7px 7px 20px 0px rgba(0,0,0,.2),
+       4px 4px 5px 0px rgba(0,0,0,.3);
+      transition: all 0.3s ease;
+    }
+    .btnCancel span:before {
+      width: 2px;
+      height: 0%;
+    }
+    .btnCancel span:after {
+      height: 2px;
+      width: 0%;
+    }
+    .btnCancel span:hover:before {
+      height: 100%;
+    }
+    .btnCancel span:hover:after {
+      width: 100%;
+    }
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.checkboxRed:checked + span {
+    background-color: #ff4949;
+    color:rgb(0, 0, 0);
+}
+
+.checkboxGreen:checked + span {
+    background-color: rgb(101, 255, 101);
+    color: rgb(0, 0, 0);
+}
+
+.checkboxBlue:checked + span {
+    background-color: rgb(96, 96, 255);
+    color: rgb(0, 0, 0);
+}
+
+
+
+.checkboxYelow:checked + span {
+  background-color: rgb(244, 255, 97);
+  color: rgb(0, 0, 0);
+}
+
+.checkboxRose:checked + span {
+  background-color: rgb(255, 114, 224);
+  color: rgb(0, 0, 0);
+}
+
+.checkboxOrange:checked + span {
+  background-color: rgb(255, 190, 92);
+  color: rgb(0, 0, 0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @media screen and (max-width: 800px) {
     .resume {
       grid-template-columns: 1fr;
@@ -627,7 +827,6 @@
     .resume {
       margin: 0;
     }
-  
     .left {
   
       flex: 1;
@@ -644,6 +843,4 @@
   
       border-color: #878787;
     }
-  
-  
   }
