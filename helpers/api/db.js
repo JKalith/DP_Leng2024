@@ -1,128 +1,139 @@
-import getConfig from 'next/config';
-import mongoose from 'mongoose';
-import { date } from 'yup';
+import getConfig from "next/config";
+import mongoose from "mongoose";
 
 const { serverRuntimeConfig } = getConfig();
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-mongoose.connect(process.env.MONGODB_URI || serverRuntimeConfig.connectionString);
+// Conexión a MongoDB
+mongoose.connect(
+  process.env.MONGODB_URI || serverRuntimeConfig.connectionString,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 mongoose.Promise = global.Promise;
 
-export const db = {
-    User: userModel(),
-    Car: carModel(),
-    Activities: activityModel(),
-    Person: PersonModel()
+const userModel = () => {
+  const schema = new Schema(
+    {
+      username: { type: String, unique: true, required: true },
+      hash: { type: String, required: true },
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+    },
+    {
+      timestamps: true,
+    }
+  );
+
+  schema.set("toJSON", {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc, ret) => {
+      delete ret._id;
+      delete ret.hash;
+    },
+  });
+
+  return mongoose.models.User || mongoose.model("User", schema);
 };
 
-// mongoose models with schema definitions
+const carModel = () => {
+  const schema = new Schema(
+    {
+      idCar: { type: String, unique: true, required: true },
+      brand: { type: String, required: true },
+      carType: { type: String, required: true },
+      year: { type: String, required: true },
+    },
+    {
+      timestamps: true,
+    }
+  );
 
-function userModel() {
-    const schema = new Schema({
-        username: { type: String, unique: true, required: true },
-        hash: { type: String, required: true },
-        firstName: { type: String, required: true },
-        lastName: { type: String, required: true }
-    }, {
-        // add createdAt and updatedAt timestamps
-        timestamps: true
-    });
+  schema.set("toJSON", {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc, ret) => {
+      delete ret._id;
+      delete ret.hash;
+    },
+  });
 
-    schema.set('toJSON', {
-        virtuals: true,
-        versionKey: false,
-        transform: function (doc, ret) {
-            delete ret._id;
-            delete ret.hash;
-        }
-    });
+  return mongoose.models.Car || mongoose.model("Car", schema);
+};
 
-    return mongoose.models.User || mongoose.model('User', schema);
-}
-function carModel() {
-    const schema = new Schema({
-        idCar: { type: String, unique: true, required: true },
-        brand: { type: String, required: true },
-        carType: { type: String, required: true },
-        year: { type: String, required: true }
-        
-    }, {
-        // add createdAt and updatedAt timestamps
-        timestamps: true
-    });
+const activityModel = () => {
+  const activitySchema = new Schema(
+    {
+      nameActivity: { type: String, required: true },
+      place: { type: String, required: true },
+      email: { type: String, required: true },
+      instagram: { type: String, required: true },
+      facebook: { type: String, required: true },
+      phone: { type: String, required: true },
+      startDate: { type: String, required: true },
+      endDate: { type: String, required: true },
+      startTime: { type: String, required: true },
+      endTime: { type: String, required: true },
+      activityDescription: { type: String, required: true },
+      activityCategory: [{ type: String, required: true }],
+      allowRegistration: { type: Boolean, default: false },
+      maxPersonRegistration: { type: Number, default: 0 },
+      latitude: { type: String },
+      length: { type: String },
+      imageUrl: [{ type: String }],
+      indiceImagenPrincipal: { type: Number },
+    },
+    {
+      timestamps: true,
+    }
+  );
 
-    schema.set('toJSON', {
-        virtuals: true,
-        versionKey: false,
-        transform: function (doc, ret) {
-            delete ret._id;
-            delete ret.hash;
-        }
-    });
+  activitySchema.set("toJSON", {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc, ret) => {
+      delete ret._id;
+      delete ret.hash;
+    },
+  });
 
-    return mongoose.models.Car || mongoose.model('Car', schema);
-}
-function activityModel() {
-    const schema = new Schema({
-        idActivity: { type: Number, unique: true, required: true },
-        nameActivity: { type: String, required: true },
-        place: { type: String, required: true },
-        email: { type: String, required: true },
-        instagram: { type: String, required: true },
-        facebook: { type: String, required: true },
-        phone: { type: String, required: true },
-        startDate: { type: Date, required: true },
-        endDate: { type: Date, required: true },
-        startTime: { type: String, required: true },
-        endTime: { type: String, required: true },
-        activityDescription: { type: String, required: true },
-        activityCategory: [{ type: String, required: true }],
-        allowRegistration: { type: Boolean, default: false },
-        maxPersonRegistration: { type: Number, default: 0 },
-        latitude: { type: String },
-        length: { type: String },
-        imageUrl:[{type: String}],
-        indiceImagenPrincipal:{type: Number}
-        
-    
-    }, {
-        // add createdAt and updatedAt timestamps
-        timestamps: true
-    });
-  
-    schema.set('toJSON', {
-        virtuals: true,
-        versionKey: false,
-        transform: function (doc, ret) {
-            delete ret._id;
-            delete ret.hash;
-        }
-    });
+  return mongoose.models.Activity || mongoose.model("Activity", activitySchema);
+};
 
-    return mongoose.models.Activities || mongoose.model('Activities', schema);
-}
-function PersonModel() {
-    const schema = new Schema({
-        idPerson: { type: String, unique: true, required: true },
-        idActivity:{type: String,required: true},
-        name: { type: String, required: true },
-        lastName: { type: String, required: true },
-        secondLastName: { type: String, required: true },
-        email: { type: String, required: true },
-        phone: { type: String, required: true }
-    }, {
-        // add createdAt and updatedAt timestamps
-        timestamps: true
-    });
+const personModel = () => {
+  const schema = new Schema(
+    {
+      idPerson: { type: String, unique: true, required: true },
+      idActivity: { type: String, required: true },
+      name: { type: String, required: true },
+      lastName: { type: String, required: true },
+      secondLastName: { type: String, required: true },
+      email: { type: String, required: true },
+      phone: { type: String, required: true },
+    },
+    {
+      timestamps: true,
+    }
+  );
 
-    schema.set('toJSON', {
-        virtuals: true,
-        versionKey: false,
-        transform: function (doc, ret) {
-            delete ret._id;
-            delete ret.hash;
-        }
-    });
+  schema.set("toJSON", {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc, ret) => {
+      delete ret._id;
+      delete ret.hash;
+    },
+  });
 
-    return mongoose.models.Person || mongoose.model('Person', schema);
-}
+  return mongoose.models.Person || mongoose.model("Person", schema);
+};
+
+export const db = {
+  User: userModel(),
+  Car: carModel(),
+  Activity: activityModel(), 
+  Person: personModel(),
+};

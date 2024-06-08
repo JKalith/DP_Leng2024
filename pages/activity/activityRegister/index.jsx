@@ -1,297 +1,286 @@
 import styles from "styles/activityRegister.module.css";
+import { activityService, alertService } from "services";
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 
-export default function ActivtyRegister() {
+export default function ActivtyRegister(props) {
+  const activity = props?.activity;
+  const router = useRouter();
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
+
+  async function onSubmit(data) {
+    alertService.clear();
+    try {
+      // create or update user based on user prop
+      let message;
+      if (activity) {
+        await activityService.update(activity.id, data);
+        message = "actividad updated";
+      } else {
+        await activityService.register(data);
+        message = "actividad added";
+      }
+
+      // redirect to user list with success message
+      router.push("/users");
+      alertService.success(message, true);
+    } catch (error) {
+      alertService.error(error);
+      console.error(error);
+    }
+  }
+
   return (
-    /* Div principal */
     <div>
       <div className={styles.centerC}>
         <div className={styles.containerSec}>
           <div className={styles.lCont}>
-            <h1 className={styles.infoTitle}> Registro de Actividades</h1>
+            <h1 className={styles.infoTitle}>Registro de Actividades</h1>
           </div>
-          <div className={styles.resume}>
-            <div>
-              {/* Div left */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.resume}>
               <div className={styles.left}>
-                <div className={styles.containerLef}>
-                  <div className={styles.form__group}>
-                    <input
-                      type="input"
-                      className={styles.formField}
-                      placeholder="Nombre de actividad"
-                      name="Registro"
-                      id="Registro"
-                      required
-                    />
-                    <label htmlFor="name" className={styles.formLabel}>
-                      Nombre de actividad
+                <div className={styles.form__group}>
+                  <input
+                    type="text"
+                    className={styles.formField}
+                    placeholder="Nombre de actividad"
+                    {...register("nameActivity", { required: true })}
+                  />
+                  <label htmlFor="nameActivity" className={styles.formLabel}>
+                    Nombre de actividad
+                  </label>
+                  {errors.nameActivity && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+              <div className={styles.rigth}>
+                <div className={styles.form__group}>
+                  <input
+                    type="text"
+                    className={styles.formField}
+                    placeholder="Lugar"
+                    {...register("place", { required: true })}
+                  />
+                  <label htmlFor="place" className={styles.formLabel}>
+                    Lugar
+                  </label>
+                  {errors.place && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+            </div>
+            <div className={styles.lCont}>
+              <h1 className={styles.infoTitle}>Horario</h1>
+            </div>
+            <div className={styles.resume}>
+              <div className={styles.left}>
+                <div className={styles.form__group}>
+                  <input
+                    type="date"
+                    className={styles.formField}
+                    {...register("startDate", { required: true })}
+                  />
+                  <label htmlFor="startDate" className={styles.formLabel}>
+                    Fecha de inicio
+                  </label>
+                  {errors.startDate && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+              <div className={styles.left}>
+                <div className={styles.form__group}>
+                  <input
+                    type="date"
+                    className={styles.formField}
+                    {...register("endDate", { required: true })}
+                  />
+                  <label htmlFor="endDate" className={styles.formLabel}>
+                    Fecha de inicio
+                  </label>
+                  {errors.endDate && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+              <div className={styles.rigth}>
+                <div className={styles.form__group}>
+                  <input
+                    type="time"
+                    className={styles.formFieldTime}
+                    {...register("startTime", { required: true })}
+                  />
+                  <label htmlFor="startTime" className={styles.formLabel}>
+                    Hora inicio
+                  </label>
+                  {errors.startTime && <p>Este campo es requerido</p>}
+                </div>
+                <div className={styles.form__group}>
+                  <input
+                    type="time"
+                    className={styles.formFieldTime}
+                    {...register("endTime", { required: true })}
+                  />
+                  <label htmlFor="endTime" className={styles.formLabel}>
+                    Hora finalización
+                  </label>
+                  {errors.endTime && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+            </div>
+            <div className={styles.lCont}>
+              <h1 className={styles.infoTitle}>Contacto de la actividad</h1>
+            </div>
+            <div className={styles.resume}>
+              <div className={styles.left}>
+                <div className={styles.form__group}>
+                  <input
+                    type="email"
+                    className={styles.formField}
+                    placeholder="Correo electrónico"
+                    {...register("email", { required: true })}
+                  />
+                  <label htmlFor="email" className={styles.formLabel}>
+                    Correo electrónico
+                  </label>
+                  {errors.email && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+              <div className={styles.rigth}>
+                <div className={styles.form__group}>
+                  <input
+                    type="text"
+                    className={styles.formField}
+                    placeholder="Teléfono"
+                    {...register("phone", { required: true })}
+                  />
+                  <label htmlFor="phone" className={styles.formLabel}>
+                    Teléfono
+                  </label>
+                  {errors.phone && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+            </div>
+            <div className={styles.lCont}>
+              <h1 className={styles.infoTitle}>Link de las publicaciones</h1>
+            </div>
+            <div className={styles.resume}>
+              <div className={styles.left}>
+                <div className={styles.form__group}>
+                  <input
+                    type="text"
+                    className={styles.formField}
+                    placeholder="Facebook"
+                    {...register("facebook", { required: true })}
+                  />
+                  <label htmlFor="facebook" className={styles.formLabel}>
+                    Facebook
+                  </label>
+                  {errors.facebook && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+              <div className={styles.rigth}>
+                <div className={styles.form__group}>
+                  <input
+                    type="text"
+                    className={styles.formField}
+                    placeholder="Instagram"
+                    {...register("instagram", { required: true })}
+                  />
+                  <label htmlFor="instagram" className={styles.formLabel}>
+                    Instagram
+                  </label>
+                  {errors.instagram && <p>Este campo es requerido</p>}
+                </div>
+              </div>
+            </div>
+            <div className={styles.lCont}>
+              <h1 className={styles.infoTitle}>Categoría</h1>
+            </div>
+            <div className={styles.resume}>
+              <div className={styles.left}>
+                <div className={styles.containerAux}>
+                  <div className={styles.checkboxContainer}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxRed}
+                        {...register("activityCategory")}
+                        value="Deporte"
+                      />
+                      <span>Deporte</span>
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxGreen}
+                        {...register("activityCategory")}
+                        value="Cine"
+                      />
+                      <span>Cine</span>
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxBlue}
+                        {...register("activityCategory")}
+                        value="Entretenimiento"
+                      />
+                      <span>Entretenimiento</span>
+                    </label>
+                  </div>
+                  <div className={styles.checkboxContainer}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxYelow}
+                        {...register("activityCategory")}
+                        value="Danza"
+                      />
+                      <span>Danza</span>
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxOrange}
+                        {...register("activityCategory")}
+                        value="Aire Libre"
+                      />
+                      <span>Aire Libre</span>
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxRose}
+                        {...register("activityCategory")}
+                        value="Acampar"
+                      />
+                      <span>Acampar</span>
                     </label>
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Div rigth */}
-            <div className={styles.rigth}>
-              <div className={styles.form__group}>
-                <input
-                  type="input"
-                  className={styles.formField}
-                  placeholder="Lugar"
-                  name="Place"
-                  id="Place"
-                  required
-                />
-                <label htmlFor="name" className={styles.formLabel}>
-                  Lugar
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className={styles.lCont}>
-            <h1 className={styles.infoTitle}>Horario</h1>
-          </div>
-          {/* div de Horario */}
-          <div className={styles.resume}>
-            <div>
-              {/* Div left */}
-              <div className={styles.left}>
+              <div className={styles.rigth}>
+                <h1 className={styles.infoTitle}>Disponibilidad</h1>
                 <div className={styles.form__group}>
                   <input
-                    type="Date"
+                    type="number"
                     className={styles.formField}
-                    placeholder="Nombre de actividad"
-                    name="Start Date"
-                    id="startDate"
-                    required
+                    placeholder="Cantidad de Cupos"
+                    {...register("maxPersonRegistration", { required: true })}
                   />
-                  <label htmlFor="name" className={styles.formLabel}>
-                    Fecha de actividad
+                  <label
+                    htmlFor="maxPersonRegistration"
+                    className={styles.formLabel}
+                  >
+                    Cantidad de Cupos
                   </label>
+                  {errors.maxPersonRegistration && (
+                    <p>Este campo es requerido</p>
+                  )}
                 </div>
-                <div className={styles.form__group}>
-                
-               
-                </div>
-              </div>
-            </div>
-            {/* Div rigth */}
-            <div className={styles.rigth}>
-
-            <div class={styles.checkboxWrapper + " " + styles.containerFlex}>
-               
-
-
-
-            <div className={styles.form__group}>
-                <input
-                  type="Time"
-                  className={styles.formFieldTime}
-                  placeholder="Hora inicio"
-                  name="endTime"
-                  id="endTime"
-                  required
-                />
-                <label htmlFor="name" className={styles.formLabel}>
-                Hora inicio
-                </label></div>
-
-                <div className={styles.form__group}>
-                <input
-                  type="Time"
-                  className={styles.formFieldTime}
-                  placeholder="Hora finalizacion"
-                  name="endTime"
-                  id="endTime"
-                  required
-                />
-                <label htmlFor="name" className={styles.formLabel}>
-                  Hora finalizacion
-                </label></div>
-
-
-
-              </div>
-
-
-        
-            </div>
-          </div>
-          <div className={styles.lCont}>
-            <h1 className={styles.infoTitle}>Contacto de la actividad</h1>
-          </div>
-          {/* div de Horario */}
-         
-          <div className={styles.resume}>
-
-
-
-            
-            <div>
-              {/* Div left */}
-              <div className={styles.left}>
-                <div className={styles.form__group}>
+                <div
+                  className={
+                    styles.checkboxWrapper + " " + styles.containerFlex
+                  }
+                >
                   <input
-                    type="input"
-                    className={styles.formField}
-                    placeholder="emailActivity"
-                    name="emailActivity"
-                    id="emailActivity"
-                    required
-                  />
-                  <label htmlFor="name" className={styles.formLabel}>
-                    Correo electronico
-                  </label>
-                </div>
-         
-              </div>
-            </div>
-            {/* Div rigth */}
-            <div className={styles.rigth}>
-              <div className={styles.form__group}>
-                <input
-                  type="input"
-                  className={styles.formField}
-                  placeholder="whatsappActivity"
-                  name="whatsappActivity"
-                  id="whatsappActivity"
-                  required
-                />
-                <label htmlFor="whatsapp" className={styles.formLabel}>
-                Whatsapp 
-                </label>
-              </div>
-    
-              <div></div>
-            </div>
-          </div>
-
-          <div className={styles.lCont}>
-            <h1 className={styles.infoTitle}>Link de las publicaciones</h1>
-          </div>
-          <div className={styles.resume}>           
-<div>
-  {/* Div left */}
-  <div className={styles.left}>
-
-    <div className={styles.form__group}>
-      <input
-        type="input"
-        className={styles.formField}
-        placeholder="facebookActivity"
-        name="facebookActivity"
-        id="facebookActivity"
-        required
-      />
-      <label htmlFor="name" className={styles.formLabel}>
-        Facebook
-      </label>
-    </div>
-  </div>
-</div>
-{/* Div rigth */}
-<div className={styles.rigth}>
-  <div className={styles.form__group}>
-    <input
-      type="input"
-      className={styles.formField}
-      placeholder="instagramActivity"
-      name="instagramActivity"
-      id="instagramActivity"
-      required
-    />
-    <label htmlFor="name" className={styles.formLabel}>
-      Instagram
-    </label>
-  </div>
-
-  <div></div>
-</div>
-</div>
-
-
-
-     
-
-
-
-
-
-
-
-
-
-          <div className={styles.lCont}>
-            <h1 className={styles.infoTitle}>Categoria</h1>
-          </div>
-          <div className={styles.resume}>
-            <div>
-              {/* Div left */}
-              <div className={styles.left}>
-                <div className={styles.containerAux}>
-               
-           
-                      
-          <div class={styles.checkboxContainer}>
-        <label>
-            <input type="checkbox"  class={styles.checkboxRed}/>
-            <span>Deporte</span>
-        </label>
-        <label>
-            <input type="checkbox" class={styles.checkboxGreen}/>
-            <span>Cine</span>
-        </label>
-        <label>
-            <input type="checkbox" class={styles.checkboxBlue}/>
-            <span>Entretenimiento</span>
-        </label>
-    </div>
-
-
-    <div class={styles.checkboxContainer}>
-        <label>
-            <input type="checkbox"  class={styles.checkboxYelow}/>
-            <span>Danza</span>
-        </label>
-        <label>
-            <input type="checkbox" class={styles.checkboxOrange}/>
-            <span>Aire Libre</span>
-        </label>
-        <label>
-            <input type="checkbox" class={styles.checkboxRose}/>
-            <span>Acampar</span>
-        </label>
-    </div>
-
-             
-             
-                </div>
-              </div>
-            </div>
-            {/* Div rigth */}
-
-            <div className={styles.rigth}>
-              <h1 className={styles.infoTitle}>Disponibilidad</h1>
-              <div className={styles.form__group}>
-                <input
-                  type="input"
-                  className={styles.formField}
-                  placeholder="facebookActivity"
-                  name="facebookActivity"
-                  id="facebookActivity"
-                  required
-                />
-                <label htmlFor="name" className={styles.formLabel}>
-                  Cantidad de Cupos{" "}
-                </label>
-              </div>
-
-
-
-
-
-              <div class={styles.checkboxWrapper + " " + styles.containerFlex +' '+ styles.container}>
-                <input
                   className={
                     styles.tglIos + " " + styles.tgl + " " + styles.tglBtn
                   }
@@ -302,38 +291,39 @@ export default function ActivtyRegister() {
                 <p>Permitir Registro de Personas</p>
               </div>
 
-
-
               <div></div>
             </div>
           </div>
-          <div className={styles.lCont}>
-            <h1 className={styles.infoTitle}>Descripcion de la actividad</h1>
-          </div>
-          <div>
-            <textarea
-              className={styles.customTextarea}
-              name=""
-              id=""
-            ></textarea>
-          </div>
-
-          <div className={styles.centerC}>
-          <div class={styles.containerFlex}>
-     
-        
-          <button className={styles.customBtn+' '+styles.btnSave}><span>Enviar</span></button>
- 
-
-          <button className={styles.customBtn+' '+styles.btnCancel}><span>Cancelar</span></button>
-   
-          </div>
+            <div className={styles.lCont}>
+              <h1 className={styles.infoTitle}>Descripción de la actividad</h1>
             </div>
-
+            <div>
+              <textarea
+                className={styles.customTextarea}
+                {...register("activityDescription", { required: true })}
+              ></textarea>
+              {errors.activityDescription && <p>Este campo es requerido</p>}
+            </div>
+            <div className={styles.centerC}>
+              <div className={styles.containerFlex}>
+                <button
+                  type="submit"
+                  className={styles.customBtn + " " + styles.btnSave}
+                >
+                  <span>Enviar</span>
+                </button>
+                <button
+                  type="button"
+                  className={styles.customBtn + " " + styles.btnCancel}
+                  onClick={() => reset()}
+                >
+                  <span>Cancelar</span>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
-        
       </div>
-
     </div>
   );
 }
