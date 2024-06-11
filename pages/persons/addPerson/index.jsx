@@ -2,6 +2,7 @@ import styles from "styles/personRegister.module.css";
 import { personService, alertService } from "services";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+
 import React, { forwardRef } from 'react';
 export default function AddPerson(props) {
   const person = props?.person;
@@ -117,6 +118,12 @@ export default function AddPerson(props) {
         </div>
         </form>
       </div>
+
+
+
+     
+
+
     </div>
   );
 }
