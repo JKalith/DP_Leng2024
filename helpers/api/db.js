@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 const { serverRuntimeConfig } = getConfig();
 const { Schema } = mongoose;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 // Conexión a MongoDB
 mongoose.connect(
@@ -12,6 +13,8 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 );
+
+
 mongoose.Promise = global.Promise;
 
 const userModel = () => {
@@ -66,7 +69,7 @@ const carModel = () => {
 
 const activityModel = () => {
   const activitySchema = new Schema(
-    {
+  {
       nameActivity: { type: String, required: true },
       place: { type: String, required: true },
       email: { type: String, required: true },
@@ -90,6 +93,7 @@ const activityModel = () => {
       timestamps: true,
     }
   );
+ 
 
   activitySchema.set("toJSON", {
     virtuals: true,
@@ -106,8 +110,9 @@ const activityModel = () => {
 const personModel = () => {
   const schema = new Schema(
     {
-      idPerson: { type: String, unique: true, required: true },
-      idActivity: { type: String, required: true },
+     
+      idActivity: { type: String },
+      identification: {type: String, required: true},
       name: { type: String, required: true },
       lastName: { type: String, required: true },
       secondLastName: { type: String, required: true },

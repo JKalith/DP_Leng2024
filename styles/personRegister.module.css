@@ -1,0 +1,507 @@
+.containerDivide {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: "Lato", sans-serif;
+  width: 550px;
+}
+
+.containerFlex {
+  display: flex;
+
+  font-family: "Lato", sans-serif;
+
+  gap: 10px;
+}
+
+.containerFlexButom {
+  display: flex;
+
+  font-family: "Lato", sans-serif;
+
+  gap: 10px;
+}
+
+.container {
+  /* Centra verticalmente */
+  place-items: center;
+  justify-items: center;
+  display: grid;
+  margin: 20px;
+}
+
+.containerSec {
+  box-sizing: content-box;
+  width: auto;
+  border-radius: 13px;
+
+  padding: left;
+  background-color: rgb(255, 255, 255);
+  border: solid 2px #bdbcbcc5;
+}
+
+.infoTitle {
+  color: #000000;
+  padding-left: 20px;
+  font-weight: bold;
+
+  text-align: LEFT;
+  font-size: 1.5rem;
+  padding-top: 10px;
+}
+
+.input[type="checkbox"] {
+  display: none;
+}
+
+.label {
+  background: #ffffff;
+  height: 67px;
+  font-size: 20px;
+  display: block;
+  border-bottom: 1px solid #000000;
+  width: 300px;
+
+  cursor: pointer;
+
+  letter-spacing: 1px;
+  position: relative;
+  padding: 5px 5px 5px 70px;
+  color: #000000;
+
+  font-weight: bold;
+
+  text-align: LEFT;
+  font-size: 1.2rem;
+  border-top-right-radius: 10px;
+
+  border-bottom-right-radius: 10px;
+}
+
+.label p {
+  margin-top: 10px;
+  display: block;
+  font-size: 1.2rem;
+}
+
+.label:before {
+  content: "";
+  width: 19px;
+  height: 19px;
+  border: 1px solid #ffffff;
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  border-radius: 100%;
+  z-index: 99999;
+}
+
+.label:after {
+  content: "";
+  width: 60px;
+  height: 68px;
+
+  background: #727272;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+/* styles/Form.module.css */
+.formGroup {
+  position: relative;
+  padding: 15px 0 0;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 10px;
+  padding-left: 30px;
+  width: 90%;
+}
+
+.hour {
+  width: 40%;
+}
+
+.formGroup :hover {
+  cursor: text;
+}
+
+.formField {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid gray;
+
+  outline: 0;
+  font-size: 1.1rem;
+  color: rgb(0, 0, 0);
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.formField::placeholder {
+  color: transparent;
+}
+
+.formFieldTime {
+  font-family: inherit;
+  width: 110px;
+  border: 0;
+  border-bottom: 2px solid gray;
+
+  outline: 0;
+  font-size: 1.1rem;
+  color: rgb(0, 0, 0);
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.formField:placeholder-shown ~ .formLabel {
+  font-size: 1.3rem;
+  cursor: text;
+  top: 20px;
+  pointer-events: none;
+  border-bottom-color: rgb(15, 189, 122);
+}
+
+.formLabel {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: gray;
+}
+
+.formField:focus ~ .formLabel {
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+
+  color: var(--primary-color);
+
+  font-weight: 700;
+}
+
+.formField:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border-image-slice: 1;
+  border-bottom-color: rgb(15, 189, 122);
+}
+
+.formField:required,
+.formField:invalid {
+  box-shadow: none;
+}
+
+.customBtn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.btnSave {
+  background: linear-gradient(
+    0deg,
+    rgb(32, 245, 163) 0%,
+    rgb(15, 189, 122) 100%
+  );
+  line-height: 42px;
+  padding: 0;
+  border: none;
+}
+
+.btnSave span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.btnSave:before,
+.btnSave:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  bottom: 0;
+  background: rgb(15, 189, 122);
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btnSave:before {
+  height: 0%;
+  width: 2px;
+}
+
+.btnSave:after {
+  width: 0%;
+  height: 2px;
+}
+
+.btnSave:hover {
+  color: rgb(15, 189, 122);
+  background: transparent;
+}
+
+.btnSave:hover:before {
+  height: 100%;
+}
+
+.btnSave:hover:after {
+  width: 100%;
+}
+
+.btnSave span:before,
+.btnSave span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  background: rgb(15, 189, 122);
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btnSave span:before {
+  width: 2px;
+  height: 0%;
+}
+
+.btnSave span:after {
+  height: 2px;
+  width: 0%;
+}
+
+.btnSave span:hover:before {
+  height: 100%;
+}
+
+.btnSave span:hover:after {
+  width: 100%;
+}
+
+.btnCancel {
+  background: linear-gradient(
+    0deg,
+    rgba(255, 151, 0, 1) 0%,
+    rgba(251, 75, 2, 1) 100%
+  );
+  line-height: 42px;
+  padding: 0;
+  border: none;
+}
+
+.btnCancel span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.btnCancel:before,
+.btnCancel:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  bottom: 0;
+  background: rgba(251, 75, 2, 1);
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btnCancel:before {
+  height: 0%;
+  width: 2px;
+}
+
+.btnCancel:after {
+  width: 0%;
+  height: 2px;
+}
+
+.btnCancel:hover {
+  color: rgba(251, 75, 2, 1);
+  background: transparent;
+}
+
+.btnCancel:hover:before {
+  height: 100%;
+}
+
+.btnCancel:hover:after {
+  width: 100%;
+}
+
+.btnCancel span:before,
+.btnCancel span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  background: rgba(251, 75, 2, 1);
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btnCancel span:before {
+  width: 2px;
+  height: 0%;
+}
+
+.btnCancel span:after {
+  height: 2px;
+  width: 0%;
+}
+
+.btnCancel span:hover:before {
+  height: 100%;
+}
+
+.btnCancel span:hover:after {
+  width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+  .containerDivide {
+    grid-template-columns: 1fr;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 500px;
+  }
+
+  .hour {
+    width: 40%;
+  }
+
+  .left {
+    flex: 1;
+    align-items: center;
+
+    left: 0;
+  }
+
+  .customTextarea {
+    width: 500px;
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .refer-box {
+    display: block;
+  }
+
+  .hour {
+    width: 40%;
+  }
+
+  .refer:first-child {
+    margin-bottom: 3rem;
+  }
+
+  .containerDivide {
+    grid-template-columns: 1fr;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 500px;
+  }
+
+  .inputT {
+    width: 80%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    border-color: #878787;
+  }
+
+  .customTextarea {
+    width: auto;
+
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hour {
+    width: 60%;
+  }
+
+  .refer:first-child {
+    margin-bottom: 3rem;
+  }
+
+  .containerDivide {
+    grid-template-columns: 1fr;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 350px;
+  }
+
+  .formField:placeholder-shown ~ .formLabel {
+    font-size: 1rem;
+  }
+
+  .customTextarea {
+    margin-top: 15px;
+
+    width: auto;
+    height: auto;
+  }
+
+  .infoTitle {
+    color: #000000;
+    padding-left: 20px;
+    font-weight: bold;
+
+    text-align: LEFT;
+    font-size: 1.2rem;
+    padding-top: 5px;
+  }
+
+  .inputT {
+    width: 70%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    border-color: #878787;
+  }
+}
