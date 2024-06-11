@@ -1,0 +1,30 @@
+.container{
+
+width: auto;
+background-color: gray;
+height: 300px;
+border: solid 2px red;
+margin: 30px;
+border-radius: 8px;
+padding-left: 15px;
+padding-top: 15px;
+}
+
+
+
+ .divider {
+    display: flex;
+
+    font-family: 'Lato', sans-serif;
+
+    gap: 10px;
+  
+  
+  }
+  .Photo{
+
+width: 100px;
+    height: auto;
+background-color: blue;
+
+  }
