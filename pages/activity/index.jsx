@@ -14,13 +14,14 @@ useEffect(() => {
 }, []);
 return(
 
-<div>
-<div className= {styles.containerFilter}>
+<div >
+<div className= {styles.containerFilter}></div>
 
 
 
-</div>
-<div className = {styles.container}>
+<div className = {styles.containerCenter}>
+<div className={styles.container}>
+
 
 
 
@@ -33,10 +34,10 @@ return(
 
 </div>
 
-
+    
+</div>
 
 );
  }
 
-export default activityPage;
-
+export default activityPage;

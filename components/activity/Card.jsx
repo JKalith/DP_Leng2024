@@ -2,39 +2,126 @@ import styles from "styles/activityCard.module.css"
 import React from "react";
 
 
+
 const ActivityCard = ({ activity }) => {
+
+
+
+  
+      
+    
+        
+
+
+
+
+
+
+
+
     return (
-        <div className={styles.container}>
-<div className={styles .divider}>
-
-<div className={styles.Photo}>
 
 
 
-</div>
 
-<div className="card-body">
-                <h5 className="card-title">{activity.nameActivity}</h5>
-                <h5 className="card-title">{activity.activityDescription}</h5>
-                <h5 className="card-title">{activity.place}</h5>
-                <h5 className="card-title">{activity.email}</h5>
+<div className={styles.container} onClick={() => window.location.href = `/activities/${activity.id}`} >
        
-                <h5 className="card-title">{activity.startTime}</h5>
-                <h5 className="card-title">{activity.place}</h5>
-                <p className="card-text">{activity.endTime}</p>
-                <a href={`/activities/${activity.id}`} className="btn btn-primary">Ver más</a>
-            </div>
-</div>
-     
 
+
+
+<label className={styles.Photo}></label>
+
+
+
+
+<div   className={styles.infoContainer} >
+
+
+
+
+    <div className={styles.containerTitle}>
+    <h5 className={styles.h5 +' '+ styles.title}>{activity.nameActivity}</h5>
+
+
+    </div>
+                
+
+<div className={styles.category}>
+
+
+
+
+</div>
+
+<div className={styles.dividerText}>
+<p className={styles.p +' '+ styles.title}> Lugar:  </p>  
+<p className={styles.p}>   {activity.place}</p> 
+</div>
+<section className={styles.dividerText}>
+<p className={styles.p +' '+ styles.title}> Fecha de Inicio:  </p>  
+<p className={styles.p}>   {activity.startDate}</p> 
+</section>
+<section className={styles.dividerText}>
+<p className={styles.p +' '+ styles.title}> Hora de inicio:  </p>  
+<p className={styles.p}>   {activity.startTime}</p> 
+</section>  
+
+<section className={styles.dividerText}>
+<p className={styles.p +' '+ styles.title}> Fecha de Finalizacion:  </p>  
+<p className={styles.p}>   {activity.endDate}</p> 
+</section> 
+
+
+
+
+
+
+
+
+
+              
+           </div>
+
+     
 
         </div>
     );
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
 
 };
 
 
 export default ActivityCard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // nameActivity: { type: String, required: true },
@@ -55,6 +142,3 @@ export default ActivityCard;
 // length: { type: String },
 // imageUrl: [{ type: String }],
 // indiceImagenPrincipal: { type: Number },
-
-
-
