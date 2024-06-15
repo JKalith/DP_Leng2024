@@ -2,27 +2,34 @@ import styles from "styles/activityRegister.module.css";
 import { activityService, alertService } from "services";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { uploadFile } from '/pages/firebase/config';
+import { useState } from "react";
 
-export default function ActivtyRegister(props) {
+export default function ActivityRegister(props) {
+
   const activity = props?.activity;
   const router = useRouter();
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
+  const [file, setFile] = useState(null);
 
   async function onSubmit(data) {
     alertService.clear();
     try {
-      // create or update user based on user prop
       let message;
+      if (file) {
+        const fileUrl = await uploadFile(file);
+        data.fileUrl = fileUrl;
+      }
       if (activity) {
         await activityService.update(activity.id, data);
-        message = "actividad updated";
+        message = "Actividad actualizada";
       } else {
         await activityService.register(data);
-        message = "actividad added";
+        message = "Actividad agregada";
       }
 
-      // redirect to user list with success message
+      // redirigir a la lista de usuarios con un mensaje de éxito
       router.push("/users");
       alertService.success(message, true);
     } catch (error) {
@@ -94,7 +101,7 @@ export default function ActivtyRegister(props) {
                     {...register("endDate", { required: true })}
                   />
                   <label htmlFor="endDate" className={styles.formLabel}>
-                    Fecha de inicio
+                    Fecha de fin
                   </label>
                   {errors.endDate && <p>Este campo es requerido</p>}
                 </div>
@@ -286,8 +293,9 @@ export default function ActivtyRegister(props) {
                   }
                   id="toggle"
                   type="checkbox"
+                  {...register("allowPersonRegistration")}
                 />
-                <label class={styles.tglBtn} for="toggle"></label>
+                <label className={styles.tglBtn} htmlFor="toggle"></label>
                 <p>Permitir Registro de Personas</p>
               </div>
 
@@ -303,6 +311,14 @@ export default function ActivtyRegister(props) {
                 {...register("activityDescription", { required: true })}
               ></textarea>
               {errors.activityDescription && <p>Este campo es requerido</p>}
+            </div>
+            <div>
+              <input 
+                type="file"
+                multiple
+                
+                onChange={(e) => setFile(e.target.files)}
+              />
             </div>
             <div className={styles.centerC}>
               <div className={styles.containerFlex}>
@@ -324,6 +340,6 @@ export default function ActivtyRegister(props) {
           </form>
         </div>
       </div>
-    </div>
-  );
+    </div>
+  );
 }
