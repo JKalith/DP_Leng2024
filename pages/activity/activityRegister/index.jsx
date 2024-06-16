@@ -11,16 +11,20 @@ export default function ActivityRegister(props) {
   const router = useRouter();
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   async function onSubmit(data) {
     alertService.clear();
     try {
       let message;
-      if (file) {
-        const fileUrl = await uploadFile(file);
-        data.fileUrl = fileUrl;
-      }
+      if (files.length > 0) {
+        const filesUrl = [];
+        for (let i = 0; i < files.length; i++) {
+          filesUrl[i] = await uploadFile(files[i]);
+          console.log("url " + filesUrl[i]);
+        }
+        data.imageUrl = filesUrl;
+      }
       if (activity) {
         await activityService.update(activity.id, data);
         message = "Actividad actualizada";
@@ -313,12 +317,12 @@ export default function ActivityRegister(props) {
               {errors.activityDescription && <p>Este campo es requerido</p>}
             </div>
             <div>
-              <input 
+            <input
                 type="file"
                 multiple
-                
-                onChange={(e) => setFile(e.target.files)}
-              />
+                accept="image/*"
+                onChange={(e) => setFiles(e.target.files)}
+              />
             </div>
             <div className={styles.centerC}>
               <div className={styles.containerFlex}>
