@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { uploadFile } from '/pages/firebase/config';
 import { useState } from "react";
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 export default function ActivityRegister(props) {
 
@@ -12,7 +13,10 @@ export default function ActivityRegister(props) {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
   const [files, setFiles] = useState([]);
-
+  const [location, setLocation] = useState({ lat: 8.626823986047272, lng: -83.15456668174622 });
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDoUe9lPjkC1VFY5TyrTKaJfTqkVyImZm8", // Replace with your API key
+  });
   async function onSubmit(data) {
     alertService.clear();
     try {
@@ -25,6 +29,8 @@ export default function ActivityRegister(props) {
         }
         data.imageUrl = filesUrl;
       }
+      data.latitude = location.lat;
+      data.longitude = location.lng;
       if (activity) {
         await activityService.update(activity.id, data);
         message = "Actividad actualizada";
@@ -323,6 +329,22 @@ export default function ActivityRegister(props) {
                 accept="image/*"
                 onChange={(e) => setFiles(e.target.files)}
               />
+            </div>
+               {/* Google Maps integration */}
+               <div className={styles.lCont}>
+              <h1 className={styles.infoTitle}>Ubicación</h1>
+            </div>
+            <div style={{ height: '400px', width: '100%' }}>
+              {isLoaded ? (
+                <GoogleMap
+                  mapContainerStyle={{ height: '400px', width: '100%' }}
+                  center={location}
+                  zoom={10}
+                  onClick={(e) => setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+                >
+                  <Marker position={location} />
+                </GoogleMap>
+              ) : <p>Cargando el mapa...</p>}
             </div>
             <div className={styles.centerC}>
               <div className={styles.containerFlex}>

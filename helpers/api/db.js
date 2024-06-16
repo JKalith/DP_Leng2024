@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const { serverRuntimeConfig } = getConfig();
 const { Schema } = mongoose;
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 // Conexión a MongoDB
 mongoose.connect(
@@ -13,7 +13,6 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 );
-
 
 mongoose.Promise = global.Promise;
 
@@ -69,7 +68,7 @@ const carModel = () => {
 
 const activityModel = () => {
   const activitySchema = new Schema(
-  {
+    {
       nameActivity: { type: String, required: true },
       place: { type: String, required: true },
       email: { type: String, required: true },
@@ -85,7 +84,7 @@ const activityModel = () => {
       allowRegistration: { type: Boolean, default: false },
       maxPersonRegistration: { type: Number, default: 0 },
       latitude: { type: String },
-      length: { type: String },
+      longitude: { type: String },
       imageUrl: [{ type: String }],
       indiceImagenPrincipal: { type: Number },
     },
@@ -93,7 +92,6 @@ const activityModel = () => {
       timestamps: true,
     }
   );
- 
 
   activitySchema.set("toJSON", {
     virtuals: true,
@@ -110,9 +108,8 @@ const activityModel = () => {
 const personModel = () => {
   const schema = new Schema(
     {
-     
       idActivity: { type: String },
-      identification: {type: String, required: true},
+      identification: { type: String, required: true },
       name: { type: String, required: true },
       lastName: { type: String, required: true },
       secondLastName: { type: String, required: true },
@@ -139,6 +136,6 @@ const personModel = () => {
 export const db = {
   User: userModel(),
   Car: carModel(),
-  Activity: activityModel(), 
+  Activity: activityModel(),
   Person: personModel(),
 };

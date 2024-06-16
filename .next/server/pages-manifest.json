@@ -3,6 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/activity/activityRegister": "pages/activity/activityRegister.js",
-  "/activity": "pages/activity.js",
-  "/api/activities": "pages/api/activities.js"
+  "/api/activities": "pages/api/activities.js",
+  "/users": "pages/users.js",
+  "/api/users": "pages/api/users.js"
 }
