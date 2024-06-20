@@ -2,6 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/data": "pages/data.js",
-  "/activity/seeMore": "pages/activity/seeMore.js"
+  "/activity": "pages/activity.js",
+  "/activity/activityRegister": "pages/activity/activityRegister.js",
+  "/": "pages/index.js",
+  "/api/activities": "pages/api/activities.js"
 }

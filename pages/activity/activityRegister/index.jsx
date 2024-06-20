@@ -1,27 +1,31 @@
 import styles from "styles/activityRegister.module.css";
 import { activityService, alertService } from "services";
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { uploadFile } from '/pages/firebase/config';
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { uploadFile } from "/pages/firebase/config";
 import { useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import globals from "styles/globals.module.css";
 import map from "styles/map.module.css";
-
-
-
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  Pin,
+  InfoWindow,
+} from "@vis.gl/react-google-maps";
 
 export default function ActivityRegister(props) {
-
   const activitytwo = props?.activity;
   const router = useRouter();
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
   const [files, setFiles] = useState([]);
-  const [location, setLocation] = useState({ lat: 8.626823986047272, lng: -83.15456668174622 });
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_API_MAPS_KEY, // Replace with your API key
+  const [location, setLocation] = useState({
+    lat: 8.626823986047272,
+    lng: -83.15456668174622,
   });
+
   async function onSubmit(data) {
     alertService.clear();
     try {
@@ -33,7 +37,7 @@ export default function ActivityRegister(props) {
           console.log("url " + filesUrl[i]);
         }
         data.imageUrl = filesUrl;
-      }
+      }
       data.latitude = location.lat;
       data.longitude = location.lng;
       if (activity) {
@@ -51,6 +55,13 @@ export default function ActivityRegister(props) {
       alertService.error(error);
       console.error(error);
     }
+  }
+  function handleMapClick(e) {
+    const { latLng } = e.detail;
+    setLocation({
+      lat: latLng.lat,
+      lng: latLng.lng,
+    });
   }
 
   return (
@@ -133,17 +144,10 @@ export default function ActivityRegister(props) {
                   </label>
                   {errors.startTime && <p>Este campo es requerido</p>}
                 </div>
-        
               </div>
 
-
-
-
-
-
               <div className={styles.left}>
-
-              <div className={styles.form__group}>
+                <div className={styles.form__group}>
                   <input
                     type="time"
                     className={styles.formFieldTime}
@@ -154,7 +158,6 @@ export default function ActivityRegister(props) {
                   </label>
                   {errors.endTime && <p>Este campo es requerido</p>}
                 </div>
-
               </div>
             </div>
             <div className={styles.lCont}>
@@ -162,7 +165,6 @@ export default function ActivityRegister(props) {
             </div>
             <div className={styles.resume}>
               <div className={styles.left}>
-                
                 <div className={styles.form__group}>
                   <input
                     type="email"
@@ -310,46 +312,29 @@ export default function ActivityRegister(props) {
                   )}
                 </div>
 
+                <section style={{ marginTop: "10px" }}>
+                  <div
+                    className={
+                      styles.checkboxWrapper + " " + globals.containerFlex
+                    }
+                  >
+                    <input
+                      className={
+                        styles.tglIos + " " + styles.tgl + " " + styles.tglBtn
+                      }
+                      id="toggle"
+                      type="checkbox"
+                      {...register("allowPersonRegistration")}
+                    />
 
+                    <label className={styles.tglBtn} htmlFor="toggle"></label>
 
-
-
-                
-                <section style={{ marginTop: '10px' }}>
-                <div
-                  className={
-                    styles.checkboxWrapper + " " + globals.containerFlex
-                  }
-                >
-                  <input
-                  className={
-                    styles.tglIos + " " + styles.tgl + " " + styles.tglBtn
-                  }
-                  id="toggle"
-                  type="checkbox"
-                  {...register("allowPersonRegistration")}
-                />
-
-
-
-
-                <label className={styles.tglBtn} htmlFor="toggle">
-
-
-                  
-                
-</label>
-
-<p>Permitir Registro de Personas</p>
-
-
-             
-          
+                    <p>Permitir Registro de Personas</p>
+                  </div>
+                </section>
+                <div></div>
               </div>
-              </section>
-              <div></div>
             </div>
-          </div>
             <div className={styles.lCont}>
               <h1 className={globals.infoTitle}>Descripción de la actividad</h1>
             </div>
@@ -361,55 +346,28 @@ export default function ActivityRegister(props) {
               {errors.activityDescription && <p>Este campo es requerido</p>}
             </div>
             <div>
-            <input
+              <input
                 type="file"
                 multiple
                 accept="image/*"
                 onChange={(e) => setFiles(e.target.files)}
-              />
+              />
             </div>
 
-
-
-            
-               {/* Google Maps integration */}
-               <div className={styles.lCont}>
-              <h1 className={globals.infoTitle}>Ubicación</h1>
-            </div>
-
-
-
-
-            <div className={styles.lCont}>
-        
-
-
-            <div className={map.map}>
-      {isLoaded ? (
-        <GoogleMap
-          mapContainerClassName={map.mapContainer}
-          center={location}
-          zoom={10}
-          onClick={(e) => setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
-        >
-          <Marker position={location} />
-        </GoogleMap>
-      ) : <p>Cargando el mapa...</p>}
-    </div>
-
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
+            <APIProvider apiKey={process.env.NEXT_PUBLIC_API_MAPS_KEY}>
+              <div style={{ height: "100vh", width: "100%" }}>
+                <Map
+                  defaultZoom={10}
+                  defaultCenter={location}
+                  mapId= {process.env.NEXT_PUBLIC_ID_MAPS_KEY}
+                  onClick={handleMapClick}
+                >
+                  <AdvancedMarker position={location}>
+                    
+                  </AdvancedMarker>
+                </Map>
+              </div>
+            </APIProvider>
 
             <div className={styles.centerC}>
               <div className={globals.containerFlex}>
@@ -431,6 +389,7 @@ export default function ActivityRegister(props) {
           </form>
         </div>
       </div>
-    </div>
-  );
+         
+    </div>
+  );
 }
