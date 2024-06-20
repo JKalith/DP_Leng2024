@@ -1,6 +1,6 @@
 .container {
     max-width: auto;
-  
+  max-height: auto;
     padding: 20px;
 
     border-radius: 8px;
@@ -17,15 +17,7 @@
   
   
   }
-  .containerFlex {
-    display: flex;
 
-    font-family: 'Lato', sans-serif;
-
-    gap: 10px;
-  
-  
-  }
   .containerFlex .container{
     display: flex;
     margin-top: 20px;
@@ -104,16 +96,7 @@
     padding: 10px;
   }
   
-  .infoTitle {
-    color: #000000;
-  
-    font-weight: bold;
-  
-    text-align: LEFT;
-    font-size: 1.5rem;
-  
-  }
-  
+
   .font {
   
     text-align: left;
@@ -130,6 +113,7 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     height: 35px;
+    
     border-color: #ff0d0d;
   
   
@@ -242,7 +226,7 @@
     width: 100%;
     border: 0;
     border-bottom: 2px solid gray;
-  
+    cursor: text;
     outline: 0;
     font-size: 1.1rem;
     color: rgb(0, 0, 0);
@@ -363,6 +347,9 @@
   .checkboxWrapper .tgl *:after,
   .checkboxWrapper .tgl *:before,
   .checkboxWrapper .tgl+.tglBtn {
+
+
+ 
     border: solid 1px rgba(0, 0, 0, 0.23);
     box-sizing: border-box;
   }
@@ -541,183 +528,7 @@
   margin: 40px auto;
   text-align: center;
 }
-.button {
-  margin: 20px;
-}
-.customBtn {
-  width: 130px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-   7px 7px 20px 0px rgba(0,0,0,.1),
-   4px 4px 5px 0px rgba(0,0,0,.1);
-  outline: none;
-}
 
-
-
-
-
-
-
-/* 7 */
-.btnSave {
-  background: linear-gradient(0deg,  rgb(32, 245, 163) 0%,  rgb(15, 189, 122) 100%);
-    line-height: 42px;
-    padding: 0;
-    border: none;
-  }
-  .btnSave span {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  .btnSave:before,
-  .btnSave:after {
-    position: absolute;
-    content: "";
-    right: 0;
-    bottom: 0;
-    background:  rgb(15, 189, 122);;
-    box-shadow:
-     -7px -7px 20px 0px rgba(255,255,255,.9),
-     -4px -4px 5px 0px rgba(255,255,255,.9),
-     7px 7px 20px 0px rgba(0,0,0,.2),
-     4px 4px 5px 0px rgba(0,0,0,.3);
-    transition: all 0.3s ease;
-  }
-  .btnSave:before{
-     height: 0%;
-     width: 2px;
-  }
-  .btnSave:after {
-    width: 0%;
-    height: 2px;
-  }
-  .btnSave:hover{
-    color:  rgb(15, 189, 122);;
-    background: transparent;
-  }
-  .btnSave:hover:before {
-    height: 100%;
-  }
-  .btnSave:hover:after {
-    width: 100%;
-  }
-  .btnSave span:before,
-  .btnSave span:after {
-    position: absolute;
-    content: "";
-    left: 0;
-    top: 0;
-    background:  rgb(15, 189, 122);
-    box-shadow:
-     -7px -7px 20px 0px rgba(255,255,255,.9),
-     -4px -4px 5px 0px rgba(255,255,255,.9),
-     7px 7px 20px 0px rgba(0,0,0,.2),
-     4px 4px 5px 0px rgba(0,0,0,.3);
-    transition: all 0.3s ease;
-  }
-  .btnSave span:before {
-    width: 2px;
-    height: 0%;
-  }
-  .btnSave span:after {
-    height: 2px;
-    width: 0%;
-  }
-  .btnSave span:hover:before {
-    height: 100%;
-  }
-  .btnSave span:hover:after {
-    width: 100%;
-  }
-  
-
-  .btnCancel {
-    background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
-      line-height: 42px;
-      padding: 0;
-      border: none;
-    }
-    .btnCancel span {
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    .btnCancel:before,
-    .btnCancel:after {
-      position: absolute;
-      content: "";
-      right: 0;
-      bottom: 0;
-      background: rgba(251,75,2,1);
-      box-shadow:
-       -7px -7px 20px 0px rgba(255,255,255,.9),
-       -4px -4px 5px 0px rgba(255,255,255,.9),
-       7px 7px 20px 0px rgba(0,0,0,.2),
-       4px 4px 5px 0px rgba(0,0,0,.3);
-      transition: all 0.3s ease;
-    }
-    .btnCancel:before{
-       height: 0%;
-       width: 2px;
-    }
-    .btnCancel:after {
-      width: 0%;
-      height: 2px;
-    }
-    .btnCancel:hover{
-      color: rgba(251,75,2,1);
-      background: transparent;
-    }
-    .btnCancel:hover:before {
-      height: 100%;
-    }
-    .btnCancel:hover:after {
-      width: 100%;
-    }
-    .btnCancel span:before,
-    .btnCancel span:after {
-      position: absolute;
-      content: "";
-      left: 0;
-      top: 0;
-      background: rgba(251,75,2,1);
-      box-shadow:
-       -7px -7px 20px 0px rgba(255,255,255,.9),
-       -4px -4px 5px 0px rgba(255,255,255,.9),
-       7px 7px 20px 0px rgba(0,0,0,.2),
-       4px 4px 5px 0px rgba(0,0,0,.3);
-      transition: all 0.3s ease;
-    }
-    .btnCancel span:before {
-      width: 2px;
-      height: 0%;
-    }
-    .btnCancel span:after {
-      height: 2px;
-      width: 0%;
-    }
-    .btnCancel span:hover:before {
-      height: 100%;
-    }
-    .btnCancel span:hover:after {
-      width: 100%;
-    }
-    
-  
 
 
 

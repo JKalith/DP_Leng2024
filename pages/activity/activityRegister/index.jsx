@@ -5,17 +5,22 @@ import { useForm } from 'react-hook-form';
 import { uploadFile } from '/pages/firebase/config';
 import { useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import globals from "styles/globals.module.css";
+import map from "styles/map.module.css";
+
+
+
 
 export default function ActivityRegister(props) {
 
-  const activity = props?.activity;
+  const activitytwo = props?.activity;
   const router = useRouter();
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
   const [files, setFiles] = useState([]);
   const [location, setLocation] = useState({ lat: 8.626823986047272, lng: -83.15456668174622 });
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDoUe9lPjkC1VFY5TyrTKaJfTqkVyImZm8", // Replace with your API key
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_MAPS_KEY, // Replace with your API key
   });
   async function onSubmit(data) {
     alertService.clear();
@@ -53,7 +58,7 @@ export default function ActivityRegister(props) {
       <div className={styles.centerC}>
         <div className={styles.containerSec}>
           <div className={styles.lCont}>
-            <h1 className={styles.infoTitle}>Registro de Actividades</h1>
+            <h1 className={globals.infoTitle}>Registro de Actividades</h1>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.resume}>
@@ -87,7 +92,7 @@ export default function ActivityRegister(props) {
               </div>
             </div>
             <div className={styles.lCont}>
-              <h1 className={styles.infoTitle}>Horario</h1>
+              <h1 className={globals.infoTitle}>Horario</h1>
             </div>
             <div className={styles.resume}>
               <div className={styles.left}>
@@ -128,7 +133,17 @@ export default function ActivityRegister(props) {
                   </label>
                   {errors.startTime && <p>Este campo es requerido</p>}
                 </div>
-                <div className={styles.form__group}>
+        
+              </div>
+
+
+
+
+
+
+              <div className={styles.left}>
+
+              <div className={styles.form__group}>
                   <input
                     type="time"
                     className={styles.formFieldTime}
@@ -139,13 +154,15 @@ export default function ActivityRegister(props) {
                   </label>
                   {errors.endTime && <p>Este campo es requerido</p>}
                 </div>
+
               </div>
             </div>
             <div className={styles.lCont}>
-              <h1 className={styles.infoTitle}>Contacto de la actividad</h1>
+              <h1 className={globals.infoTitle}>Contacto de la actividad</h1>
             </div>
             <div className={styles.resume}>
               <div className={styles.left}>
+                
                 <div className={styles.form__group}>
                   <input
                     type="email"
@@ -175,7 +192,7 @@ export default function ActivityRegister(props) {
               </div>
             </div>
             <div className={styles.lCont}>
-              <h1 className={styles.infoTitle}>Link de las publicaciones</h1>
+              <h1 className={globals.infoTitle}>Link de las publicaciones</h1>
             </div>
             <div className={styles.resume}>
               <div className={styles.left}>
@@ -208,7 +225,7 @@ export default function ActivityRegister(props) {
               </div>
             </div>
             <div className={styles.lCont}>
-              <h1 className={styles.infoTitle}>Categoría</h1>
+              <h1 className={globals.infoTitle}>Categoría</h1>
             </div>
             <div className={styles.resume}>
               <div className={styles.left}>
@@ -274,7 +291,7 @@ export default function ActivityRegister(props) {
                 </div>
               </div>
               <div className={styles.rigth}>
-                <h1 className={styles.infoTitle}>Disponibilidad</h1>
+                <h1 className={globals.infoTitle}>Disponibilidad</h1>
                 <div className={styles.form__group}>
                   <input
                     type="number"
@@ -292,9 +309,16 @@ export default function ActivityRegister(props) {
                     <p>Este campo es requerido</p>
                   )}
                 </div>
+
+
+
+
+
+                
+                <section style={{ marginTop: '10px' }}>
                 <div
                   className={
-                    styles.checkboxWrapper + " " + styles.containerFlex
+                    styles.checkboxWrapper + " " + globals.containerFlex
                   }
                 >
                   <input
@@ -305,15 +329,29 @@ export default function ActivityRegister(props) {
                   type="checkbox"
                   {...register("allowPersonRegistration")}
                 />
-                <label className={styles.tglBtn} htmlFor="toggle"></label>
-                <p>Permitir Registro de Personas</p>
-              </div>
 
+
+
+
+                <label className={styles.tglBtn} htmlFor="toggle">
+
+
+                  
+                
+</label>
+
+<p>Permitir Registro de Personas</p>
+
+
+             
+          
+              </div>
+              </section>
               <div></div>
             </div>
           </div>
             <div className={styles.lCont}>
-              <h1 className={styles.infoTitle}>Descripción de la actividad</h1>
+              <h1 className={globals.infoTitle}>Descripción de la actividad</h1>
             </div>
             <div>
               <textarea
@@ -330,33 +368,60 @@ export default function ActivityRegister(props) {
                 onChange={(e) => setFiles(e.target.files)}
               />
             </div>
+
+
+
+            
                {/* Google Maps integration */}
                <div className={styles.lCont}>
-              <h1 className={styles.infoTitle}>Ubicación</h1>
+              <h1 className={globals.infoTitle}>Ubicación</h1>
             </div>
-            <div style={{ height: '400px', width: '100%' }}>
-              {isLoaded ? (
-                <GoogleMap
-                  mapContainerStyle={{ height: '400px', width: '100%' }}
-                  center={location}
-                  zoom={10}
-                  onClick={(e) => setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
-                >
-                  <Marker position={location} />
-                </GoogleMap>
-              ) : <p>Cargando el mapa...</p>}
+
+
+
+
+            <div className={styles.lCont}>
+        
+
+
+            <div className={map.map}>
+      {isLoaded ? (
+        <GoogleMap
+          mapContainerClassName={map.mapContainer}
+          center={location}
+          zoom={10}
+          onClick={(e) => setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+        >
+          <Marker position={location} />
+        </GoogleMap>
+      ) : <p>Cargando el mapa...</p>}
+    </div>
+
+
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
             <div className={styles.centerC}>
-              <div className={styles.containerFlex}>
+              <div className={globals.containerFlex}>
                 <button
                   type="submit"
-                  className={styles.customBtn + " " + styles.btnSave}
+                  className={globals.customBtn + " " + globals.btnSave}
                 >
                   <span>Enviar</span>
                 </button>
                 <button
                   type="button"
-                  className={styles.customBtn + " " + styles.btnCancel}
+                  className={globals.customBtn + " " + globals.btnCancel}
                   onClick={() => reset()}
                 >
                   <span>Cancelar</span>

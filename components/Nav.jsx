@@ -22,6 +22,8 @@ function Nav() {
                 <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
 
                 <NavLink href="/activity/activityRegister" exact className="nav-item nav-link">RegistroActividad</NavLink>
+                <NavLink href="/activity" exact className="nav-item nav-link">actividad</NavLink>
+                <NavLink href="/activity/seeMore" exact className="nav-item nav-link">Ver Mas</NavLink>
 
                 <NavLink href="/users" className="nav-item nav-link">Users</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logout</button>
