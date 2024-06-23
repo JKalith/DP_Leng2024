@@ -12,11 +12,8 @@ function jwtMiddleware(req, res) {
             // public routes that don't require authentication
             '/api/users/register',
             '/api/users/authenticate',
-            '/api/cars/register',
-            '/api/cars',
             '/api/persons',
-            '/api/activities',
-            { url: /^\/api\/cars\/*/, methods: ['GET', 'PUT','POST'] }
+            { url: /^\/api\/activities\/*/, methods: ['GET', 'PUT','POST'] }
 
         ]
     });

@@ -9,9 +9,9 @@ export default apiHandler({
 async function getById(req, res) {
     const activities = await activityRepo.getById(req.query.id);
 
-    if (!activities) throw 'Car Not Found';
+    if (!activities) throw 'actividad Not Found';
 
-    return res.status(200).json(car);
+    return res.status(200).json(activities);
 }
 
 async function update(req, res) {
