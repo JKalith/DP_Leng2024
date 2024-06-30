@@ -208,10 +208,43 @@
     top: 0px;
   }
   
+.containerMap{
 
+
+  place-items: center;
+  
+  display: grid;
+  margin: 40px;
+  overflow: hidden;
+border: solid black 1px;
+border-radius: 15PX;
+
+}
   
   
+.fileInputContainer {
+  position: relative;
+  width: 300px;
+  margin: 20px auto;
+  text-align: center;
+}
 
+
+
+.fileInputLabel {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fileInputLabel:hover {
+  background-color: #0056b3;
+}
   
   /* styles/Form.module.css */
   .form__group {
@@ -577,36 +610,49 @@
   background-color: rgb(255, 114, 224);
   color: rgb(0, 0, 0);
 }
+.divFlex{
+  display: flex;
+  margin-left:20px;
+  margin-bottom:10px;
+}
 
+.fancyFile{
+  display: none;
+}
+
+.fancyFile + label{
+  display: flex;
+}
+.fancyFile_Name, .fancyFile_Button{
+  padding: 5px 10px;
+}
+.fancyFile_Name{
+  background-color: #EEE;
+  Border:1px solid #CACACA;
+  white-space: nowrap;
+  border-radius: 4px 0 0 4px;
+}
+
+.fancyFile_Name span{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200;
+  display: block;
+}
+.fancyFile_Button{
+  background-color: #5BC0DE;
+  Border:1px solid #5BC0DE;
+  white-space: nowrap;
+  border-radius: 0 4px 4px 0;
+}
 .checkboxOrange:checked + span {
   background-color: rgb(255, 190, 92);
   color: rgb(0, 0, 0);
-}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  @media screen and (max-width: 800px) {
+} 
+@media screen and (max-width: 800px) {
     .resume {
       grid-template-columns: 1fr;
     }

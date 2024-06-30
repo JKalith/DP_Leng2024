@@ -1,6 +1,6 @@
 .containerDivide {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr ;
   justify-content: center;
   align-items: flex-start;
   margin-left: 20px;

@@ -1,3 +1,4 @@
+"Use client";
 import styles from "styles/activityRegister.module.css";
 import { activityService, alertService } from "services";
 import { useRouter } from "next/router";
@@ -17,10 +18,12 @@ import {
 
 export default function ActivityRegister(props) {
   const activitytwo = props?.activity;
+  
   const router = useRouter();
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
   const [files, setFiles] = useState([]);
+  const [fileName, setFileName] = useState("");
   const [location, setLocation] = useState({
     lat: 8.626823986047272,
     lng: -83.15456668174622,
@@ -332,6 +335,7 @@ export default function ActivityRegister(props) {
                     <p>Permitir Registro de Personas</p>
                   </div>
                 </section>
+
                 <div></div>
               </div>
             </div>
@@ -345,26 +349,63 @@ export default function ActivityRegister(props) {
               ></textarea>
               {errors.activityDescription && <p>Este campo es requerido</p>}
             </div>
-            <div>
+
+
+
+
+
+            <div className={styles.divFlex}>
               <input
                 type="file"
                 multiple
+                id="load_img"
+                className={styles.fancyFile}
                 accept="image/*"
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => {
+                  const files = e.target.files;
+                  if (files.length > 0) {
+                    if (files.length === 1) {
+                      setFileName(files[0].name);
+                    } else {
+                      setFileName(`${files.length} archivos seleccionados`);
+                    }
+                    setFiles(files);
+                  } else {
+                    setFileName("");
+                    setFiles([]);
+                  }
+                }}
               />
+              <label htmlFor="load_img">
+                <span className={styles.fancyFile_Name}>
+                  {fileName || "Ningún Archivo Seleccionado"}
+                </span>
+                <span className={styles.fancyFile_Button}>
+                  Seleccionar Imagen
+                </span>
+              </label>
             </div>
 
+
+
+
+
+
+
+
+
             <APIProvider apiKey={process.env.NEXT_PUBLIC_API_MAPS_KEY}>
-              <div style={{ height: "100vh", width: "100%" }}>
+              <div
+                className={styles.containerMap}
+                style={{ height: "400px", width: "auto" }}
+              >
                 <Map
                   defaultZoom={10}
                   defaultCenter={location}
-                  mapId= {process.env.NEXT_PUBLIC_ID_MAPS_KEY}
+                  mapId={process.env.NEXT_PUBLIC_ID_MAPS_KEY}
                   onClick={handleMapClick}
                 >
-                  <AdvancedMarker position={location}>
-                    
-                  </AdvancedMarker>
+                  <AdvancedMarker position={location}></AdvancedMarker>
                 </Map>
               </div>
             </APIProvider>

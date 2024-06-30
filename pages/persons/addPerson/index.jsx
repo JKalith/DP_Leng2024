@@ -2,7 +2,7 @@ import styles from "styles/personRegister.module.css";
 import { personService, alertService } from "services";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-
+import globals from "styles/globals.module.css";
 import React, { forwardRef } from 'react';
 export default function AddPerson(props) {
   const person = props?.person;
@@ -60,16 +60,21 @@ export default function AddPerson(props) {
         </Section>
 
         <Section>
-          <div className={styles.formGroup}>
-            <InputField
-              type="input"
-              placeholder="Segundo apellido"
-              name="secondLastName"
-              id="secondLastName"
-              {...register("secondLastName", { required: true })}
-              label="Segundo Apellido"
-            />
+        <div className={styles.formGroup}>
+<input
+                    type="text"
+                      name="secondLastName"
+                             id="secondLastName"
+                    className={styles.formField}
+                   placeholder="Segundo apellido"
+                    {...register("secondLastName", { required: true })}
+                  />
+                  <label htmlFor="secondLastName" className={styles.formLabel}>
+                 Segundo Apellido
+                  </label>
+                  {errors.facebook && <p>Este campo es requerido</p>}
           </div>
+
 
           <div className={styles.formGroup}>
             <InputField
@@ -107,13 +112,19 @@ export default function AddPerson(props) {
         </Section>
         <div className={styles.container}>
           <div className={styles.containerFlexButom}>
-            <button className={`${styles.customBtn} ${styles.btnSave}`}>
-              <span>Enviar</span>
-            </button>
-            <button className={`${styles.customBtn} ${styles.btnCancel}`}>
-              <span>Cancelar</span>
-              onClick={() => reset()}
-            </button>
+          <button
+                  type="submit"
+                  className={globals.customBtn + " " + globals.btnSave}
+                >
+                  <span>Enviar</span>
+                </button>   
+                <button
+                  type="button"
+                  className={globals.customBtn + " " + globals.btnCancel}
+                  onClick={() => reset()}
+                >
+                  <span>Cancelar</span>
+                </button>
           </div>
         </div>
         </form>
