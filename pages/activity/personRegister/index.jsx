@@ -1,70 +1,36 @@
 import styles from "styles/basura.module.css";
-import { activityService, alertService } from "services";
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { uploadFile } from '/pages/firebase/config';
-import { useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { personService, alertService } from "services";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import React, { forwardRef } from "react";
+
 import globals from "styles/globals.module.css";
 import map from "styles/map.module.css";
 
-
 export default function PersonRegister() {
-    return (
-      <div className={styles.container}>
+ 
+  return (
+    <div className={styles.container}>
+      <input
+        type="hidden"
+        name="activityId"
+        {...register("activityId")}
+        value={activityId || ""}
+      />
+      <Section></Section>
 
-<Section>
-
-
-
-</Section>
-
-<FullSection>
-
-
-<div>
-
-<p>
-
-holamundo
-
-</p>
-
-
-
-</div>
-<div>
-
-<p>
-
-holamundo
-
-</p>
-
-
-
-</div>
-
-</FullSection>
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </div>
-    );
-  }
-
-
-
+      <FullSection>
+        <div>
+          <p>holamundo</p>
+        </div>
+        <div>
+          <p>holamundo</p>
+        </div>
+      </FullSection>
+    </div>
+  );
+}
 
 function Section({ title, children }) {
   return (
@@ -87,7 +53,14 @@ function FullSection({ title, titleTwo, children }) {
   );
 }
 
-function InputField({ type, placeholder, name, label, register, className = "" }) {
+function InputField({
+  type,
+  placeholder,
+  name,
+  label,
+  register,
+  className = "",
+}) {
   return (
     <div className={`${styles.formGroup} ${className}`}>
       <input
@@ -102,9 +75,3 @@ function InputField({ type, placeholder, name, label, register, className = "" }
     </div>
   );
 }
-
-
-
-
-
-

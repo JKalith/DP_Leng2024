@@ -1,5 +1,7 @@
 {
-  "pages": {},
+  "pages": {
+    "/activity/seeMore/[id]": []
+  },
   "app": {},
   "appUsingSizeAdjust": false,
   "pagesUsingSizeAdjust": false

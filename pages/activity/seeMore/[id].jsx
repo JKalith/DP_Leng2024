@@ -16,54 +16,23 @@ const ImageCarousel = ({ imageUrl }) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    adaptiveHeight: true // Asegura que el contenedor del carrusel se adapte a la altura de la imagen
+    adaptiveHeight: true, // Asegura que el contenedor del carrusel se adapte a la altura de la imagen
   };
 
   return (
-  
-
-
-    
     <Slider {...settings}>
-      {imageUrl .map((url, index) => (
-         <div key={index} className={styles.containerImage }>
-         <img src={url} alt={`slide-${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-       </div>
+      {imageUrl.map((url, index) => (
+        <div key={index} className={styles.containerImage}>
+          <img
+            src={url}
+            alt={`slide-${index}`}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
       ))}
     </Slider>
   );
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function SeeMore() {
   const router = useRouter();
@@ -72,12 +41,14 @@ function SeeMore() {
   useEffect(() => {
     const { id } = router.query;
     if (id) {
-      activityService.getById(id).then(x => setActivity(x));
+      activityService.getById(id).then((x) => setActivity(x));
     }
   }, [router.query]);
 
   if (!activity) return <p>Loading...</p>;
-
+  const handleInscribirse = () => {
+    router.push(`/persons/addPerson/${activity.id}`);
+  };
   const googleMapsUrl = `https://maps.google.com/maps?q=${activity.latitude},${activity.longitude}&z=15&output=embed`;
   const googleMapsLink = `https://www.google.com/maps?q=${activity.latitude},${activity.longitude}`;
 
@@ -109,9 +80,13 @@ function SeeMore() {
             </section>
           </div>
           <div>
-            <p className={globals.fontBold + " " + globals.size}>Descripcion del evento</p>
+            <p className={globals.fontBold + " " + globals.size}>
+              Descripcion del evento
+            </p>
             <div className={styles.textDescription}>
-              <p className={styles.pDescription}>{activity.activityDescription}</p>
+              <p className={styles.pDescription}>
+                {activity.activityDescription}
+              </p>
             </div>
             <p className={globals.infoTitle}>Ubicación</p>
             <div className={styles.containerMap}>
@@ -130,8 +105,9 @@ function SeeMore() {
           <div>
             <p className={globals.infoTitle}>Imagenes Representativa</p>
 
-            
-            {activity.imageUrl  && <ImageCarousel imageUrl ={activity.imageUrl } />}
+            {activity.imageUrl && (
+              <ImageCarousel imageUrl={activity.imageUrl} />
+            )}
           </div>
 
           <p className={globals.infoTitle}>Categoria</p>
@@ -150,7 +126,11 @@ function SeeMore() {
           </div>
           <div>
             <div className={globals.containerFlex}>
-              <button type="button" className={globals.btnSave + " " + globals.customBtn}>
+              <button
+                type="button"
+                className={globals.btnSave + " " + globals.customBtn}
+                onClick={handleInscribirse}
+              >
                 <span>Inscribirse</span>
               </button>
               <button className={globals.btnCancel + " " + globals.customBtn}>

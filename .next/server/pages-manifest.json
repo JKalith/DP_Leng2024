@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/activity/activityRegister": "pages/activity/activityRegister.js"
+  "/persons/addPerson/[id]": "pages/persons/addPerson/[id].js",
+  "/api/persons": "pages/api/persons.js",
+  "/api/users": "pages/api/users.js"
 }
