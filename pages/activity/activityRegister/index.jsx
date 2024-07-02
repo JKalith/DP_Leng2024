@@ -1,4 +1,3 @@
-"Use client";
 import styles from "styles/activityRegister.module.css";
 import { activityService, alertService } from "services";
 import { useRouter } from "next/router";
@@ -18,47 +17,106 @@ import {
 
 export default function ActivityRegister(props) {
   const activitytwo = props?.activity;
-  
   const router = useRouter();
+  const [mainImageIndex, setMainImageIndex] = useState(0);
+
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
-  const [files, setFiles] = useState([]);
-  const [fileName, setFileName] = useState("");
+  const [images, setImages] = useState([]);
   const [location, setLocation] = useState({
     lat: 8.626823986047272,
     lng: -83.15456668174622,
   });
 
+  const changeInput = (e) => {
+    let indexImg;
+
+    if (images.length > 0) {
+      indexImg = images[images.length - 1].index + 1;
+    } else {
+      indexImg = 0;
+    }
+
+    let newImgsToState = readmultifiles(e, indexImg);
+    let newImgsState = [...images, ...newImgsToState];
+    setImages(newImgsState);
+
+    console.log(newImgsState);
+  };
+
+  function readmultifiles(e, indexInicial) {
+    const files = e.currentTarget.files;
+    const arrayImages = [];
+
+    Object.keys(files).forEach((i) => {
+      const file = files[i];
+      let url = URL.createObjectURL(file);
+
+      arrayImages.push({
+        index: indexInicial,
+        name: file.name,
+        url,
+        file
+      });
+
+      indexInicial++;
+    });
+
+    return arrayImages;
+  }
+
+  function deleteImg(indice) {
+    const newImgs = images.filter((element) => element.index !== indice);
+
+    // Update indices directly in the filtered array
+    for (let i = 0; i < newImgs.length; i++) {
+      newImgs[i].index = i;
+    }
+
+    setImages(newImgs);
+
+    if (mainImageIndex === indice) {
+      setMainImageIndex(0); // Clear main image index if deleted
+    }
+  }
+
+  function selectMainImage(indice) {
+    setMainImageIndex(indice);
+    console.log(indice);
+  }
+
   async function onSubmit(data) {
     alertService.clear();
     try {
       let message;
-      if (files.length > 0) {
+      if (images.length > 0) {
         const filesUrl = [];
-        for (let i = 0; i < files.length; i++) {
-          filesUrl[i] = await uploadFile(files[i]);
+        for (let i = 0; i < images.length; i++) {
+          filesUrl[i] = await uploadFile(images[i].file);
           console.log("url " + filesUrl[i]);
         }
         data.imageUrl = filesUrl;
+        data.indiceImagenPrincipal = mainImageIndex;
       }
       data.latitude = location.lat;
       data.longitude = location.lng;
-      if (activity) {
-        await activityService.update(activity.id, data);
+      if (activitytwo) {
+        await activityService.update(activitytwo.id, data);
         message = "Actividad actualizada";
       } else {
         await activityService.register(data);
         message = "Actividad agregada";
       }
 
-      // redirigir a la lista de usuarios con un mensaje de éxito
       router.push("/users");
       alertService.success(message, true);
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.message);
       console.error(error);
     }
   }
+
+
   function handleMapClick(e) {
     const { latLng } = e.detail;
     setLocation({
@@ -66,6 +124,7 @@ export default function ActivityRegister(props) {
       lng: latLng.lng,
     });
   }
+
 
   return (
     <div>
@@ -354,36 +413,41 @@ export default function ActivityRegister(props) {
 
 
 
-            <div className={styles.divFlex}>
-              <input
-                type="file"
-                multiple
-                id="load_img"
-                className={styles.fancyFile}
-                accept="image/*"
-                onChange={(e) => {
-                  const files = e.target.files;
-                  if (files.length > 0) {
-                    if (files.length === 1) {
-                      setFileName(files[0].name);
-                    } else {
-                      setFileName(`${files.length} archivos seleccionados`);
-                    }
-                    setFiles(files);
-                  } else {
-                    setFileName("");
-                    setFiles([]);
-                  }
-                }}
-              />
-              <label htmlFor="load_img">
-                <span className={styles.fancyFile_Name}>
-                  {fileName || "Ningún Archivo Seleccionado"}
-                </span>
-                <span className={styles.fancyFile_Button}>
-                  Seleccionar Imagen
-                </span>
+            <div>
+              <label className={styles.selectImagesBtn}>
+                <span>Seleccionar archivos </span>
+                <input hidden type="file" multiple accept="image/*" onChange={changeInput}></input>
               </label>
+              <div className="row">
+                {images.map((imagen) => (
+                  <div className="col-6 col-sm-4 col-lg-3 square" key={imagen.index}>
+                    <div className={styles.content_img}>
+                      
+                      {/* Borrar la imagen */}
+                      <input
+                        type="button"
+                        className={styles.deleteImageBtn}
+                        value="x"
+                        onClick={() => deleteImg(imagen.index)}
+                      />
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxImage}
+                        checked={mainImageIndex === imagen.index}
+                        onChange={() => selectMainImage(imagen.index)}
+                        style={{ top: "10px", right: "10px" }}
+                      />
+                      <img
+                        alt=""
+                        src={imagen.url}
+                        data-toggle="modal"
+                        data-target="#ModalPreViewImg"
+                        className="img-responsive"
+                      ></img>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
 

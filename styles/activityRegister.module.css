@@ -6,6 +6,57 @@
     border-radius: 8px;
 
   }
+  .content_img {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+    margin-left: 15px ;
+  }
+  
+  .content_img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+   
+  }
+  
+  .selectImagesBtn {
+    padding: 10px 20px;
+    background-color: #5bc0de;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .selectImagesBtn:hover {
+    background-color: #34aace;
+  }
+  
+  .deleteImageBtn {
+    position: relative;
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 30px;
+    z-index: 1;
+  }
+  
+  .deleteImageBtn:hover {
+    background-color: #8f1414;
+  }
+  
+  .checkboxImage {
+    position: absolute;
+    z-index: 2;
+  }
+  
   
   .resume {
     display: grid;
