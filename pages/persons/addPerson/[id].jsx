@@ -117,8 +117,8 @@ export default function AddPerson(props) {
               <button
                 type="button"
                 className={globals.customBtn + " " + globals.btnCancel}
-                onClick={() => reset()}
-              >
+              onClick={() => window.location.href='/activity'}>
+
                 <span>Cancelar</span>
               </button>
             </div>

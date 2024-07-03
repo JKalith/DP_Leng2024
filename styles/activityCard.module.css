@@ -73,12 +73,33 @@ background-color: rgb(255, 255, 255);
     overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
   }
   .Photo img {
-    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
-    max-height: 100%; /* Asegura que la imagen no exceda la altura del contenedor */
-    width: auto; /* Permite que la imagen mantenga su proporción */
-    height: auto; /* Permite que la imagen mantenga su proporción */
-    object-fit: cover; /* Ajusta la imagen para que cubra el área del contenedor */
+    position: relative;
+    width: 100%;
+
+    overflow: hidden;
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   .cat{
   width: 70px;
   height: 25px;

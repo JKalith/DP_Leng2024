@@ -34,6 +34,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/activity/seeMore/[id].js"
+    ],
+    "/persons/addPerson/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/persons/addPerson/[id].js"
     ]
   },
   "ampFirstPages": []

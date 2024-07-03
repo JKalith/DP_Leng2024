@@ -125,7 +125,7 @@ function SeeMore() {
             <p>Telefono: {activity.phone}</p>
           </div>
           <div>
-            <div className={globals.containerFlex}>
+           
               <button
                 type="button"
                 className={globals.btnSave + " " + globals.customBtn}
@@ -133,10 +133,8 @@ function SeeMore() {
               >
                 <span>Inscribirse</span>
               </button>
-              <button className={globals.btnCancel + " " + globals.customBtn}>
-                <span> Cancelar </span>
-              </button>
-            </div>
+           
+         
           </div>
         </div>
       </div>
