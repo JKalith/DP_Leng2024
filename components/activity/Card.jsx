@@ -2,17 +2,22 @@ import styles from "styles/activityCard.module.css";
 import React from "react";
 import { useRouter } from "next/router";
 const ActivityCard = ({ activity }) => {
-    const router = useRouter();
-
-    const handleCardClick = () => {
-      router.push(`/activity/seeMore/${activity.id}`);
-    };
+  const router = useRouter();
+  const mainImageUrl = activity.imageUrl[activity.indiceImagenPrincipal] || "";
+  const handleCardClick = () => {
+    router.push(`/activity/seeMore/${activity.id}`);
+  };
   return (
-    <div
-      className={styles.container}
-      onClick={handleCardClick}
-    >
-      <label className={styles.Photo}></label>
+    <div className={styles.container} onClick={handleCardClick}>
+      <label className={styles.Photo}>
+        {mainImageUrl && (
+          <img
+            src={mainImageUrl}
+            alt={activity.nameActivity}
+            className={styles.mainImage}
+          />
+        )}
+      </label>
 
       <div className={styles.infoContainer}>
         <div className={styles.containerTitle}>
