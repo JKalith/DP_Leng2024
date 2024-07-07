@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from '.';
 import { userService } from 'services';
-
+import styles from "styles/navbar.module.css";
 export { Nav };
 
 function Nav() {
@@ -16,13 +16,27 @@ function Nav() {
     if (!user) return null;
 
     return (
+
+
+
+
+
+
+
+
+
+
+
+
+        
         <nav >
-            <div className="navbar-nav">
-                <NavLink href="/" exact className="nav-item nav-link">Inicio</NavLink>
-                <NavLink href="/activity" exact className="nav-item nav-link">Actividad</NavLink>
-                <NavLink href="/activity/activityRegister" exact className="nav-item nav-link">Registro de Actividad</NavLink>
-                <NavLink href="/users" className="nav-item nav-link">Usuarios</NavLink>
-                <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Salir</button>
+            <div className={styles.nav}>
+                <NavLink href="/" exact className={styles.navLinks}>Inicio</NavLink>
+                <NavLink href="/activity" className={styles.navLinks} exact >Actividad</NavLink>
+                <NavLink href="/activity/activityRegister" exact className={styles.navLinks}>Registro de Actividad</NavLink>
+                <NavLink href="/users" className={styles.navLinks}>Usuarios</NavLink>
+
+                <a onClick={userService.logout} className={styles.navLinks} exact >Salir</a>
             </div>
         </nav>
     );

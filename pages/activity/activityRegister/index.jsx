@@ -403,7 +403,7 @@ export default function ActivityRegister(props) {
 
                     <label className={styles.tglBtn} htmlFor="toggle"></label>
 
-                    <p>Permitir Registro de Personas</p>
+                    <p className={styles.p}>Permitir Registro de Personas</p>
                   </div>
                 </section>
 

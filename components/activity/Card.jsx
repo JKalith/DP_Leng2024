@@ -54,10 +54,10 @@ const ActivityCard = ({ activity }) => {
                 </button>
             ))} </div>
 
-        <div className={styles.dividerText}>
+<section className={styles.dividerText}>
           <p className={styles.p + " " + styles.title}> Lugar: </p>
           <p className={styles.p}> {activity.place}</p>
-        </div>
+          </section>
         <section className={styles.dividerText}>
           <p className={styles.p + " " + styles.title}> Fecha de Inicio: </p>
           <p className={styles.p}> {activity.startDate}</p>

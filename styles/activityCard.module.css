@@ -1,14 +1,14 @@
 .container{
   width: 300px;
   background-color: rgb(255, 255, 255);
-  height: 400PX;
-  margin-bottom: 15px;
+  height: 450PX;
+  margin-bottom: 2rem;
   border-radius: 8px;
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.594);
-  min-height: 350px;
+  
   overflow: hidden;
   }
-  .container:hover {
+  h5  .container:hover {
   
     transform: scale(1.01); /* Escala la imagen al 110% del tamaño original al hacer hover */
   
@@ -30,21 +30,26 @@ background-color: rgb(255, 255, 255);
 
     width: auto;
     
-  height: auto;
+  height: 30px;
   }
   
   .p{
       font-family: 'Lato', sans-serif;
-      font-size: 1rem;  
+      font-size: 1rem; 
+      margin-top: 10PX; 
   }
   
 .title{
       font-weight: bold;
+      margin-top: 10PX;
   }
   
   .h5{
     font-family: 'Lato', sans-serif;
     font-size: 1.4rem; 
+    
+
+    
   }
   
   .category {
@@ -58,7 +63,7 @@ background-color: rgb(255, 255, 255);
     border: solid 2px rgba(0, 0, 0, 0.23);
     border-radius: 10px;
     overflow: hidden;
-    max-height: 30px;
+    max-height: AUTO;
     color: black; /* Añadido para cambiar el color del texto a rojo */
 }
 
@@ -80,7 +85,7 @@ background-color: rgb(255, 255, 255);
     height: 170px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    margin-bottom: 10px;
+
     background-color: rgb(196, 196, 196);
     overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
   }
@@ -137,7 +142,6 @@ display: flex   ;
       .dividerText{
 
 
-        margin-bottom: -10px;
 
 display: flex;
       }
