@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { NavLink } from '.';
 import { userService } from 'services';
 
@@ -13,25 +12,17 @@ function Nav() {
         return () => subscription.unsubscribe();
     }, []);
 
-    // only show nav when logged in
+    // Solo muestra la barra de navegación cuando el usuario está logueado
     if (!user) return null;
 
     return (
-        <nav className="navbar navbar-expand navbar-dark bg-dark px-3">
+        <nav >
             <div className="navbar-nav">
-
-
-
-            <NavLink href="/activity" exact className="nav-item nav-link">actividad</NavLink>
-
-                <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
-
-                <NavLink href="/activity/activityRegister" exact className="nav-item nav-link">RegistroActividad</NavLink>
-              
-        
-
-                <NavLink href="/users" className="nav-item nav-link">Users</NavLink>
-                <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logout</button>
+                <NavLink href="/" exact className="nav-item nav-link">Inicio</NavLink>
+                <NavLink href="/activity" exact className="nav-item nav-link">Actividad</NavLink>
+                <NavLink href="/activity/activityRegister" exact className="nav-item nav-link">Registro de Actividad</NavLink>
+                <NavLink href="/users" className="nav-item nav-link">Usuarios</NavLink>
+                <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Salir</button>
             </div>
         </nav>
     );

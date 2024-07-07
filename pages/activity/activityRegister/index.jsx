@@ -19,7 +19,7 @@ export default function ActivityRegister(props) {
   const activitytwo = props?.activity;
   const router = useRouter();
   const [mainImageIndex, setMainImageIndex] = useState(0);
-
+  const [allowRegister, setAllowRegister] = useState(true);
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
   const [images, setImages] = useState([]);
@@ -84,7 +84,17 @@ export default function ActivityRegister(props) {
     setMainImageIndex(indice);
     console.log(indice);
   }
-
+  function handleAllowRegister(variable) {
+    if(variable === true){
+     setAllowRegister(false);
+     console.log("lo cambio a false");
+    }else{
+     setAllowRegister(true);
+     console.log("lo cambio a true");
+    }
+     
+     
+   }
   async function onSubmit(data) {
     alertService.clear();
     try {
@@ -361,6 +371,7 @@ export default function ActivityRegister(props) {
                     type="number"
                     className={styles.formField}
                     placeholder="Cantidad de Cupos"
+                    disabled={allowRegister}
                     {...register("maxPersonRegistration", { required: true })}
                   />
                   <label
@@ -386,7 +397,8 @@ export default function ActivityRegister(props) {
                       }
                       id="toggle"
                       type="checkbox"
-                      {...register("allowPersonRegistration")}
+                      checked={!allowRegister}
+                      onChange={() => handleAllowRegister(allowRegister)}
                     />
 
                     <label className={styles.tglBtn} htmlFor="toggle"></label>

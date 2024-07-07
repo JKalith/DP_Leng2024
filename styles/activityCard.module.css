@@ -1,11 +1,11 @@
 .container{
   width: 300px;
   background-color: rgb(255, 255, 255);
-  height: auto;
+  height: 400PX;
   margin-bottom: 15px;
   border-radius: 8px;
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.594);
-
+  min-height: 350px;
   overflow: hidden;
   }
   .container:hover {
@@ -19,18 +19,18 @@
   .infoContainer{
 background-color: rgb(255, 255, 255);
 
-    margin-bottom: 15px;
-    border-radius: 8px;
-    padding-left: 15px;
-    padding-right: 15px;
- 
+
+      border-radius: 8px;
+      padding-left: 15px;
+      padding-right: 15px;
+
     }
     
   .containerTitle{
 
     width: auto;
-
-  height: 50px;
+    
+  height: auto;
   }
   
   .p{
@@ -47,9 +47,21 @@ background-color: rgb(255, 255, 255);
     font-size: 1.4rem; 
   }
   
-  .category{
-     width: 50%;
-    }
+  .category {
+    max-width: 120px;
+    font-size: 15px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+    background-color: blue;
+    
+    border: solid 2px rgba(0, 0, 0, 0.23);
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 30px;
+    color: black; /* Añadido para cambiar el color del texto a rojo */
+}
+
     .nameActivity{
          width: 50%;
       }
@@ -93,6 +105,13 @@ background-color: rgb(255, 255, 255);
 
 
 
+  .divCategory{
+display: flex   ;
+ flex-wrap: wrap;
+
+
+  }
+
 
 
 
@@ -124,11 +143,4 @@ display: flex;
       }
 
 
-      .category{
-height: 50px;
 
-width: 100%;
-border: 2px solid black;
-
-
-      }

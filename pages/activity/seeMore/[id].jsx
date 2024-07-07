@@ -6,8 +6,22 @@ import globals from "styles/globals.module.css";
 import { activityService } from "services";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+const getCategoryStyle = (category) => {
+  const categoryLower = category.toLowerCase();
+  const colorMap = {
+      'entretenimiento': { backgroundColor: ' rgb(96, 96, 255)' },
+      'aire libre': { backgroundColor: ' rgb(255, 190, 92)' },
+      'cine':{backgroundColor: ' rgb(101, 255, 101)'},
+      'deporte':{backgroundColor: '#ff4949'},
+      'danza':{backgroundColor: 'rgb(244, 255, 97)'},
+      'acampar':{backgroundColor: 'rgb(255, 114, 224)'}
+  };
 
+  // Verificar si la categoría existe en el mapa, si no, usar gris como color por defecto
+  return colorMap[categoryLower] || { backgroundColor: 'grey' };
+};
 const ImageCarousel = ({ imageUrl }) => {
+  const defaultImg = "https://firebasestorage.googleapis.com/v0/b/activity-image-firebase.appspot.com/o/DefaultImage.jpg?alt=media&token=324b0531-d6cc-4b26-b75f-245d9eee4cd5";
   const settings = {
     dots: true,
     infinite: true,
@@ -20,18 +34,30 @@ const ImageCarousel = ({ imageUrl }) => {
   };
 
   return (
-    <Slider {...settings}>
-      {imageUrl.map((url, index) => (
-        <div key={index} className={styles.containerImage}>
-          <img
-            src={url}
-            alt={`slide-${index}`}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </div>
-      ))}
-    </Slider>
-  );
+    <div>
+    {imageUrl.length === 0 ? (
+      <div className={styles.containerImage}>
+        <img
+          src={defaultImg}
+          alt="default Image"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
+    ) : (
+      <Slider {...settings}>
+        {imageUrl.map((url, index) => (
+          <div key={index} className={styles.containerImage}>
+            <img
+              src={url}
+              alt={`slide-${index}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
+        ))}
+      </Slider>
+    )}
+  </div>
+);
 };
 
 function SeeMore() {
@@ -49,6 +75,7 @@ function SeeMore() {
   const handleInscribirse = () => {
     router.push(`/persons/addPerson/${activity.id}`);
   };
+  
   const googleMapsUrl = `https://maps.google.com/maps?q=${activity.latitude},${activity.longitude}&z=15&output=embed`;
   const googleMapsLink = `https://www.google.com/maps?q=${activity.latitude},${activity.longitude}`;
 
@@ -111,13 +138,18 @@ function SeeMore() {
           </div>
 
           <p className={globals.infoTitle}>Categoria</p>
-          <div>
+      
+          <div className={styles.divCategory}>
             {activity.activityCategory.map((category, index) => (
-              <button key={index} className={styles.category} disabled>
-                {category}
-              </button>
-            ))}
-          </div>
+                <button 
+                    key={index} 
+                    className={styles.category} 
+                    style={getCategoryStyle(category)} 
+                    disabled
+                >
+                    {category}
+                </button>
+            ))} </div>
           <div className={styles.contact}>
             <p>Contactenos</p>
             <p>Facebook: {activity.facebook}</p>
@@ -127,6 +159,7 @@ function SeeMore() {
           <div>
            
               <button
+              hidden={!activity.allowRegistration}
                 type="button"
                 className={globals.btnSave + " " + globals.customBtn}
                 onClick={handleInscribirse}

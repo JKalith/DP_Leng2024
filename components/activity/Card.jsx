@@ -7,6 +7,20 @@ const ActivityCard = ({ activity }) => {
   const handleCardClick = () => {
     router.push(`/activity/seeMore/${activity.id}`);
   };
+  const getCategoryStyle = (category) => {
+    const categoryLower = category.toLowerCase();
+    const colorMap = {
+        'entretenimiento': { backgroundColor: ' rgb(96, 96, 255)' },
+        'aire libre': { backgroundColor: ' rgb(255, 190, 92)' },
+        'cine':{backgroundColor: ' rgb(101, 255, 101)'},
+        'deporte':{backgroundColor: '#ff4949'},
+        'danza':{backgroundColor: 'rgb(244, 255, 97)'},
+        'acampar':{backgroundColor: 'rgb(255, 114, 224)'}
+    };
+
+    // Verificar si la categoría existe en el mapa, si no, usar gris como color por defecto
+    return colorMap[categoryLower] || { backgroundColor: 'grey' };
+};
   return (
     <div className={styles.container} onClick={handleCardClick}>
       <label className={styles.Photo}>
@@ -26,7 +40,19 @@ const ActivityCard = ({ activity }) => {
           </h5>
         </div>
 
-        <div className={styles.category}></div>
+  
+
+        <div className={styles.divCategory}>
+            {activity.activityCategory.map((category, index) => (
+                <button 
+                    key={index} 
+                    className={styles.category} 
+                    style={getCategoryStyle(category)} 
+                    disabled
+                >
+                    {category}
+                </button>
+            ))} </div>
 
         <div className={styles.dividerText}>
           <p className={styles.p + " " + styles.title}> Lugar: </p>

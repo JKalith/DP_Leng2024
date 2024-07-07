@@ -151,8 +151,18 @@
 }
 
 .category {
-  margin-right: 10px;
-  margin-bottom: 10px;
+  max-width: 120px;
+  font-size: 15px;
+  margin-bottom: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
+  background-color: blue;
+  
+  border: solid 2px rgba(0, 0, 0, 0.23);
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 30px;
+  color: black; /* Añadido para cambiar el color del texto a rojo */
 }
 
 .button {
