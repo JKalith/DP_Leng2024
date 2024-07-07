@@ -36,7 +36,9 @@ border-radius: 10px;
   font-size: 14px;
 }
 
-
+.navLinks:hover {
+  color:  rgb(15, 189, 122);/* Red color */
+}
 
 
 
