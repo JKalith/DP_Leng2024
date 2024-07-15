@@ -2,11 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/users": "pages/users.js",
-  "/activity/seeMore/[id]": "pages/activity/seeMore/[id].js",
-  "/api/activities": "pages/api/activities.js",
   "/activity": "pages/activity.js",
-  "/": "pages/index.js",
-  "/api/users": "pages/api/users.js",
   "/activity/activityRegister": "pages/activity/activityRegister.js"
 }

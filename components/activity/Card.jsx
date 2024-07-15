@@ -43,6 +43,12 @@ const ActivityCard = ({ activity }) => {
   
 
         <div className={styles.divCategory}>
+          <style>
+
+
+
+            
+          </style>
             {activity.activityCategory.map((category, index) => (
                 <button 
                     key={index} 

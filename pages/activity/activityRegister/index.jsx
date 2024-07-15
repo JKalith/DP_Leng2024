@@ -430,9 +430,9 @@ export default function ActivityRegister(props) {
                 <span>Seleccionar archivos </span>
                 <input hidden type="file" multiple accept="image/*" onChange={changeInput}></input>
               </label>
-              <div className="row">
+              <div className={styles.imgRows}>
                 {images.map((imagen) => (
-                  <div className="col-6 col-sm-4 col-lg-3 square" key={imagen.index}>
+                  <div className="" key={imagen.index}>
                     <div className={styles.content_img}>
                       
                       {/* Borrar la imagen */}
