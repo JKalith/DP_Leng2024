@@ -480,7 +480,7 @@ border-radius: 15PX;
   
     font-size: 12px;
     font-weight: 400;
-    color: #676868;
+    color: #00ffff;
   }
   
   .checkboxWrapper .tgl+.tglBtn:after,
@@ -588,21 +588,6 @@ border-radius: 15PX;
   user-select: none;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }

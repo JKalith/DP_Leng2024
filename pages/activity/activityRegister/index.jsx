@@ -20,12 +20,16 @@ export default function ActivityRegister(props) {
   const router = useRouter();
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [allowRegister, setAllowRegister] = useState(true);
-  const { register, handleSubmit, reset, formState } = useForm();
+  const { register, handleSubmit, reset, formState, watch } = useForm();
   const { errors } = formState;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState([]);
+  const startDate = watch("startDate");
   const [location, setLocation] = useState({
+  
     lat: 8.626823986047272,
     lng: -83.15456668174622,
+   
   });
 
   const changeInput = (e) => {
@@ -140,10 +144,10 @@ export default function ActivityRegister(props) {
     <div>
       <div className={styles.centerC}>
         <div className={styles.containerSec}>
-          <div className={styles.lCont}>
-            <h1 className={globals.infoTitle}>Registro de Actividades</h1>
-          </div>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.lCont}>
+              <h1 className={globals.infoTitle}>Registro de Actividades</h1>
+            </div>
             <div className={styles.resume}>
               <div className={styles.left}>
                 <div className={styles.form__group}>
@@ -174,6 +178,7 @@ export default function ActivityRegister(props) {
                 </div>
               </div>
             </div>
+
             <div className={styles.lCont}>
               <h1 className={globals.infoTitle}>Horario</h1>
             </div>
@@ -196,12 +201,25 @@ export default function ActivityRegister(props) {
                   <input
                     type="date"
                     className={styles.formField}
-                    {...register("endDate", { required: true })}
+                    {...register("endDate", {
+                      validate: (value) => {
+                        if (!value) {
+                          return "Este campo es requerido";
+                        }
+                        if (
+                          startDate &&
+                          new Date(value) < new Date(startDate)
+                        ) {
+                          return "La fecha de fin no puede ser menor que la fecha de inicio";
+                        }
+                        return true;
+                      },
+                    })}
                   />
                   <label htmlFor="endDate" className={styles.formLabel}>
                     Fecha de fin
                   </label>
-                  {errors.endDate && <p>Este campo es requerido</p>}
+                  {errors.endDate && <p>{errors.endDate.message}</p>}
                 </div>
               </div>
               <div className={styles.rigth}>
@@ -372,7 +390,7 @@ export default function ActivityRegister(props) {
                     className={styles.formField}
                     placeholder="Cantidad de Cupos"
                     disabled={allowRegister}
-                    {...register("maxPersonRegistration", { required: true })}
+                    {...register("maxPersonRegistration", { required: false })}
                   />
                   <label
                     htmlFor="maxPersonRegistration"
@@ -421,20 +439,21 @@ export default function ActivityRegister(props) {
               {errors.activityDescription && <p>Este campo es requerido</p>}
             </div>
 
-
-
-
-
             <div>
               <label className={styles.selectImagesBtn}>
                 <span>Seleccionar archivos </span>
-                <input hidden type="file" multiple accept="image/*" onChange={changeInput}></input>
+                <input
+                  hidden
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={changeInput}
+                ></input>
               </label>
               <div className={styles.imgRows}>
                 {images.map((imagen) => (
                   <div className="" key={imagen.index}>
                     <div className={styles.content_img}>
-                      
                       {/* Borrar la imagen */}
                       <input
                         type="button"
@@ -448,7 +467,7 @@ export default function ActivityRegister(props) {
                         checked={mainImageIndex === imagen.index}
                         onChange={() => selectMainImage(imagen.index)}
                         style={{ top: "10px", right: "10px" }}
-                      />
+                      />
                       <img
                         alt=""
                         src={imagen.url}
@@ -461,14 +480,6 @@ export default function ActivityRegister(props) {
                 ))}
               </div>
             </div>
-
-
-
-
-
-
-
-
 
             <APIProvider apiKey={process.env.NEXT_PUBLIC_API_MAPS_KEY}>
               <div
@@ -491,6 +502,7 @@ export default function ActivityRegister(props) {
                 <button
                   type="submit"
                   className={globals.customBtn + " " + globals.btnSave}
+                  disabled={isSubmitting}
                 >
                   <span>Enviar</span>
                 </button>

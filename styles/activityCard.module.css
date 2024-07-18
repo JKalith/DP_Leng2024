@@ -31,7 +31,7 @@ background-color: rgb(255, 255, 255);
 
     width: auto;
     
-  height: 30px;
+  height: auto;
   }
   
   .p{
@@ -43,6 +43,7 @@ background-color: rgb(255, 255, 255);
 .title{
       font-weight: bold;
       margin-top: 10PX;
+      margin-bottom: 10PX;
   }
   
   .h5{
@@ -64,7 +65,7 @@ background-color: rgb(255, 255, 255);
     border: solid 2px rgba(0, 0, 0, 0.23);
     border-radius: 10px;
     overflow: hidden;
-    max-height: AUTO;
+    max-height: auto;
     color: black; /* Añadido para cambiar el color del texto a rojo */
 }
 

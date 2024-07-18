@@ -1,192 +1,403 @@
 import styles from "styles/basura.module.css";
 import { activityService, alertService } from "services";
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { uploadFile } from '/pages/firebase/config';
-import { useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { useRouter } from "next/router";
+import InputField from "components/activity/inputField";
+import { useForm } from "react-hook-form";
+import { uploadFile } from "/pages/firebase/config";
+import { useState, forwardRef } from "react";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import globals from "styles/globals.module.css";
 import map from "styles/map.module.css";
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  Pin,
+  InfoWindow,
+} from "@vis.gl/react-google-maps";
 
-export default function ActivityRegister(props) {
-  const activity = props?.activity;
+export default function data(props) {
+  const activitytwo = props?.activity;
   const router = useRouter();
-  const { register, handleSubmit, reset, formState } = useForm();
+  const [mainImageIndex, setMainImageIndex] = useState(0);
+  const [allowRegister, setAllowRegister] = useState(true);
+  const { register, handleSubmit, reset, formState, watch } = useForm();
   const { errors } = formState;
-  const [files, setFiles] = useState([]);
-  const [location, setLocation] = useState({ lat: 8.626823986047272, lng: -83.15456668174622 });
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_API_MAPS_KEY,
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [images, setImages] = useState([]);
+  const startDate = watch("startDate");
+  const [location, setLocation] = useState({
+    lat: 8.626823986047272,
+    lng: -83.15456668174622,
   });
 
+  const changeInput = (e) => {
+    let indexImg;
+
+    if (images.length > 0) {
+      indexImg = images[images.length - 1].index + 1;
+    } else {
+      indexImg = 0;
+    }
+
+    let newImgsToState = readmultifiles(e, indexImg);
+    let newImgsState = [...images, ...newImgsToState];
+    setImages(newImgsState);
+
+    console.log(newImgsState);
+  };
+
+  function readmultifiles(e, indexInicial) {
+    const files = e.currentTarget.files;
+    const arrayImages = [];
+
+    Object.keys(files).forEach((i) => {
+      const file = files[i];
+      let url = URL.createObjectURL(file);
+
+      arrayImages.push({
+        index: indexInicial,
+        name: file.name,
+        url,
+        file,
+      });
+
+      indexInicial++;
+    });
+
+    return arrayImages;
+  }
+
+  function deleteImg(indice) {
+    const newImgs = images.filter((element) => element.index !== indice);
+
+    // Update indices directly in the filtered array
+    for (let i = 0; i < newImgs.length; i++) {
+      newImgs[i].index = i;
+    }
+
+    setImages(newImgs);
+
+    if (mainImageIndex === indice) {
+      setMainImageIndex(0); // Clear main image index if deleted
+    }
+  }
+
+  function selectMainImage(indice) {
+    setMainImageIndex(indice);
+    console.log(indice);
+  }
+  function handleAllowRegister(variable) {
+    if (variable === true) {
+      setAllowRegister(false);
+      console.log("lo cambio a false");
+    } else {
+      setAllowRegister(true);
+      console.log("lo cambio a true");
+    }
+  }
   async function onSubmit(data) {
     alertService.clear();
     try {
       let message;
-      if (files.length > 0) {
+      if (images.length > 0) {
         const filesUrl = [];
-        for (let i = 0; i < files.length; i++) {
-          filesUrl[i] = await uploadFile(files[i]);
+        for (let i = 0; i < images.length; i++) {
+          filesUrl[i] = await uploadFile(images[i].file);
+          console.log("url " + filesUrl[i]);
         }
         data.imageUrl = filesUrl;
+        data.indiceImagenPrincipal = mainImageIndex;
       }
       data.latitude = location.lat;
       data.longitude = location.lng;
-      if (activity) {
-        await activityService.update(activity.id, data);
+      if (activitytwo) {
+        await activityService.update(activitytwo.id, data);
         message = "Actividad actualizada";
       } else {
         await activityService.register(data);
         message = "Actividad agregada";
       }
+
       router.push("/users");
       alertService.success(message, true);
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.message);
       console.error(error);
     }
   }
 
+  function handleMapClick(e) {
+    const { latLng } = e.detail;
+    setLocation({
+      lat: latLng.lat,
+      lng: latLng.lng,
+    });
+  }
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Section title="Registro de Actividades">
-          <InputField
-            type="input"
-            placeholder="Nombre de actividad"
-            {...register("nameActivity", { required: true })}
-            name="Registro"
-            label="Nombre de actividad"
-            register={register}
-          />
-          <InputField
-            type="input"
-            placeholder="Lugar"
-            {...register("place", { required: true })}
-            name="Place"
-            label="Lugar"
-            register={register}
-          />
-        </Section>
-        <Section title="Horario">
-          <InputField
-            type="date"
-            name="startDate"
-            {...register("startDate", { required: true })}
-            label="Fecha de actividad"
-            register={register}
-          />
-          <div className={styles.containerFlex}>
+      <div className={styles.containerSec}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Section title="Registro de Actividades">
             <InputField
-              type="time"
-              name="startTime"
-              label="Hora inicio"
-              register={register}
-           {...register("startTime", { required: true })}
- 
-            /> 
-          {errors.startTime && <p>Este campo es requerido</p>}
-            <InputField
-              type="time"
-              name="endTime"
-        
-              register={register}
-              className={styles.hour}
-              {...register("endTime", { required: true })}
-              />
-          
-              {errors.endTime && <p>Este campo es requerido</p>}
-
-<div>
-<InputField
-               type="date"
-              name="endTime"
-          
-              register={register}
-              className={styles.hour}
-              {...register("endDate", { required: true })}
-              />
-
-                  {errors.endDate && <p>Este campo es requerido</p>}
-                  </div>
-                
-
-          </div>
-        </Section>
-        <Section title="Contacto de la actividad">
-          <div>
-          <InputField
-            type="input"
-            placeholder="Correo electrónico"
-            name="emailActivity"
-            label="Correo electrónico"
-            register={register}
-            {...register("email", { required: true })}
+              type="text"
+              placeholder="Nombre de actividad"
+              label="Nombre de actividad"
+              {...register("nameActivity")}
             />
-     
-            {errors.email && <p>Este campo es requerido</p>}
-
+            <InputField
+              type="text"
+              placeholder="Lugar"
+              {...register("place")}
+              label="Lugar"
+              ref={register("place").ref} // Pasa el ref correctamente
+            />
+            {errors.place && <p>Este campo es requerido</p>}
+          </Section>
+          <Section title="Horario">
+            <div className={styles.containerFlex}>
+              <InputField
+                type="date"
+                {...register("startDate")}
+                label="Fecha de inicio"
+              />{" "}
+              <InputField
+                type="date"
+                {...register("endDate")}
+                label="Fecha de fin"
+                typeData="endDate"
+              />
             </div>
-          <InputField
-            type="input"
-            placeholder="Whatsapp"
-            name="whatsappActivity"
-            label="Whatsapp"
-            register={register}
-          />
-        </Section>
-        <Section title="Link de las publicaciones">
-          <InputField
-            type="input"
-            placeholder="Facebook"
-            name="facebookActivity"
-            label="Facebook"
-            register={register}
-          />
-          <InputField
-            type="input"
-            placeholder="Instagram"
-            name="instagramActivity"
-            label="Instagram"
-            register={register}
-          />
-        </Section>
-        <FullSection title="Categorías" titleTwo="Disponibilidad">
-          <CheckboxGroup register={register} />
-          <InputField
-            type="input"
-            placeholder="Cantidad de Cupos"
-            name="capacity"
-            label="Cantidad de Cupos"
-            register={register}
-          />
-          <ToggleSwitch
-            id="toggle"
-            label="Permitir Registro de Personas"
-          />
-        </FullSection>
-        <Section title="Descripción de la actividad">
-          <textarea
-            className={styles.customTextarea}
-            {...register("description")}
-          ></textarea>
-        </Section>
-        <div className={styles.containerFlexButom}>
-          <button
-            type="submit"
-            className={`${globals.customBtn} ${globals.btnSave}`}
-          >
-            <span>Enviar</span>
-          </button>
-          <button
-            type="button"
-            className={`${globals.customBtn} ${globals.btnCancel}`}
-            onClick={() => reset()}
-          >
-            <span>Cancelar</span>
-          </button>
-        </div>
-      </form>
+
+            <div className={styles.containerFlex}>
+              <InputField
+                type="time"
+                {...register("startTime")}
+                label=" Hora inicio"
+              />{" "}
+              <InputField
+                type="time"
+                label="  Hora finalización"
+                {...register("endTime")}
+              />
+              {errors.endTime && <p>Este campo es requerido</p>}
+            </div>
+          </Section>
+          <Section title="Contacto de la actividad">
+            <div>
+              <InputField
+                type="email"
+                placeholder="Correo electrónico"
+                {...register("email")}
+                label="     Correo electrónico"
+              />
+            </div>
+            <InputField
+              type="text"
+              placeholder="Teléfono"
+              label="Whatsapp"
+              {...register("phone")}
+            />
+          </Section>
+          <Section title="Link de las publicaciones">
+            <InputField
+              type="text"
+              placeholder="Facebook"
+              {...register("facebook")}
+              label="Facebook"
+            />
+            <InputField
+              type="text"
+              placeholder="Instagram"
+              {...register("instagram")}
+              label="Instagram"
+            />
+          </Section>
+          <FullSection title="Categorías" titleTwo="Disponibilidad">
+            <div>
+              <div className={styles.checkboxContainer}>
+                <label>
+                  <input
+                    type="checkbox"
+                    className={styles.checkboxRed}
+                    {...register("activityCategory")}
+                    value="Deporte"
+                  />
+                  <span>Deporte</span>
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    className={styles.checkboxGreen}
+                    {...register("activityCategory")}
+                    value="Cine"
+                  />
+                  <span>Cine</span>
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    className={styles.checkboxBlue}
+                    {...register("activityCategory")}
+                    value="Entretenimiento"
+                  />
+                  <span>Entretenimiento</span>
+                </label>
+              </div>
+              <div className={styles.checkboxContainer}>
+                <label>
+                  <input
+                    type="checkbox"
+                    className={styles.checkboxYelow}
+                    {...register("activityCategory")}
+                    value="Danza"
+                  />
+                  <span>Danza</span>
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    className={styles.checkboxOrange}
+                    {...register("activityCategory")}
+                    value="Aire Libre"
+                  />
+                  <span>Aire Libre</span>
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    className={styles.checkboxRose}
+                    {...register("activityCategory")}
+                    value="Acampar"
+                  />
+                  <span>Acampar</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="maxPersonRegistration"
+                className={styles.formLabel}
+              ></label>
+
+              <InputField
+                type="number"
+                placeholder="Cantidad de Cupos"
+                disabled={allowRegister}
+                {...register("maxPersonRegistration")}
+                label="Cantidad de Cupos"
+              />
+
+              <section style={{ marginTop: "10px" }}>
+                <div
+                  className={
+                    styles.checkboxWrapper + " " + globals.containerFlex
+                  }
+                >
+                  <input
+                    className={
+                      styles.tglIos + " " + styles.tgl + " " + styles.tglBtn
+                    }
+                    id="toggle"
+                    type="checkbox"
+                    checked={!allowRegister}
+                    onChange={() => handleAllowRegister(allowRegister)}
+                  />
+
+                  <label className={styles.tglBtn} htmlFor="toggle"></label>
+
+                  <p className={styles.p}>Permitir Registro de Personas</p>
+                </div>
+              </section>
+            </div>
+          </FullSection>
+          <Section title="Descripción de la actividad">
+            <textarea
+              className={styles.customTextarea}
+              {...register("activityDescription")}
+            ></textarea>
+          </Section>
+
+          <FullSection>
+            <div>
+              <label className={styles.selectImagesBtn}>
+                <span>Seleccionar archivos </span>
+                <input
+                  hidden
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={changeInput}
+                ></input>
+              </label>
+              <div className={styles.imgRows}>
+                {images.map((imagen) => (
+                  <div className="" key={imagen.index}>
+                    <div className={styles.content_img}>
+                      {/* Borrar la imagen */}
+                      <input
+                        type="button"
+                        className={styles.deleteImageBtn}
+                        value="x"
+                        onClick={() => deleteImg(imagen.index)}
+                      />
+                      <input
+                        type="checkbox"
+                        className={styles.checkboxImage}
+                        checked={mainImageIndex === imagen.index}
+                        onChange={() => selectMainImage(imagen.index)}
+                        style={{ top: "10px", right: "10px" }}
+                      />
+                      <img
+                        alt=""
+                        src={imagen.url}
+                        data-toggle="modal"
+                        data-target="#ModalPreViewImg"
+                        className="img-responsive"
+                      ></img>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FullSection>
+
+          <APIProvider apiKey={process.env.NEXT_PUBLIC_API_MAPS_KEY}>
+            <div
+              className={styles.containerMap}
+              style={{ height: "400px", width: "auto" }}
+            >
+              <Map
+                defaultZoom={10}
+                defaultCenter={location}
+                mapId={process.env.NEXT_PUBLIC_ID_MAPS_KEY}
+                onClick={handleMapClick}
+              >
+                <AdvancedMarker position={location}></AdvancedMarker>
+              </Map>
+            </div>
+          </APIProvider>
+
+          <div></div>
+
+          <div className={globals.containerFlex + " " + styles.containerDivide}>
+            <button
+              type="submit"
+              className={globals.customBtn + " " + globals.btnSave}
+            >
+              <span>Enviar</span>
+            </button>
+            <button
+              type="button"
+              className={globals.customBtn + " " + globals.btnCancel}
+              onClick={() => reset()}
+            >
+              <span>Cancelar</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
@@ -212,66 +423,43 @@ function FullSection({ title, titleTwo, children }) {
   );
 }
 
-function InputField({ type, placeholder, name, label, register, className = "" }) {
-  return (
-    <div className={`${styles.formGroup} ${className}`}>
-      <input
-        type={type}
-        className={styles.formField}
-        placeholder={placeholder}
-        {...register(name, { required: true })}
-      />
-      <label htmlFor={name} className={styles.formLabel}>
-        {label}
-      </label>
-    </div>
-  );
-}
+// function CheckboxGroup({ register }) {
+//   const categories = [
+//     { value: 'Entretenimiento', className: styles.checkboxBlue },
+//     { value: 'Cine', className: styles.checkboxGreen },
+//     // Puedes agregar más categorías aquí
+//   ];
 
-function CheckboxGroup({ register }) {
-  const categories = [
-    { value: 'Entretenimiento', className: styles.checkboxBlue },
-    { value: 'Cine', className: styles.checkboxGreen },
-    // Puedes agregar más categorías aquí
-  ];
+//   return (
+//     <div className={styles.checkboxContainer}>
+//       {categories.map((category, index) => (
+//         <label key={index}>
+//           <input
+//             type="checkbox"
+//             className={category.className}
+//             {...register("activityCategory")}
+//             value={category.value}
+//           />
+//           <span>{category.value}</span>
+//         </label>
+//       ))}
 
-  return (
-    <div className={styles.checkboxContainer}>
-      {categories.map((category, index) => (
-        <label key={index}>
-          <input
-            type="checkbox"
-            className={category.className}
-            {...register("activityCategory")}
-            value={category.value}
-          />
-          <span>{category.value}</span>
-        </label>
-      ))}
-   
+//     </div>
 
+//   );
+// }
 
+// function ToggleSwitch({ id, label }) {
+//   return (
+//     <div className={`${styles.checkboxWrapper} ${styles.containerFlex} ${styles.padding}`}>
+//       <input
+//         className={`${styles.tglIos} ${styles.tgl} ${styles.tglBtn}`}
+//         id={id}
+//         type="checkbox"
+//       />
+//       <label className={styles.tglBtn} htmlFor={id}></label>
+//       <p>{label}</p>
 
-
-
-
-    </div>
-
-  );
-}
-
-function ToggleSwitch({ id, label }) {
-  return (
-    <div className={`${styles.checkboxWrapper} ${styles.containerFlex} ${styles.padding}`}>
-      <input
-        className={`${styles.tglIos} ${styles.tgl} ${styles.tglBtn}`}
-        id={id}
-        type="checkbox"
-      />
-      <label className={styles.tglBtn} htmlFor={id}></label>
-      <p>{label}</p>
-    </div>
-  );
-}
-
-
+//     </div>
+//   );
+// }
