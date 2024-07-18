@@ -30,6 +30,15 @@ export default function data(props) {
     lat: 8.626823986047272,
     lng: -83.15456668174622,
   });
+  const categories = [
+    { value: "Deporte", style: styles.checkboxRed },
+    { value: "Danza", style: styles.checkboxYelow },
+    { value: "Cine", style: styles.checkboxGreen },
+    { value: "Entretenimiento", style: styles.checkboxBlue },
+
+    { value: "Aire Libre", style: styles.checkboxOrange },
+    { value: "Acampar", style: styles.checkboxRose },
+  ];
 
   const changeInput = (e) => {
     let indexImg;
@@ -143,14 +152,14 @@ export default function data(props) {
               type="text"
               placeholder="Nombre de actividad"
               label="Nombre de actividad"
-              {...register("nameActivity")}
+              {...register("nameActivity", { required: true })}
             />
+            {errors.nameActivity && <p>Este campo es requerido</p>}
             <InputField
               type="text"
               placeholder="Lugar"
-              {...register("place")}
+              {...register("place", { required: true })}
               label="Lugar"
-              ref={register("place").ref} // Pasa el ref correctamente
             />
             {errors.place && <p>Este campo es requerido</p>}
           </Section>
@@ -158,27 +167,40 @@ export default function data(props) {
             <div className={styles.containerFlex}>
               <InputField
                 type="date"
-                {...register("startDate")}
+                {...register("startDate", { required: true })}
                 label="Fecha de inicio"
-              />{" "}
+              />
+              {errors.startDate && <p>Este campo es requerido</p>}
               <InputField
                 type="date"
-                {...register("endDate")}
+                {...register("endDate", {
+                  validate: (value) => {
+                    if (!value) {
+                      return "Este campo es requerido";
+                    }
+                    if (startDate && new Date(value) < new Date(startDate)) {
+                      return "La fecha de fin no puede ser menor que la fecha de inicio";
+                    }
+                    return true;
+                  },
+                })}
                 label="Fecha de fin"
                 typeData="endDate"
               />
+              {errors.endDate && <p>{errors.endDate.message}</p>}
             </div>
 
             <div className={styles.containerFlex}>
               <InputField
                 type="time"
-                {...register("startTime")}
+                {...register("startTime", { required: true })}
                 label=" Hora inicio"
-              />{" "}
+              />
+              {errors.startTime && <p>Este campo es requerido</p>}
               <InputField
                 type="time"
-                label="  Hora finalización"
-                {...register("endTime")}
+                label="Hora finalización"
+                {...register("endTime", { required: true })}
               />
               {errors.endTime && <p>Este campo es requerido</p>}
             </div>
@@ -188,16 +210,18 @@ export default function data(props) {
               <InputField
                 type="email"
                 placeholder="Correo electrónico"
-                {...register("email")}
-                label="     Correo electrónico"
+                {...register("email", { required: true })}
+                label="Correo electrónico"
               />
+              {errors.email && <p>Este campo es requerido</p>}
             </div>
             <InputField
               type="text"
               placeholder="Teléfono"
               label="Whatsapp"
-              {...register("phone")}
+              {...register("phone", { required: true })}
             />
+            {errors.phone && <p>Este campo es requerido</p>}
           </Section>
           <Section title="Link de las publicaciones">
             <InputField
@@ -216,62 +240,19 @@ export default function data(props) {
           <FullSection title="Categorías" titleTwo="Disponibilidad">
             <div>
               <div className={styles.checkboxContainer}>
-                <label>
-                  <input
-                    type="checkbox"
-                    className={styles.checkboxRed}
-                    {...register("activityCategory")}
-                    value="Deporte"
-                  />
-                  <span>Deporte</span>
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    className={styles.checkboxGreen}
-                    {...register("activityCategory")}
-                    value="Cine"
-                  />
-                  <span>Cine</span>
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    className={styles.checkboxBlue}
-                    {...register("activityCategory")}
-                    value="Entretenimiento"
-                  />
-                  <span>Entretenimiento</span>
-                </label>
-              </div>
-              <div className={styles.checkboxContainer}>
-                <label>
-                  <input
-                    type="checkbox"
-                    className={styles.checkboxYelow}
-                    {...register("activityCategory")}
-                    value="Danza"
-                  />
-                  <span>Danza</span>
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    className={styles.checkboxOrange}
-                    {...register("activityCategory")}
-                    value="Aire Libre"
-                  />
-                  <span>Aire Libre</span>
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    className={styles.checkboxRose}
-                    {...register("activityCategory")}
-                    value="Acampar"
-                  />
-                  <span>Acampar</span>
-                </label>
+                {categories.map((category, index) => (
+                  <div className={styles.checkboxContainer} key={index}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className={category.style}
+                        {...register("activityCategory")}
+                        value={category.value}
+                      />
+                      <span>{category.value}</span>
+                    </label>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -315,8 +296,9 @@ export default function data(props) {
           <Section title="Descripción de la actividad">
             <textarea
               className={styles.customTextarea}
-              {...register("activityDescription")}
+              {...register("activityDescription", { required: true })}
             ></textarea>
+            {errors.activityDescription && <p>Este campo es requerido</p>}
           </Section>
 
           <FullSection>
@@ -405,7 +387,7 @@ export default function data(props) {
 function Section({ title, children }) {
   return (
     <div>
-      <h1 className={styles.infoTitle}>{title}</h1>
+      <h2 className={styles.infoTitle}>{title}</h2>
       <div className={styles.containerDivide}>{children}</div>
     </div>
   );
@@ -415,51 +397,10 @@ function FullSection({ title, titleTwo, children }) {
   return (
     <div>
       <div className={styles.containerDivide}>
-        <h1 className={styles.infoTitle}>{title}</h1>
-        <h1 className={styles.infoTitle}>{titleTwo}</h1>
+        <h2 className={styles.infoTitle}>{title}</h2>
+        <h2 className={styles.infoTitle}>{titleTwo}</h2>
         {children}
       </div>
     </div>
   );
 }
-
-// function CheckboxGroup({ register }) {
-//   const categories = [
-//     { value: 'Entretenimiento', className: styles.checkboxBlue },
-//     { value: 'Cine', className: styles.checkboxGreen },
-//     // Puedes agregar más categorías aquí
-//   ];
-
-//   return (
-//     <div className={styles.checkboxContainer}>
-//       {categories.map((category, index) => (
-//         <label key={index}>
-//           <input
-//             type="checkbox"
-//             className={category.className}
-//             {...register("activityCategory")}
-//             value={category.value}
-//           />
-//           <span>{category.value}</span>
-//         </label>
-//       ))}
-
-//     </div>
-
-//   );
-// }
-
-// function ToggleSwitch({ id, label }) {
-//   return (
-//     <div className={`${styles.checkboxWrapper} ${styles.containerFlex} ${styles.padding}`}>
-//       <input
-//         className={`${styles.tglIos} ${styles.tgl} ${styles.tglBtn}`}
-//         id={id}
-//         type="checkbox"
-//       />
-//       <label className={styles.tglBtn} htmlFor={id}></label>
-//       <p>{label}</p>
-
-//     </div>
-//   );
-// }

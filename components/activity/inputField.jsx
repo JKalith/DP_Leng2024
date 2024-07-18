@@ -13,6 +13,7 @@ const InputField = forwardRef(({ type, placeholder, typeData, label, ...rest }, 
         ref={ref}
         {...rest} // Pasa el resto de las props, incluyendo el registro
       />
+ 
       <label className={styles.formLabel}>
         {label}
       </label>

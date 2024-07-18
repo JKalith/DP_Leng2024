@@ -25,15 +25,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/activity/activityRegister": [
+    "/users": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/activity/activityRegister.js"
+      "static/chunks/pages/users.js"
     ],
-    "/data": [
+    "/users/edit/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/data.js"
+      "static/chunks/pages/users/edit/[id].js"
     ]
   },
   "ampFirstPages": []
