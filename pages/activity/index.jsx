@@ -7,13 +7,14 @@ const ActivityPage = () => {
   const [activities, setActivities] = useState([]);
   const [filteredActivities, setFilteredActivities] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [dateFilter, setDateFilter] = useState(""); 
+  const [dateCondition, setDateCondition] = useState(""); 
 
   useEffect(() => {
-    
     activityService.getAll()
       .then((data) => {
         setActivities(data);
-        setFilteredActivities(data); 
+        setFilteredActivities(data);
       })
       .catch((error) => {
         console.error("Error fetching activities:", error);
@@ -21,28 +22,51 @@ const ActivityPage = () => {
   }, []);
 
   useEffect(() => {
-    //parte para filtrar
     const filterActivities = () => {
-      if (selectedCategories.length === 0) {
-        
-        setFilteredActivities(activities);
-      } else {
-        
-        const filtered = activities.filter(activity =>
+      let filtered = activities;
+
+      if (selectedCategories.length > 0) {
+        filtered = filtered.filter(activity =>
           activity.activityCategory.some(category =>
             category.toLowerCase() === selectedCategories.toLowerCase()
           )
         );
-        setFilteredActivities(filtered);
       }
+
+      if (dateFilter && dateCondition) {
+        const selectedDate = new Date(dateFilter);
+
+        filtered = filtered.filter(activity => {
+          const activityStartDate = new Date(activity.startDate);
+
+          if (dateCondition === "before") {
+            return activityStartDate < selectedDate;
+          } else if (dateCondition === "after") {
+            return activityStartDate > selectedDate;
+          } else if (dateCondition === "on") {
+            return activityStartDate.toDateString() === selectedDate.toDateString();
+          }
+
+          return true;
+        });
+      }
+
+      setFilteredActivities(filtered);
     };
 
-    filterActivities(); 
-  }, [selectedCategories, activities]);
+    filterActivities();
+  }, [selectedCategories, dateFilter, dateCondition, activities]);
 
   const handleCategoryChange = (event) => {
-    const { value } = event.target;
-    setSelectedCategories(value); 
+    setSelectedCategories(event.target.value);
+  };
+
+  const handleDateFilterChange = (event) => {
+    setDateFilter(event.target.value);
+  };
+
+  const handleDateConditionChange = (event) => {
+    setDateCondition(event.target.value);
   };
 
   return (
@@ -57,6 +81,14 @@ const ActivityPage = () => {
           <option value="danza">Danza</option>
           <option value="acampar">Acampar</option>
         </select>
+
+        <select onChange={handleDateConditionChange} value={dateCondition}>
+          <option value="">Todas las fechas</option>
+          <option value="before">Antes de</option>
+          <option value="after">Después de</option>
+          <option value="on">En la fecha</option>
+        </select>
+        <input type="date" onChange={handleDateFilterChange} value={dateFilter} />
       </div>
 
       <div className={styles.containerCenter}>
