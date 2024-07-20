@@ -20,7 +20,12 @@
 
 }
 
+.DivideHalf{
 
+
+  width: 40%;
+
+}
 
 
 .size{
@@ -34,11 +39,16 @@
 
 .containerFlex {
     display: flex;
-
+ 
     gap: 10px;
   
   
   }
+
+
+
+
+
   .button {
     margin: 20px;
   }
@@ -217,4 +227,114 @@
       
     
   
-  
+      .btnAddPhoto{
+        position: relative;
+        width: 150px;
+        height: 40px;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid #34974d;
+        background:  rgb(15, 189, 122);
+      }
+      
+      .btnAddPhoto, .btnAddPhotoIcon, .btnAddPhotoText {
+        transition: all 0.3s;
+      }
+      
+      .btnAddPhoto .btnAddPhotoText {
+        transform: translateX(10px);
+        color: #fff;
+        font-weight: 600;
+      }
+      
+      .btnAddPhoto .btnAddPhotoIcon {
+        position: absolute;
+        transform: translateX(109px);
+        height: 100%;
+        width: 39px;
+        border-radius: 10px;
+        background:  rgb(15, 189, 122);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .btnAddPhoto .svg {
+        width: 30px;
+        stroke: #fff;
+      }
+      
+      .btnAddPhoto:hover {
+        background:  rgb(15, 189, 122);
+      }
+      
+      .btnAddPhoto:hover .btnAddPhotoText {
+        color: transparent;
+      }
+      
+      .btnAddPhoto:hover .btnAddPhotoIcon {
+        width: 148px;
+        transform: translateX(0);
+      }
+      
+      .btnAddPhoto:active .btnAddPhotoIcon {
+        background-color: #2e8644;
+      }
+      
+      .btnAddPhoto:active {
+        border: 1px solid #2e8644;
+      }
+
+
+
+
+
+
+      .tooltip {
+        position: relative;
+     
+   
+     
+      }
+      
+   
+      
+       
+      
+      .tooltip .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: none;
+      }
+      
+      .tooltiptext {
+   
+        width: 140px;
+        background-color: #333333ad ;
+    
+        color: #fff;
+        text-align: center;
+        border-radius: 8px;
+        padding: 2px;
+        position: absolute;
+        z-index: 1;
+        bottom: 100%;
+        left: 60%;
+        margin-left: -20px;
+        opacity: 0;
+
+      }
+      
+      .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 20%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333333ad  transparent transparent transparent;
+      }
+
