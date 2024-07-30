@@ -31,13 +31,13 @@ export default function data(props) {
     lng: -83.15456668174622,
   });
   const categories = [
-    { value: 'Deporte', style: styles.checkboxRed },
-    { value: 'Danza', style: styles.checkboxYelow},
-    { value: 'Cine', style: styles.checkboxGreen },
-    { value: 'Entretenimiento', style: styles.checkboxBlue },
-   
-    { value: 'Aire Libre', style: styles.checkboxOrange },
-    { value: 'Acampar', style: styles.checkboxRose }
+    { value: "Deporte", style: styles.checkboxRed },
+    { value: "Danza", style: styles.checkboxYelow },
+    { value: "Cine", style: styles.checkboxGreen },
+    { value: "Entretenimiento", style: styles.checkboxBlue },
+
+    { value: "Aire Libre", style: styles.checkboxOrange },
+    { value: "Acampar", style: styles.checkboxRose },
   ];
   const changeInput = (e) => {
     let indexImg;
@@ -105,14 +105,8 @@ export default function data(props) {
     }
   }
   const CheckboxComponent = () => {
-    const { register } = useForm();}
-
-
-
-
-
-
-
+    const { register } = useForm();
+  };
 
   async function onSubmit(data) {
     alertService.clear();
@@ -174,53 +168,59 @@ export default function data(props) {
           </Section>
           <Section title="Horario">
             <div className={styles.containerFlex}>
-
-
-
-            <div className={globals.tooltip+ " " + globals.DivideHalf}>
-              <InputField
-                type="date"
-                {...register("startDate", { required: true })}
-                label="Fecha de inicio"
-              />{errors.startDate &&   <div className={globals.tooltiptext} >Este campo es requerido</div>}
-
-
-
+              <div className={globals.tooltip + " " + globals.DivideHalf}>
+                <InputField
+                  type="date"
+                  {...register("startDate", { required: true })}
+                  label="Fecha de inicio"
+                />
+                {errors.startDate && (
+                  <div className={globals.tooltiptext}>
+                    Este campo es requerido
+                  </div>
+                )}
               </div>
               <div className={globals.tooltip + " " + globals.DivideHalf}>
-              <InputField
-                type="date"
-                {...register("endDate", { required: true })}
-                label="Fecha de fin"
-                typeData="endDate"
-              />{errors.startDate &&   <div className={globals.tooltiptext} >Este campo es requerido</div>}
+                <InputField
+                  type="date"
+                  {...register("endDate", { required: true })}
+                  label="Fecha de fin"
+                  typeData="endDate"
+                />
+                {errors.startDate && (
+                  <div className={globals.tooltiptext}>
+                    Este campo es requerido
+                  </div>
+                )}
+              </div>
             </div>
-            </div>
-            <div className={styles.containerFlex }>
-
-
-
-
-            <div className={globals.tooltip + " " + globals.DivideHalf}>
-              <InputField
-                type="time"
-                {...register("startTime", { required: true })}
-                label=" Hora inicio"
-              /> {errors.startTime &&   <div className={globals.tooltiptext} >Este campo es requerido</div>}
-
-</div>
+            <div className={styles.containerFlex}>
+              <div className={globals.tooltip + " " + globals.DivideHalf}>
+                <InputField
+                  type="time"
+                  {...register("startTime", { required: true })}
+                  label=" Hora inicio"
+                />{" "}
+                {errors.startTime && (
+                  <div className={globals.tooltiptext}>
+                    Este campo es requerido
+                  </div>
+                )}
+              </div>
 
               <div className={globals.tooltip + " " + globals.DivideHalf}>
-              <InputField
-                type="time"
-                label="  Hora finalización"
-                {...register("endTime", { required: true })}
-              />
+                <InputField
+                  type="time"
+                  label="  Hora finalización"
+                  {...register("endTime", { required: true })}
+                />
 
-
-
-                  {errors.endTime &&   <div className={globals.tooltiptext} >Este campo es requerido</div>}
+                {errors.endTime && (
+                  <div className={globals.tooltiptext}>
+                    Este campo es requerido
                   </div>
+                )}
+              </div>
             </div>
           </Section>
           <Section title="Contacto de la actividad">
@@ -254,55 +254,23 @@ export default function data(props) {
             />
           </Section>
 
-
-
-
-
-
           <Section>
-
-      {categories.map((category, index) => (
-        <div className={styles.checkboxContainer} key={index}>
-          <label>
-            <input
-              type="checkbox"
-              className={category.style}
-              {...register("activityCategory")}
-              value={category.value}
-            />
-            <span>{category.value}</span>
-          </label>
-        </div>
-      ))}
-  
-
-    </Section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            {categories.map((category, index) => (
+              <div className={styles.checkboxContainer} key={index}>
+                <label>
+                  <input
+                    type="checkbox"
+                    className={category.style}
+                    {...register("activityCategory")}
+                    value={category.value}
+                  />
+                  <span>{category.value}</span>
+                </label>
+              </div>
+            ))}
+          </Section>
 
           <FullSection title="Categorías" titleTwo="Disponibilidad">
-      
-
             <div>
               <label
                 htmlFor="maxPersonRegistration"
@@ -349,19 +317,34 @@ export default function data(props) {
 
           <FullSection>
             <div>
-        <label className={globals.btnAddPhoto}>
-              <span className={globals.btnAddPhotoText}>Añadir Fotos</span>
-              <span className={globals.btnAddPhotoIcon}><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+              <label className={globals.btnAddPhoto}>
+                <span className={globals.btnAddPhotoText}>Añadir Fotos</span>
+                <span className={globals.btnAddPhotoIcon}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke="currentColor"
+                    height="24"
+                    fill="none"
+                    class="svg"
+                  >
+                    <line y2="19" y1="5" x2="12" x1="12"></line>
+                    <line y2="12" y1="12" x2="19" x1="5"></line>
+                  </svg>
+                </span>
                 <input
                   hidden
                   type="file"
                   multiple
                   accept="image/*"
                   onChange={changeInput}
-                >
-                  
-                </input>
-              </label>
+                ></input>
+                        
+              </label>
               <div className={styles.imgRows}>
                 {images.map((imagen) => (
                   <div className="" key={imagen.index}>

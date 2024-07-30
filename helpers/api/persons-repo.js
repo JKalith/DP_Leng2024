@@ -10,6 +10,7 @@ export const personsRepo = {
 
     getAll,
     getById,
+    getByActivityId,
     create,
     update,
     delete: _delete
@@ -22,7 +23,9 @@ async function getAll() {
 async function getById(id) {
     return await Person.findById(id);
 }
-
+async function getByActivityId(idActivity) {
+    return await Person.find({ idActivity: idActivity });
+}
 async function create(params) {
     const person = new Person(params);
 

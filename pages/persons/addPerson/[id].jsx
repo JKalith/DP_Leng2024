@@ -16,6 +16,7 @@ export default function AddPerson(props) {
     if (id) {
       setActivityId(id);
       setValue("activityId", id); // Opcional: establece el valor en el formulario
+      console.log("id de la actividad"+id)
     }
   }, [id, setValue]);
   const onSubmit = async (data) => {

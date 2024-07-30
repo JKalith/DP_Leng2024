@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import Slider from "react-slick";
 import styles from "styles/seeMore.module.css";
 import globals from "styles/globals.module.css";
-import { activityService } from "services";
+import { activityService,personService } from "services";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { set } from "react-hook-form";
 const getCategoryStyle = (category) => {
   const categoryLower = category.toLowerCase();
   const colorMap = {
@@ -63,22 +64,35 @@ const ImageCarousel = ({ imageUrl }) => {
 function SeeMore() {
   const router = useRouter();
   const [activity, setActivity] = useState();
+  const [person, setPersons] = useState([]);
+  const [personCount, setPersonCount] = useState(0);
 
   useEffect(() => {
     const { id } = router.query;
     if (id) {
       activityService.getById(id).then((x) => setActivity(x));
+      personService.getByActivityId(id).then((persons) => {
+        console.log("Persons fetched:", persons); // Log para depuración
+        setPersons(persons);
+        setPersonCount(persons.length);
+    }).catch((error) => {
+        console.error("Error fetching persons:", error);
+    });
     }
+   
+    
   }, [router.query]);
-
+ 
   if (!activity) return <p>Loading...</p>;
   const handleInscribirse = () => {
     router.push(`/persons/addPerson/${activity.id}`);
   };
   
+  
   const googleMapsUrl = `https://maps.google.com/maps?q=${activity.latitude},${activity.longitude}&z=15&output=embed`;
   const googleMapsLink = `https://www.google.com/maps?q=${activity.latitude},${activity.longitude}`;
-
+  const isInscribirseHidden = activity.allowRegistration ||  personCount >= activity.maxPersonRegistration;
+  console.log(isInscribirseHidden)
   return (
     <div className={styles.containerCenter}>
       <div className={styles.container}>
@@ -156,10 +170,10 @@ function SeeMore() {
             <p>Instagram: {activity.instagram}</p>
             <p>Telefono: {activity.phone}</p>
           </div>
-          <div>
-           
+          <div  hidden={isInscribirseHidden}>
+         
               <button
-              hidden={!activity.allowRegistration}
+             
                 type="button"
                 className={globals.btnSave + " " + globals.customBtn}
                 onClick={handleInscribirse}
@@ -167,7 +181,10 @@ function SeeMore() {
                 <span>Inscribirse</span>
               </button>
            
-         
+              <div>
+            <p className={globals.infoTitle}>Personas Inscritas: {personCount}</p>
+           
+          </div>
           </div>
         </div>
       </div>

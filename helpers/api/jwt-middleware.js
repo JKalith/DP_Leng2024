@@ -13,7 +13,8 @@ function jwtMiddleware(req, res) {
             '/api/users/register',
             '/api/users/authenticate',
             '/api/persons',
-            { url: /^\/api\/activities\/*/, methods: ['GET', 'PUT','POST'] }
+            { url: /^\/api\/activities\/*/, methods: ['GET', 'PUT','POST'] },
+            { url: /^\/api\/persons\/*/, methods: ['GET', 'PUT','POST'] }
 
         ]
     });

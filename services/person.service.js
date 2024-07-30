@@ -16,6 +16,7 @@ export const personService = {
     getAll,
     getById,
     update,
+    getByActivityId,
     delete: _delete
 };
 
@@ -32,7 +33,18 @@ async function getAll() {
 async function getById(id) {
     return await fetchPerson.get(`${baseUrl}/${id}`);
 }
-
+async function getByActivityId(idActivity) {
+    try {
+        const response = await fetch(`${baseUrl}/persons?${new URLSearchParams({ idActivity })}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching persons by activity ID:', error);
+        throw error; // Re-lanzar el error para manejarlo en el componente
+    }
+}
 async function update(id, params) {
     await fetchPerson.put(`${baseUrl}/${id}`, params);
 
