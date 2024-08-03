@@ -224,6 +224,10 @@ export default function data(props) {
             </div>
           </Section>
           <Section title="Contacto de la actividad">
+
+
+
+        
             <div>
               <InputField
                 type="email"
@@ -253,8 +257,15 @@ export default function data(props) {
               label="Instagram"
             />
           </Section>
+          <FullSection  title="Contacto de la actividad"  titleTwo="Contacto de la actividad">
 
-          <Section>
+          <SectionCategory >
+
+
+
+
+
+
             {categories.map((category, index) => (
               <div className={styles.checkboxContainer} key={index}>
                 <label>
@@ -268,9 +279,9 @@ export default function data(props) {
                 </label>
               </div>
             ))}
-          </Section>
-
-          <FullSection title="Categorías" titleTwo="Disponibilidad">
+          </SectionCategory>
+         
+       
             <div>
               <label
                 htmlFor="maxPersonRegistration"
@@ -286,12 +297,12 @@ export default function data(props) {
               />
 
               <section style={{ marginTop: "10px" }}>
-                <div
+                <div  style={{ margin: "25px", marginTop: "0px" }  }
                   className={
                     styles.checkboxWrapper + " " + globals.containerFlex
                   }
                 >
-                  <input
+                  <input 
                     className={
                       styles.tglIos + " " + styles.tgl + " " + styles.tglBtn
                     }
@@ -305,9 +316,15 @@ export default function data(props) {
 
                   <p className={styles.p}>Permitir Registro de Personas</p>
                 </div>
+
+      
               </section>
             </div>
+      
+
           </FullSection>
+
+
           <Section title="Descripción de la actividad">
             <textarea
               className={styles.customTextarea}
@@ -315,8 +332,8 @@ export default function data(props) {
             ></textarea>
           </Section>
 
-          <FullSection>
-            <div>
+         
+            <div  style={{ margin: "40px", marginTop: "0px" }}>
               <label className={globals.btnAddPhoto}>
                 <span className={globals.btnAddPhotoText}>Añadir Fotos</span>
                 <span className={globals.btnAddPhotoIcon}>
@@ -350,32 +367,49 @@ export default function data(props) {
                   <div className="" key={imagen.index}>
                     <div className={styles.content_img}>
                       {/* Borrar la imagen */}
+
+
+                      
                       <input
                         type="button"
                         className={styles.deleteImageBtn}
                         value="x"
                         onClick={() => deleteImg(imagen.index)}
                       />
-                      <input
-                        type="checkbox"
-                        className={styles.checkboxImage}
-                        checked={mainImageIndex === imagen.index}
-                        onChange={() => selectMainImage(imagen.index)}
-                        style={{ top: "10px", right: "10px" }}
-                      />
+
+<label className={styles.customCheckbox}>
+<input
+    type="checkbox"
+  className={styles.checkboxImage }
+  checked={mainImageIndex === imagen.index}
+  onChange={() => selectMainImage(imagen.index)}
+  style={{ top: "10px", right: "10px" }}
+/>
+<span className={styles.checkmark}></span>
+
+</label>
+
+
+
+
+
+
+
+
+
                       <img
                         alt=""
                         src={imagen.url}
                         data-toggle="modal"
                         data-target="#ModalPreViewImg"
-                        className="img-responsive"
+                    
                       ></img>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          </FullSection>
+       
 
           <APIProvider apiKey={process.env.NEXT_PUBLIC_API_MAPS_KEY}>
             <div
@@ -428,6 +462,9 @@ function Section({ title, children }) {
 function FullSection({ title, titleTwo, children }) {
   return (
     <div>
+
+      
+
       <div className={styles.containerDivide}>
         <h1 className={styles.infoTitle}>{title}</h1>
         <h1 className={styles.infoTitle}>{titleTwo}</h1>
@@ -436,6 +473,18 @@ function FullSection({ title, titleTwo, children }) {
     </div>
   );
 }
+
+function SectionCategory({ title, titleTwo, children }) {
+  return (
+ 
+      <div className={styles.containerCategory }>
+      
+        {children}
+   
+    </div>
+  );
+}
+
 
 // function CheckboxGroup({ register }) {
 //   const categories = [

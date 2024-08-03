@@ -1,7 +1,5 @@
 self.__NEXT_FONT_MANIFEST={
-  "pages": {
-    "/activity/seeMore/[id]": []
-  },
+  "pages": {},
   "app": {},
   "appUsingSizeAdjust": false,
   "pagesUsingSizeAdjust": false

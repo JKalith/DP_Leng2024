@@ -350,8 +350,8 @@ export default function ActivityRegister(props) {
                       />
                       <span>Entretenimiento</span>
                     </label>
-                  </div>
-                  <div className={styles.checkboxContainer}>
+             
+               
                     <label>
                       <input
                         type="checkbox"
