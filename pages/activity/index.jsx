@@ -2,13 +2,30 @@ import React, { useEffect, useState } from "react";
 import { activityService } from "services";
 import ACard from "components/activity/Card";
 import styles from "styles/activity.module.css";
-
+import globals from "styles/globals.module.css";
+import Image from 'next/image';
+import IconButton from 'public/filter.png';
 const ActivityPage = () => {
   const [activities, setActivities] = useState([]);
   const [filteredActivities, setFilteredActivities] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [dateFilter, setDateFilter] = useState(""); 
   const [dateCondition, setDateCondition] = useState(""); 
+ 
+
+
+
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleDiv = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+
+
+
+
 
   useEffect(() => {
     activityService.getAll()
@@ -69,10 +86,45 @@ const ActivityPage = () => {
     setDateCondition(event.target.value);
   };
 
-  return (
-    <div>
-      <div className={styles.containerFilter}>
-        <select onChange={handleCategoryChange} value={selectedCategories}>
+  return ( 
+    <div className={styles.containerFilter}>
+
+
+
+
+   
+
+
+    
+
+  
+
+
+
+   
+
+
+
+
+<div className={globals.containerFlex}>
+
+  
+<button className={styles.filterButton} onClick={toggleDiv}>   <img  alt="Filtrar" src=""/></button>
+     
+
+
+<input type="text" className={styles.inputSearch} />
+      
+{/* inicio del slide bar */}
+<div className={`${styles.sidebar} ${isExpanded ? styles.expanded : ''}`}>
+        
+
+        <div className={globals.containerFlex}>
+        <button className={styles.filterButton} onClick={toggleDiv}>   <img  alt="Filtrar" src=""/></button>
+        <button className={styles.exitButton} onClick={toggleDiv}> X</button>
+        </div>
+        <div >
+        <select onChange={handleCategoryChange}className={styles.btnFilterCat} value={selectedCategories}>
           <option value="">Todas las categorías</option>
           <option value="entretenimiento">Entretenimiento</option>
           <option value="aire libre">Aire Libre</option>
@@ -81,17 +133,27 @@ const ActivityPage = () => {
           <option value="danza">Danza</option>
           <option value="acampar">Acampar</option>
         </select>
-
-        <select onChange={handleDateConditionChange} value={dateCondition}>
+   
+        <select onChange={handleDateConditionChange} className={styles.btnFilterCat} value={dateCondition}>
           <option value="">Todas las fechas</option>
           <option value="before">Antes de</option>
           <option value="after">Después de</option>
           <option value="on">En la fecha</option>
         </select>
-        <input type="date" onChange={handleDateFilterChange} value={dateFilter} />
+        <input type="date"className={styles.btnFilterCat} onChange={handleDateFilterChange} value={dateFilter} />
       </div>
 
+
+
+   
+        
+</div>
+ {/* fin del slide bar */}
+
+
+</div>
       <div className={styles.containerCenter}>
+        
         <div className={styles.container}>
           {filteredActivities.length > 0 ? (
             filteredActivities.map((activity) => (
@@ -103,8 +165,20 @@ const ActivityPage = () => {
             <p>No se encontraron actividades con la categoría seleccionada.</p>
           )}
         </div>
+ 
+
       </div>
+
+
+
+
+
+
+
+
     </div>
+  
+
   );
 };
 

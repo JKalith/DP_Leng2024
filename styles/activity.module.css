@@ -12,7 +12,20 @@
 
 
 }
+.container2{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr   ;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  place-items: center;
+  background-color: #f9f9f9;
+  display: grid;
+  margin: 20px;
 
+
+
+}
 
 .containerCenter {
  background-color: #f9f9f9;
@@ -24,15 +37,129 @@ display: flex;
 
 }
 
+.containerCat{
+border-radius: 15px;
 
+width: 80%;
+height: 60%;
+
+  
+}
+.buttonCat{
+  border-radius: 15px;
+  
+  width: 70px;
+  height: 40px;
+  
+    
+  }
+  .filterButton {
+    display: flex;
+    align-items: center;
+    background-image: url('/components/account/Images/filter.png'); /* La ruta es relativa a la carpeta public */
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    color: rgb(12, 12, 12);
+    border: solid 1px black;
+    height: 40px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .filterButton:hover {
+    border: solid 1px rgb(100, 100, 100) ;
+  }
+  
+  .filterIcon {
+    margin-right: 10px;
+    background-image: url('/components/account/Images/filter.png'); /* La ruta es relativa a la carpeta public */
+  }
+  
+
+.inputSearch{
+
+border-radius: 15px;
+width: 70%;
+height: auto;
+border: solid 1px rgb(100, 100, 100) ;
+background-color: #F9F9F9;
+}
+
+
+.inputSearch:focus{
+ 
+  border-radius: 15px;
+  width: 70%;
+  height: auto;
+  border: solid 1px rgb(100, 100, 100) ;
+  background-color: #F9F9F9;
+  outline: none
+  }
 
 .containerFilter{
 
 width: 100%;
-height: 80px;
-
+height: 40px;
+margin-top: 20px;
 background-color: aquamarine;
 }
+
+
+.btnFilterCat{
+  
+
+  width: 80%;
+  height: 40px;
+  border: solid 1px black;
+  border-radius: 15px;
+  margin: 10px;
+
+ 
+    }
+
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 40;
+  z-index: 1;
+  height: 100%;
+  width: 0; /* Inicio con width 0 para estar colapsado */
+  overflow: hidden;
+  background-color: #f0f0f0;
+  transition: width 0.3s ease-out; /* Transición suave */
+
+}
+
+.expanded {
+  width:25%; /* Ancho cuando está expandido */
+  border: 1px solid black;
+  border-top: rgba(0, 0, 0, 0);
+  border-radius: 15px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+
+
+
+.exitButton{
+background-color: red;
+width: 50px;
+color: #f0f0f0;
+height: 40px;
+border-radius:10px;
+margin-left: auto;
+margin-right: 2%;
+align-items: rigth;
+
+}
+
+
+
+
+
+
 @media screen and (max-width: 1300px) {
   .container {
     grid-template-columns: 1fr 1fr 1fr;
@@ -59,4 +186,25 @@ background-color: aquamarine;
     grid-template-columns: 1fr ;
     width: 700px;
   }
+
+
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 40;
+    z-index: 1;
+    height: 100%;
+    width: 0; /* Inicio con width 0 para estar colapsado */
+    overflow: hidden;
+    background-color: #f0f0f0;
+    transition: width 0.3s ease-out; /* Transición suave */
+  }
+  
+  .expanded {
+    width: 100%; /* Ancho cuando está expandido */
+  }
+
+
+
 }
