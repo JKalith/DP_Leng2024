@@ -1,5 +1,5 @@
 import styles from "styles/basura.module.css";
-import { activityService, alertService } from "services";
+import { activityService, alertService, userService } from "services";
 import { useRouter } from "next/router";
 import InputField from "components/activity/inputField";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import {
 } from "@vis.gl/react-google-maps";
 
 export default function data(props) {
+  const user = userService.userValue;
   const activitytwo = props?.activity;
   const router = useRouter();
   const [mainImageIndex, setMainImageIndex] = useState(0);
@@ -39,6 +40,7 @@ export default function data(props) {
     { value: "Aire Libre", style: styles.checkboxOrange },
     { value: "Acampar", style: styles.checkboxRose },
   ];
+
   const changeInput = (e) => {
     let indexImg;
 
@@ -123,6 +125,7 @@ export default function data(props) {
       }
       data.latitude = location.lat;
       data.longitude = location.lng;
+      data.userId = user.id;
       if (activitytwo) {
         await activityService.update(activitytwo.id, data);
         message = "Actividad actualizada";
@@ -148,6 +151,7 @@ export default function data(props) {
   }
   return (
     <div className={styles.container}>
+      
       <div className={styles.containerSec}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Section title="Registro de Actividades">
@@ -162,7 +166,7 @@ export default function data(props) {
               placeholder="Lugar"
               {...register("place")}
               label="Lugar"
-              ref={register("place").ref} // Pasa el ref correctamente
+              ref={register("place").ref}
             />
             {errors.place && <p>Este campo es requerido</p>}
           </Section>
@@ -224,10 +228,6 @@ export default function data(props) {
             </div>
           </Section>
           <Section title="Contacto de la actividad">
-
-
-
-        
             <div>
               <InputField
                 type="email"
@@ -257,31 +257,26 @@ export default function data(props) {
               label="Instagram"
             />
           </Section>
-          <FullSection  title="Contacto de la actividad"  titleTwo="Contacto de la actividad">
+          <FullSection
+            title="Contacto de la actividad"
+            titleTwo="Contacto de la actividad"
+          >
+            <SectionCategory>
+              {categories.map((category, index) => (
+                <div className={styles.checkboxContainer} key={index}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      className={category.style}
+                      {...register("activityCategory")}
+                      value={category.value}
+                    />
+                    <span>{category.value}</span>
+                  </label>
+                </div>
+              ))}
+            </SectionCategory>
 
-          <SectionCategory >
-
-
-
-
-
-
-            {categories.map((category, index) => (
-              <div className={styles.checkboxContainer} key={index}>
-                <label>
-                  <input
-                    type="checkbox"
-                    className={category.style}
-                    {...register("activityCategory")}
-                    value={category.value}
-                  />
-                  <span>{category.value}</span>
-                </label>
-              </div>
-            ))}
-          </SectionCategory>
-         
-       
             <div>
               <label
                 htmlFor="maxPersonRegistration"
@@ -297,12 +292,13 @@ export default function data(props) {
               />
 
               <section style={{ marginTop: "10px" }}>
-                <div  style={{ margin: "25px", marginTop: "0px" }  }
+                <div
+                  style={{ margin: "25px", marginTop: "0px" }}
                   className={
                     styles.checkboxWrapper + " " + globals.containerFlex
                   }
                 >
-                  <input 
+                  <input
                     className={
                       styles.tglIos + " " + styles.tgl + " " + styles.tglBtn
                     }
@@ -316,14 +312,9 @@ export default function data(props) {
 
                   <p className={styles.p}>Permitir Registro de Personas</p>
                 </div>
-
-      
               </section>
             </div>
-      
-
           </FullSection>
-
 
           <Section title="Descripción de la actividad">
             <textarea
@@ -332,84 +323,70 @@ export default function data(props) {
             ></textarea>
           </Section>
 
-         
-            <div  style={{ margin: "40px", marginTop: "0px" }}>
-              <label className={globals.btnAddPhoto}>
-                <span className={globals.btnAddPhotoText}>Añadir Fotos</span>
-                <span className={globals.btnAddPhotoIcon}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke="currentColor"
-                    height="24"
-                    fill="none"
-                    class="svg"
-                  >
-                    <line y2="19" y1="5" x2="12" x1="12"></line>
-                    <line y2="12" y1="12" x2="19" x1="5"></line>
-                  </svg>
-                </span>
-                <input
-                  hidden
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={changeInput}
-                ></input>
-                        
-              </label>
-              <div className={styles.imgRows}>
-                {images.map((imagen) => (
-                  <div className="" key={imagen.index}>
-                    <div className={styles.content_img}>
-                      {/* Borrar la imagen */}
+          <div style={{ margin: "40px", marginTop: "0px" }}>
+            <label className={globals.btnAddPhoto}>
+              <span className={globals.btnAddPhotoText}>Añadir Fotos</span>
+              <span className={globals.btnAddPhotoIcon}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke="currentColor"
+                  height="24"
+                  fill="none"
+                  class="svg"
+                >
+                  <line y2="19" y1="5" x2="12" x1="12"></line>
+                  <line y2="12" y1="12" x2="19" x1="5"></line>
+                </svg>
+              </span>
+              <input
+                hidden
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={changeInput}
+              ></input>
+                      
+            </label>
+            <div className={styles.imgRows}>
+              {images.map((imagen) => (
+                <div className="" key={imagen.index}>
+                  <div className={styles.content_img}>
+                    {/* Borrar la imagen */}
 
+                    <input
+                      type="button"
+                      className={styles.deleteImageBtn}
+                      value="x"
+                      onClick={() => deleteImg(imagen.index)}
+                    />
 
-                      
+                    <label className={styles.customCheckbox}>
                       <input
-                        type="button"
-                        className={styles.deleteImageBtn}
-                        value="x"
-                        onClick={() => deleteImg(imagen.index)}
+                        type="checkbox"
+                        className={styles.checkboxImage}
+                        checked={mainImageIndex === imagen.index}
+                        onChange={() => selectMainImage(imagen.index)}
+                        style={{ top: "10px", right: "10px" }}
                       />
+                      <span className={styles.checkmark}></span>
+                    </label>
 
-<label className={styles.customCheckbox}>
-<input
-    type="checkbox"
-  className={styles.checkboxImage }
-  checked={mainImageIndex === imagen.index}
-  onChange={() => selectMainImage(imagen.index)}
-  style={{ top: "10px", right: "10px" }}
-/>
-<span className={styles.checkmark}></span>
-
-</label>
-
-
-
-
-
-
-
-
-
-                      <img
-                        alt=""
-                        src={imagen.url}
-                        data-toggle="modal"
-                        data-target="#ModalPreViewImg"
-                    
-                      ></img>
-                    </div>
+                    <img
+                      alt=""
+                      src={imagen.url}
+                      data-toggle="modal"
+                      data-target="#ModalPreViewImg"
+                    ></img>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-       
+          </div>
 
           <APIProvider apiKey={process.env.NEXT_PUBLIC_API_MAPS_KEY}>
             <div
@@ -462,9 +439,6 @@ function Section({ title, children }) {
 function FullSection({ title, titleTwo, children }) {
   return (
     <div>
-
-      
-
       <div className={styles.containerDivide}>
         <h1 className={styles.infoTitle}>{title}</h1>
         <h1 className={styles.infoTitle}>{titleTwo}</h1>
@@ -475,54 +449,6 @@ function FullSection({ title, titleTwo, children }) {
 }
 
 function SectionCategory({ title, titleTwo, children }) {
-  return (
- 
-      <div className={styles.containerCategory }>
-      
-        {children}
-   
-    </div>
-  );
+  return <div className={styles.containerCategory}>{children}</div>;
 }
 
-
-// function CheckboxGroup({ register }) {
-//   const categories = [
-//     { value: 'Entretenimiento', className: styles.checkboxBlue },
-//     { value: 'Cine', className: styles.checkboxGreen },
-//     // Puedes agregar más categorías aquí
-//   ];
-
-//   return (
-//     <div className={styles.checkboxContainer}>
-//       {categories.map((category, index) => (
-//         <label key={index}>
-//           <input
-//             type="checkbox"
-//             className={category.className}
-//             {...register("activityCategory")}
-//             value={category.value}
-//           />
-//           <span>{category.value}</span>
-//         </label>
-//       ))}
-
-//     </div>
-
-//   );
-// }
-
-// function ToggleSwitch({ id, label }) {
-//   return (
-//     <div className={`${styles.checkboxWrapper} ${styles.containerFlex} ${styles.padding}`}>
-//       <input
-//         className={`${styles.tglIos} ${styles.tgl} ${styles.tglBtn}`}
-//         id={id}
-//         type="checkbox"
-//       />
-//       <label className={styles.tglBtn} htmlFor={id}></label>
-//       <p>{label}</p>
-
-//     </div>
-//   );
-// }

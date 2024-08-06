@@ -95,9 +95,11 @@ function SeeMore() {
   console.log(isInscribirseHidden)
   return (
     <div className={styles.containerCenter}>
+     
       <div className={styles.container}>
         <div className={styles.left}>
           <h1 className={globals.infoTitle}>{activity.nameActivity}</h1>
+<p>{activity.userId}</p>
           <section className={styles.dividerText}>
             <p className={globals.fontBold}>Lugar: </p>
             <p>{activity.place}</p>

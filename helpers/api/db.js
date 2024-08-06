@@ -1,5 +1,6 @@
 import getConfig from "next/config";
 import mongoose from "mongoose";
+import { string } from "prop-types";
 
 const { serverRuntimeConfig } = getConfig();
 const { Schema } = mongoose;
@@ -41,35 +42,13 @@ const userModel = () => {
   return mongoose.models.User || mongoose.model("User", schema);
 };
 
-const carModel = () => {
-  const schema = new Schema(
-    {
-      idCar: { type: String, unique: true, required: true },
-      brand: { type: String, required: true },
-      carType: { type: String, required: true },
-      year: { type: String, required: true },
-    },
-    {
-      timestamps: true,
-    }
-  );
 
-  schema.set("toJSON", {
-    virtuals: true,
-    versionKey: false,
-    transform: (doc, ret) => {
-      delete ret._id;
-      delete ret.hash;
-    },
-  });
-
-  return mongoose.models.Car || mongoose.model("Car", schema);
-};
 
 const activityModel = () => {
   const activitySchema = new Schema(
     {
       nameActivity: { type: String, required: true },
+      userId:{type: String, required: true},
       place: { type: String, required: true },
       email: { type: String, required: true },
       instagram: { type: String, required: true },
@@ -135,7 +114,6 @@ const personModel = () => {
 
 export const db = {
   User: userModel(),
-  Car: carModel(),
   Activity: activityModel(),
   Person: personModel(),
 };
