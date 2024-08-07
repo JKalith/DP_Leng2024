@@ -1,0 +1,19 @@
+.tableActivity{
+border: 1px black solid;
+padding: 20px;
+
+    background-color: gray;
+}
+.thead{
+
+background-color: red;
+
+
+}
+.nameRow{
+
+ background-color: rgba(0, 255, 225, 0.228);
+ border: 1px black solid;
+margin-right: 10px;
+
+}

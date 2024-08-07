@@ -29,6 +29,11 @@ export default function PersonRegister() {
         </div>
       </FullSection>
     </div>
+
+
+
+
+
   );
 }
 

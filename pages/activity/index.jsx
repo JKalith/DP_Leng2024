@@ -84,22 +84,28 @@ const ActivityPage = () => {
   return (
     <div className={styles.containerFilter}>
       <div className={globals.containerFlex}>
-        <button className={styles.filterButton} onClick={toggleDiv}>
-          {" "}
-          <img alt="Filtrar" src="" />
-        </button>
-
-        <input type="text" className={styles.inputSearch} />
+      <button className={styles.filterButton} onClick={toggleDiv}>
+              {" "}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-adjustments-horizontal">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M4 6l8 0" />
+  <path d="M16 6l4 0" />
+  <path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M4 12l2 0" />
+  <path d="M10 12l10 0" />
+  <path d="M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M4 18l11 0" />
+  <path d="M19 18l1 0" />
+</svg>
+            </button>
 
         {/* inicio del slide bar */}
         <div
           className={`${styles.sidebar} ${isExpanded ? styles.expanded : ""}`}
         >
           <div className={globals.containerFlex}>
-            <button className={styles.filterButton} onClick={toggleDiv}>
-              {" "}
-              <img alt="Filtrar" src="" />
-            </button>
+  
             <button className={styles.exitButton} onClick={toggleDiv}>
               {" "}
               X
