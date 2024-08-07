@@ -37,14 +37,14 @@ async function update(id, params) {
     await fetchActivity.put(`${baseUrl}/${id}`, params);
 
     // update stored user if the logged in user updated their own record
-    if (id === activitySubject.value.id) {
-        // update local storage
-        const activity = { ...activitySubject.value, ...params };
-        localStorage.setItem('activity', JSON.stringify(activity));
+    // if (id === activitySubject.value.id) {
+    //     // update local storage
+    //     const activity = { ...activitySubject.value, ...params };
+    //     localStorage.setItem('activity', JSON.stringify(activity));
 
-        // publish updated user to subscribers
-        activitySubject.next(activity);
-    }
+    //     // publish updated user to subscribers
+    //     activitySubject.next(activity);
+    // }
 }
 
 // prefixed with underscored because delete is a reserved word in javascript

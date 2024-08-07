@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { activityService } from "services";
+import Link from "next/link";
 
 function ManageActivity() {
   const [activities, setActivities] = useState([]);
@@ -42,6 +43,7 @@ function ManageActivity() {
                 <td>{activity.startDate}</td>
                 <td>{activity.endDate}</td>
                 <td>
+                <Link href={`/activity/edit/${activity.id}`} >Edit</Link>
                   <button onClick={() => deleteActivity(activity.id)}>
                     <span>Delete</span>
                   </button>
