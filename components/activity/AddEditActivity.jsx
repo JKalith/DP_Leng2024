@@ -3,7 +3,7 @@ import { activityService, alertService, userService } from "services";
 import { useRouter } from "next/router";
 import InputField from "components/activity/inputField";
 import { useForm } from "react-hook-form";
-import { uploadFile } from "/pages/firebase/config";
+import { uploadFile, deleteImageByUrl } from "/pages/firebase/config";
 import { useState, forwardRef, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import globals from "styles/globals.module.css";
@@ -26,6 +26,7 @@ export default function data(props) {
   const { errors } = formState;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState([]);
+  const [deletedImages, setDeletedImages] = useState([]);
   const startDate = watch("startDate");
   const [location, setLocation] = useState({
     lat: 8.626823986047272,
@@ -104,11 +105,11 @@ export default function data(props) {
   function readmultifiles(e, indexInicial) {
     const files = e.currentTarget.files;
     const arrayImages = [];
-  
+
     Object.keys(files).forEach((i) => {
       const file = files[i];
       let url = URL.createObjectURL(file);
-  
+
       arrayImages.push({
         index: indexInicial,
         name: file.name,
@@ -116,25 +117,35 @@ export default function data(props) {
         file,
         isNew: true, // Marcar como nueva imagen
       });
-  
+
       indexInicial++;
     });
-  
+
     return arrayImages;
   }
 
   function deleteImg(indice) {
-    const newImgs = images.filter(element => element.index !== indice);
-  
+    const imageToDelete = images.find((image) => image.index === indice);
+
+    // Si la imagen es existente (no nueva), agregar su URL a la lista de eliminadas
+    if (!imageToDelete.isNew) {
+      setDeletedImages((prev) => [...prev, imageToDelete.url]);
+    }
+
+    const newImgs = images.filter((element) => element.index !== indice);
+
     // Update indices directly in the filtered array
     for (let i = 0; i < newImgs.length; i++) {
       newImgs[i].index = i;
     }
-  
+
     setImages(newImgs);
-  
+
     if (mainImageIndex === indice) {
       setMainImageIndex(0); // Clear main image index if deleted
+    }
+    if (indice < mainImageIndex){
+      setMainImageIndex(mainImageIndex - 1);
     }
   }
 
@@ -159,32 +170,32 @@ export default function data(props) {
     alertService.clear();
     try {
       let message;
-  
+
       // Separar imágenes nuevas y existentes
-      const newImages = images.filter(img => img.isNew);
-      const existingImages = images.filter(img => !img.isNew);
-  
+      const newImages = images.filter((img) => img.isNew);
+      const existingImages = images.filter((img) => !img.isNew);
+
       if (newImages.length > 0) {
         const filesUrl = [];
-  
+
         // Subir solo las imágenes nuevas
         for (let i = 0; i < newImages.length; i++) {
           filesUrl[i] = await uploadFile(newImages[i].file);
           console.log("url " + filesUrl[i]);
         }
-  
+
         // Combinar URLs de imágenes nuevas y existentes
-        data.imageUrl = [...existingImages.map(img => img.url), ...filesUrl];
+        data.imageUrl = [...existingImages.map((img) => img.url), ...filesUrl];
       } else {
         // Solo URLs de imágenes existentes
-        data.imageUrl = existingImages.map(img => img.url);
+        data.imageUrl = existingImages.map((img) => img.url);
       }
-  
+
       data.indiceImagenPrincipal = mainImageIndex;
       data.latitude = location.lat;
       data.longitude = location.lng;
       data.userId = user.id;
-  
+
       if (activitytwo) {
         await activityService.update(activitytwo.id, data);
         message = "Actividad actualizada";
@@ -192,7 +203,12 @@ export default function data(props) {
         await activityService.register(data);
         message = "Actividad agregada";
       }
-  
+
+      // Eliminar las imágenes de Firebase después de actualizar o registrar la actividad
+      for (let url of deletedImages) {
+        await deleteImageByUrl(url);
+      }
+
       router.push("/users");
       alertService.success(message, true);
     } catch (error) {
@@ -200,7 +216,6 @@ export default function data(props) {
       console.error(error);
     }
   }
-
   function handleMapClick(e) {
     const { latLng } = e.detail;
     setLocation({
@@ -210,7 +225,6 @@ export default function data(props) {
   }
   return (
     <div className={styles.container}>
-      
       <div className={styles.containerSec}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Section title="Registro de Actividades">
@@ -510,4 +524,3 @@ function FullSection({ title, titleTwo, children }) {
 function SectionCategory({ title, titleTwo, children }) {
   return <div className={styles.containerCategory}>{children}</div>;
 }
-

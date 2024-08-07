@@ -1,6 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import getConfig from 'next/config';
 import Router from 'next/router';
+import { deleteImageByUrl } from "/pages/firebase/config";
 
 import { fetchActivity } from 'helpers';
 import { alertService } from './alert.service';
@@ -49,6 +50,18 @@ async function update(id, params) {
 
 // prefixed with underscored because delete is a reserved word in javascript
 async function _delete(id) {
-    await fetchActivity.delete(`${baseUrl}/${id}`);
 
+   try {
+        const activity = await getById(id);
+        if (activity && activity.imageUrl && Array.isArray(activity.imageUrl)) {
+            const deleteImagePromises = activity.imageUrl.map(url =>
+                deleteImageByUrl(url),
+                console.log('delete img')
+            );
+            await Promise.all(deleteImagePromises);
+        }
+        await fetchActivity.delete(`${baseUrl}/${id}`);
+    } catch (error) {
+        console.error("Failed to delete activity or images:", error);
+    }
 }
