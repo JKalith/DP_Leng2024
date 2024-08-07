@@ -2,8 +2,11 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/activity/manageActivity": "pages/activity/manageActivity.js",
   "/users": "pages/users.js",
+  "/": "pages/index.js",
+  "/api/activities/[id]": "pages/api/activities/[id].js",
+  "/activity/edit/[id]": "pages/activity/edit/[id].js",
+  "/api/users": "pages/api/users.js",
   "/activity": "pages/activity.js",
-  "/api/users": "pages/api/users.js"
+  "/api/activities": "pages/api/activities.js"
 }
