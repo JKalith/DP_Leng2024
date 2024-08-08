@@ -2,8 +2,13 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/activities": "pages/api/activities.js",
+  "/": "pages/index.js",
   "/users": "pages/users.js",
-  "/api/users": "pages/api/users.js",
-  "/activity/activityRegister": "pages/activity/activityRegister.js"
+  "/api/activities": "pages/api/activities.js",
+  "/api/activities/[id]": "pages/api/activities/[id].js",
+  "/activity/manageActivity": "pages/activity/manageActivity.js",
+  "/activity/seeMore/[id]": "pages/activity/seeMore/[id].js",
+  "/activity": "pages/activity.js",
+  "/api/persons/[id]": "pages/api/persons/[id].js",
+  "/api/users": "pages/api/users.js"
 }

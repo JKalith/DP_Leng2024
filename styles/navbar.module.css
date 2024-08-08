@@ -8,12 +8,12 @@
   .logo {
     display: flex;
     flex-direction: row;
-    border-radius:  5px 0px   0px 5px;
+ color: white;
     width: auto;
     background-color: #0d1117;
     justify-content: left;
-   
-    
+   align-items: center;
+    margin-left: 1%;
   
   }
   
@@ -40,9 +40,9 @@
   }
   
   
-  .containerFlex{
+  .containerTop{
   display: flex;
-  
+  background-color: #0d1117;
   
   }
   
@@ -54,7 +54,8 @@
   
   
   .valueAcount{
-
+margin-left: auto;
+align-items: left;
     background-color: #0d1117;
     display: absolute;
     z-index: 10;
@@ -75,7 +76,7 @@
     background-color: #0d1117;
     justify-content: right;
   
-    border-radius: 0px 5px 5px 0px;
+  
     gap: 7.5px;
   }
   
@@ -268,10 +269,7 @@
       overflow-x: hidden;
     }
     
-    .navLogo{
-  display: none;
-  
-    }
+ 
     .nav-links {
       position: absolute;
       right: 0;
@@ -298,10 +296,10 @@
       width: 100%;
 
       padding-left: 8%;
-      padding-top: 25%;
+      padding-top: 30%;
       background-color: #0d1117;
       justify-content: center;
-      border-radius: 0px 10px 5px 0px;
+      border-radius: 10px 10px 10px 0px;
     }
     
     .value {
@@ -309,7 +307,7 @@
       border: none;
       width: 100%;
       color: white;
-   
+  
 
 
       cursor: pointer;
@@ -359,6 +357,7 @@
       background-color: #1a1f24;
       border: none;
       width: 100%;
+      
       color: white;
       cursor: pointer;
       border-radius: 4px;
@@ -400,7 +399,14 @@
 
 
 
+ 
+    .valueAcount{
 
+      background-color: #0d1117;
+      display: absolute;
+      z-index: 10;
+  
+    }
 
 
 
@@ -432,7 +438,7 @@
     position: relative;
     background-color: #0d1117;
     z-index: 10;
-  
+   
   
   }
   
@@ -473,7 +479,7 @@
   .sidebar {
     position: absolute;
     top: 0;
- 
+
     left: -100%;
     width: 200px;
     height: 100%;

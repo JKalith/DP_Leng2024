@@ -21,7 +21,7 @@
   place-items: center;
   background-color: #f9f9f9;
   display: grid;
-  margin: 20px;
+
 
 
 
@@ -103,7 +103,7 @@ background-color: #F9F9F9;
 
 width: 100%;
 height: 40px;
-margin-top: 20px;
+
 background-color: aquamarine;
 }
 
@@ -125,10 +125,11 @@ background-color: aquamarine;
   left: 0;
   top: 40;
   z-index: 1;
-  height: 100%;
+  height: auto;
+  padding-bottom: 10%;
   width: 0; /* Inicio con width 0 para estar colapsado */
   overflow: hidden;
-  background-color: #f0f0f0;
+  background-color: #0d1117;
   transition: width 0.3s ease-out; /* Transición suave */
 
 }
@@ -146,20 +147,29 @@ background-color: aquamarine;
 
 
 .exitButton{
-background-color: red;
+background-color: #0d1117;
 width: 50px;
 color: #f0f0f0;
+border: none;
 height: 40px;
 border-radius:10px;
 margin-left: auto;
-
+cursor: pointer;
 margin-right: 2%;
+transition: transform 0.5s ease-in-out;
 align-items: rigth;
 
 }
 
+.exitButton:hover{
+
+  color: aquamarine;
+ 
+    transform: rotate(180deg);
 
 
+
+}
 
 
 
@@ -180,7 +190,9 @@ align-items: rigth;
     width: 700px;
   }
 
-
+  .expanded {
+    width: 35%; /* Ancho cuando está expandido */
+  }
 
 }
 
@@ -195,17 +207,17 @@ align-items: rigth;
   .sidebar {
     position: absolute;
     left: 0;
-    top: 40;
+
     z-index: 1;
     height: 100%;
     width: 0; /* Inicio con width 0 para estar colapsado */
     overflow: hidden;
-    background-color: #f0f0f0;
+    background-color: #0d1117;
     transition: width 0.3s ease-out; /* Transición suave */
   }
   
   .expanded {
-    width: 100%; /* Ancho cuando está expandido */
+    width: 40%; /* Ancho cuando está expandido */
   }
 
 

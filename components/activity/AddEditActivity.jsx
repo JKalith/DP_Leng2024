@@ -479,7 +479,7 @@ export default function data(props) {
 
           <div></div>
 
-          <div className={globals.containerFlex + " " + styles.containerDivide}>
+          <div className={styles.containerFlex + " " + styles.containerDivide}>
             <button
               type="submit"
               className={globals.customBtn + " " + globals.btnSave}

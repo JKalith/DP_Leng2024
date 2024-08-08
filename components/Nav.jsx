@@ -23,6 +23,82 @@ function Nav() {
 
   return (
     <nav>
+
+
+<div className={styles.containerTop}>
+
+
+    
+<div className={styles.logo}>
+
+
+
+<NavLink
+                href="/"
+                exact
+                className={styles.navLinks }
+              >
+
+
+
+
+                
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-hipchat">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M17.802 17.292s.077 -.055 .2 -.149c1.843 -1.425 3 -3.49 3 -5.789c0 -4.286 -4.03 -7.764 -9 -7.764c-4.97 0 -9 3.478 -9 7.764c0 4.288 4.03 7.646 9 7.646c.424 0 1.12 -.028 2.088 -.084c1.262 .82 3.104 1.493 4.716 1.493c.499 0 .734 -.41 .414 -.828c-.486 -.596 -1.156 -1.551 -1.416 -2.29z" />
+  <path d="M7.5 13.5c2.5 2.5 6.5 2.5 9 0" />
+</svg>
+
+
+
+                   </NavLink>
+
+                   <NavLink
+                href="/"
+                exact
+                className={styles.navLinks }
+              >
+
+                   <p    href="/users" className={styles.navLogo}>Golfito Activo</p>
+
+
+                   </NavLink>
+              
+            </div>
+    
+
+            <NavLink
+                href="/users"
+                exact
+                className={styles.navLinks + " " + styles.valueAcount}
+              >
+                <button
+                  className={`${styles.value} ${
+                    router.pathname === "/users" ? styles.active : ""
+                  }`}
+                >
+                  {userService.userValue?.firstName}
+                  <svg
+                    viewBox="0 0 16 16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-name="Layer 2"
+                  >
+                    <path
+                      fill="#7D8590"
+                      d="m1.5 13v1a.5.5 0 0 0 .3379.4731 18.9718 18.9718 0 0 0 6.1621 1.0269 18.9629 18.9629 0 0 0 6.1621-1.0269.5.5 0 0 0 .3379-.4731v-1a6.5083 6.5083 0 0 0 -4.461-6.1676 3.5 3.5 0 1 0 -4.078 0 6.5083 6.5083 0 0 0 -4.461 6.1676zm4-9a2.5 2.5 0 1 1 2.5 2.5 2.5026 2.5026 0 0 1 -2.5-2.5zm2.5 3.5a5.5066 5.5066 0 0 1 5.5 5.5v.6392a18.08 18.08 0 0 1 -11 0v-.6392a5.5066 5.5066 0 0 1 5.5-5.5z"
+                    ></path>
+                  </svg>
+                </button>
+              </NavLink>
+
+
+              </div>
+
+
+
+
+
       <div className={styles.wrapper}>
         <input type="checkbox" id="checkbox" className={styles.checkbox} />
         <label htmlFor="checkbox" className={styles.toggle}>
@@ -30,12 +106,22 @@ function Nav() {
           <div className={`${styles.bars} ${styles.bar2}`} id="bar2"></div>
           <div className={`${styles.bars} ${styles.bar3}`} id="bar3"></div>
         </label>
-        <div className={styles.sidebar}>
-          <div className={styles.containerFlex}>
-            <div className={styles.logo}>
-              <p className={styles.navLogo}>logo</p>
-            </div>
 
+   
+
+
+
+
+
+
+
+
+        <div className={styles.sidebar}>
+     
+     
+     
+          <div className={styles.containerFlex}>
+     
             <div className={styles.input}>
               <NavLink href="/" exact className={styles.navLinks}>
                 <button
@@ -160,33 +246,18 @@ function Nav() {
                 </button>
               </NavLink>
 
-              <NavLink
-                href="/users"
-                exact
-                className={styles.navLinks + " " + styles.valueAcount}
-              >
-                <button
-                  className={`${styles.value} ${
-                    router.pathname === "/users" ? styles.active : ""
-                  }`}
-                >
-                  {userService.userValue?.firstName}
-                  <svg
-                    viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    data-name="Layer 2"
-                  >
-                    <path
-                      fill="#7D8590"
-                      d="m1.5 13v1a.5.5 0 0 0 .3379.4731 18.9718 18.9718 0 0 0 6.1621 1.0269 18.9629 18.9629 0 0 0 6.1621-1.0269.5.5 0 0 0 .3379-.4731v-1a6.5083 6.5083 0 0 0 -4.461-6.1676 3.5 3.5 0 1 0 -4.078 0 6.5083 6.5083 0 0 0 -4.461 6.1676zm4-9a2.5 2.5 0 1 1 2.5 2.5 2.5026 2.5026 0 0 1 -2.5-2.5zm2.5 3.5a5.5066 5.5066 0 0 1 5.5 5.5v.6392a18.08 18.08 0 0 1 -11 0v-.6392a5.5066 5.5066 0 0 1 5.5-5.5z"
-                    ></path>
-                  </svg>
-                </button>
-              </NavLink>
+           
             </div>
           </div>
+ 
         </div>
-      </div>
+
+
+    
+
+        </div>
+  
+       
     </nav>
   );
 }
