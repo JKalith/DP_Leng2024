@@ -360,7 +360,7 @@ export default function data(props) {
                 type="number"
                 placeholder="Cantidad de Cupos"
                 disabled={allowRegister}
-                {...register("maxPersonRegistration", { required: true })}
+                {...register("maxPersonRegistration")}
                 label="Cantidad de Cupos"
               />
 
