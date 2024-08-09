@@ -1,5 +1,5 @@
 
-import styles from "styles/basura.module.css";
+import styles from "styles/activityRegister.module.css";
 
 import React, { forwardRef } from 'react';
 

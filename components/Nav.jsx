@@ -96,7 +96,7 @@ function Nav() {
               </div>
 
 
-
+         
 
 
       <div className={styles.wrapper}>
@@ -114,6 +114,7 @@ function Nav() {
 
 
 
+      
 
 
         <div className={styles.sidebar}>
@@ -122,7 +123,65 @@ function Nav() {
      
           <div className={styles.containerFlex}>
      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div className={styles.input}>
+
+
+
+
+
+            <NavLink
+                href="/activity/activityRegister"
+                exact
+                className={styles.navLinks + " " + styles .valueAddActivity}
+              >
+                <button
+                  className={`${styles.value} ${
+                    router.pathname === "/activity/activityRegister" ? styles.active : ""
+                  }`}
+                >
+                 <p>Nueva Actividad
+                  </p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 5l0 14" />
+  <path d="M5 12l14 0" />
+</svg>
+                </button>
+              </NavLink>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               <NavLink href="/" exact className={styles.navLinks}>
                 <button
                   className={`${styles.value} ${
@@ -245,8 +304,44 @@ function Nav() {
                   Notifications
                 </button>
               </NavLink>
+              
 
-           
+
+
+
+
+
+
+
+              <NavLink
+                href="/activity/activityRegister"
+                exact
+                className={styles.navLinks + " " + styles.valueActivity}
+              >
+                <button
+                  className={`${styles.value} ${
+                    router.pathname === "/activity/activityRegister" ? styles.active : ""
+                  }`}
+                >
+             
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 5l0 14" />
+  <path d="M5 12l14 0" />
+</svg>
+<p>Nueva Actividad
+</p>
+                </button>
+              </NavLink>
+
+
+
+
+
+
+
+
+
             </div>
           </div>
  

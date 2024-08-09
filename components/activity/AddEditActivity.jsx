@@ -1,4 +1,4 @@
-import styles from "styles/basura.module.css";
+import styles from "styles/";
 import { activityService, alertService, userService } from "services";
 import { useRouter } from "next/router";
 import InputField from "components/activity/inputField";

@@ -1,0 +1,854 @@
+.containerDivide {
+    display: grid;
+    margin-left: 20px;
+    margin-right: 20px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+   
+    font-family: "Lato", sans-serif;
+    max-width:1000px;
+  }
+  
+  
+  .containerCategory {
+    
+    display:flex;
+   flex-wrap: wrap;
+    justify-content: left;
+  gap: 10px;
+    margin-left: 20px;
+  
+    font-family: "Lato", sans-serif;
+  
+  }
+  
+  
+  
+  
+  .containerFlex {
+    display: flex;
+  
+    font-family: "Lato", sans-serif;
+  
+    gap: 10px;
+  }
+  .padding {
+    padding: 20px;
+  }
+  
+  .p {
+    margin-top: 6px;
+  }
+  
+  .containerFlexButom {
+    display: flex;
+  
+    font-family: "Lato", sans-serif;
+  
+    gap: 10px;
+  }
+  
+  .imgRows {
+   
+    display:flex;
+   flex-wrap: wrap;
+    justify-content: left;
+  gap: 10px;
+  width: fit-content;
+  height: 100%;
+  
+  max-width: 1000px;
+    font-family: "Lato", sans-serif;
+  }
+  
+  .content_img {
+    position: relative;
+    height: 275px;
+    width: 300px;
+  border-radius: 5px;
+    overflow: hidden;
+    margin-top: 15px;
+    margin-left: 15px;
+    background-size: cover;
+  }
+  
+  .content_img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+  }
+  .deleteImageBtn {
+    position: relative;
+    border: none;
+    color: white;
+    background-color: #f00; /* Color de fondo predeterminado */
+    border-radius: 4px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px; /* Añadido para hacer el botón cuadrado */
+  
+    z-index: 1;
+    animation-fill-mode: forwards;
+    transition: transform 0.5s, background-color 0.3s, color 0.3s; /* Transiciones */
+    transform-style: preserve-3d; /* Necesario para preservar la profundidad 3D */
+    
+    align-items: center;
+    justify-content: center;
+    font-size: px;
+  }
+  @keyframes spin {
+    from {
+      transform:  rotateZ(0deg) rotateY(0deg);
+    }
+    to {
+      transform:  rotateZ(360deg);
+    }
+  }
+  .deleteImageBtn:hover {
+    color: #666;
+    background-color: #e0e0e0;
+    animation: spin 1s , color 0.3s linear; /* Aplicar la animación de giro */
+  
+    animation-fill-mode: forwards;
+  }
+  
+  .deleteImageBtn::before {
+   
+    color: transparent; /* Hacer transparente el ícono por defecto */
+  
+  }
+  
+  .deleteImageBtn:hover::before {
+    color: #000; /* Cambiar el color del ícono al pasar el cursor */
+  }
+  
+  .deleteImageBtn:active {
+    background-color: #ff0000; /* Cambiar el color de fondo al hacer clic */
+    transform: scale(0.5); /* Reducir tamaño al hacer clic */
+  }
+  
+  .deleteImageBtn:focus {
+    outline: none; /* Eliminar el borde predeterminado de enfoque */
+    box-shadow: 0 0 3px 2px rgba(255, 3, 3, 0.2); /* Sombra de enfoque */
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .checkboxImage {
+    position: absolute;
+    z-index: 2;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    
+    cursor: pointer;
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .customCheckbox {
+    z-index: 2;
+  margin-left: 80% ;
+    position: absolute;
+    align-items: right;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+    color: #333;
+    transition: color 0.3s;
+  }
+  
+  .customCheckbox input[type="checkbox"] {
+    display: none;
+  }
+  
+  .customCheckbox .checkmark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #0b9c329a;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+    transform-style: preserve-3d;
+  }
+  
+  .customCheckbox .checkmark::before {
+    content: "★" ;
+    font-size: 16px;
+    color: transparent;
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .customCheckbox input[type="checkbox"]:checked + .checkmark {
+    background-color: #0b9c329a;
+    border-color: #333;
+    transform: scale(1.1) rotateZ(360deg) rotateY(360deg);
+  }
+  
+  .customCheckbox input[type="checkbox"]:checked + .checkmark::before {
+    color: #fff;
+  }
+  
+  .customCheckbox:hover {
+    color: #666;
+  }
+  
+  .customCheckbox:hover .checkmark {
+    border-color: #666;
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+  }
+  
+  .customCheckbox input[type="checkbox"]:focus + .checkmark {
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+  
+  .customCheckbox .checkmark,
+  .customCheckbox input[type="checkbox"]:checked + .checkmark {
+    transition: background-color 1.3s, border-color 1.3s, color 1.3s, transform 0.3s;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .checkboxContainer input[type="checkbox"] + span {
+  
+    padding-right: 20px;
+    height: 30px;
+  
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  .container {
+    /* Centra verticalmente */
+    place-items: center;
+  
+    display: grid;
+  
+    margin: 20px;
+  }
+  
+  .containerSec {
+    box-sizing: content-box;
+    width: auto;
+    border-radius: 13px;
+    padding-bottom: 20px;
+    padding: left;
+    background-color: rgb(255, 255, 255);
+    border: solid 2px #bdbcbcc5;
+  }
+  
+  .infoTitle {
+    color: #000000;
+    padding-left: 20px;
+    font-weight: bold;
+  
+    text-align: LEFT;
+    font-size: 1.5rem;
+    padding-top: 10px;
+  }
+  
+  .input[type="checkbox"] {
+    display: none;
+  }
+  
+  .label {
+    background: #ffffff;
+    height: 67px;
+    font-size: 20px;
+    display: block;
+    border-bottom: 1px solid #000000;
+    width: 300px;
+  
+    cursor: pointer;
+  
+    letter-spacing: 1px;
+    position: relative;
+    padding: 5px 5px 5px 70px;
+    color: #000000;
+  
+    font-weight: bold;
+  
+    text-align: LEFT;
+    font-size: 1.2rem;
+    border-top-right-radius: 10px;
+  
+    border-bottom-right-radius: 10px;
+  }
+  
+  .containerMap {
+    place-items: center;
+  
+    display: grid;
+    margin: 40px;
+    overflow: hidden;
+    border: solid black 1px;
+    border-radius: 15px;
+  }
+  .label p {
+    margin-top: 10px;
+    display: block;
+    font-size: 1.2rem;
+  }
+  
+  .label:before {
+    content: "";
+    width: 19px;
+    height: 19px;
+    border: 1px solid #ffffff;
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    border-radius: 100%;
+    z-index: 99999;
+  }
+  
+  .label:after {
+    content: "";
+    width: 60px;
+    height: 68px;
+  
+    background: #727272;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+  
+  /* styles/Form.module.css */
+  .formGroup {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    padding-left: 30px;
+    width: 90%;
+  }
+  
+  .hour {
+    width: 40%;
+  }
+  
+  .formGroup :hover {
+    cursor: text;
+  }
+  
+  .formField {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid gray;
+  
+    outline: 0;
+    font-size: 1.1rem;
+    color: rgb(0, 0, 0);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  
+  .formField::placeholder {
+    color: transparent;
+  }
+  
+  .formFieldTime {
+    font-family: inherit;
+    width: 110px;
+    border: 0;
+    border-bottom: 2px solid gray;
+  
+    outline: 0;
+    font-size: 1.1rem;
+    color: rgb(0, 0, 0);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  
+  .formField:placeholder-shown ~ .formLabel {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+    pointer-events: none;
+    border-bottom-color: rgb(15, 189, 122);
+  }
+  
+  .formLabel {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: gray;
+  }
+  
+  .formField:focus ~ .formLabel {
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+  
+    color: var(--primary-color);
+  
+    font-weight: 700;
+  }
+  
+  .formField:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(
+      to right,
+      var(--primary-color),
+      var(--secondary-color)
+    );
+    border-image-slice: 1;
+    border-bottom-color: rgb(15, 189, 122);
+  }
+  
+  .formField:required,
+  .formField:invalid {
+    box-shadow: none;
+  }
+  
+  .customTextarea {
+    margin-top: 15px;
+  
+    width: 600px;
+    height: 150px;
+    font-family: inherit;
+    /* Para heredar la fuente del contenedor padre */
+    font-size: 1rem;
+    /* Ajusta el tamaño de fuente según sea necesario */
+    padding: 10px;
+    /* Opcional: para añadir un poco de espacio interno */
+    border: 1px solid #000000;
+    /* Opcional: estilo de borde */
+    border-radius: 4px;
+    /* Opcional: bordes redondeados */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Opcional: sombra interna */
+    resize: none;
+    /* Opcional: para evitar que el usuario cambie el tamaño */
+    margin-left: 20px;
+    margin-block-start: 20px;
+    margin-block-end: 15px;
+  }
+  .customTextarea:focus {
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+  
+    color: var(--primary-color);
+  
+    font-weight: 700;
+  
+    outline-color: rgb(15, 189, 122);
+  }
+  .checkboxWrapper .tgl {
+    display: none;
+  }
+  
+  .checkboxWrapper .tgl,
+  .checkboxWrapper .tgl:after,
+  .checkboxWrapper .tgl:before,
+  .checkboxWrapper .tgl *,
+  .checkboxWrapper .tgl *:after,
+  .checkboxWrapper .tgl *:before,
+  .checkboxWrapper .tgl + .tglBtn {
+    border: solid 1px rgba(0, 0, 0, 0.23);
+    box-sizing: border-box;
+  }
+  
+  .checkboxWrapper .tgl::selection,
+  .checkboxWrapper .tgl:after::selection,
+  .checkboxWrapper .tgl:before::selection,
+  .checkboxWrapper .tgl *::selection,
+  .checkboxWrapper .tgl *:after::selection,
+  .checkboxWrapper .tgl *:before::selection,
+  .checkboxWrapper .tgl + .tglBtn::selection {
+    background: none;
+  }
+  
+  .checkboxWrapper .tgl + .tglBtn {
+    outline: 0;
+    display: block;
+    width: 57px;
+    height: 27px;
+  
+    position: relative;
+    cursor: pointer;
+  
+    font-size: 12px;
+    font-weight: 400;
+    color: #676868;
+  }
+  
+  .checkboxWrapper .tgl + .tglBtn:after,
+  .checkboxWrapper .tgl + .tglBtn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 44%;
+    height: 100%;
+  }
+  
+  .checkboxWrapper .tgl + .tglBtn:after {
+    left: 0;
+  }
+  
+  .checkboxWrapper .tgl + .tglBtn:before {
+    display: inline;
+    position: absolute;
+    top: 7px;
+  }
+  
+  .checkboxWrapper .tgl:checked + .tglBtn:after {
+    left: 56.5%;
+  }
+  
+  .checkboxWrapper .tglIos + .tglBtn {
+    background: var(--g08);
+    border-radius: 20rem;
+    padding: 2px;
+    transition: all 0.4s ease;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkboxWrapper .tglIos + .tglBtn:after {
+    border-radius: 2em;
+    background: #fff;
+    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      padding 0.3s ease, margin 0.3s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .checkboxWrapper .tglIos + .tglBtn:active {
+    box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkboxWrapper .tglIos + .tglBtn:active:after {
+    padding-right: 0.4em;
+  }
+  
+  .checkboxWrapper .tglIos:checked + .tglBtn {
+    background: rgb(93, 231, 93);
+  }
+  
+  .checkboxWrapper .tglIos:checked + .tglBtn:active {
+    box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkboxWrapper .tglIos:checked + .tglBtn:active:after {
+    margin-left: -0.4em;
+  }
+  
+  .checkboxContainer {
+    display: flex;
+  
+    gap: 10px;
+  }
+  
+  .checkboxContainer label {
+    display: flex;
+    padding-block-end: 10px;
+    align-items: center;
+    cursor: pointer;
+  }
+  .checkboxContainer input[type="checkbox"] {
+    display: none;
+  }
+  
+  .checkboxContainer input[type="checkbox"] + span {
+    border: 2px solid rgba(0, 0, 0, 0.23);
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
+  
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  .checkboxRed:checked + span {
+    background-color: #ff4949;
+    color: rgb(0, 0, 0);
+  }
+  
+  .checkboxGreen:checked + span {
+    background-color: rgb(101, 255, 101);
+    color: rgb(0, 0, 0);
+  }
+  
+  .checkboxBlue:checked + span {
+    background-color: rgb(96, 96, 255);
+    color: rgb(0, 0, 0);
+  }
+  
+  .checkboxYelow:checked + span {
+    background-color: rgb(244, 255, 97);
+    color: rgb(0, 0, 0);
+  }
+  
+  .checkboxRose:checked + span {
+    background-color: rgb(255, 114, 224);
+    color: rgb(0, 0, 0);
+  }
+  .checkboxOrange:checked + span {
+    background-color: rgb(255, 190, 92);
+    color: rgb(0, 0, 0);
+  }
+  
+  .fancyFile {
+    display: none;
+  }
+  
+  .fancyFile + label {
+    display: flex;
+  }
+  .fancyFile_Name,
+  .fancyFile_Button {
+    padding: 5px 10px;
+  }
+  .fancyFile_Name {
+    background-color: #eee;
+    border: 1px solid #cacaca;
+    white-space: nowrap;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .fancyFile_Name span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200;
+    display: block;
+  }
+  .fancyFile_Button {
+    background-color: #5bc0de;
+    border: 1px solid #5bc0de;
+    white-space: nowrap;
+    border-radius: 0 4px 4px 0;
+  }
+  @media screen and (max-width: 1000px) {
+    .containerDivide {
+      grid-template-columns: 1fr;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .hour {
+      width: 40%;
+    }
+    .left {
+      flex: 1;
+      align-items: center;
+  
+      left: 0;
+    }
+  
+    .customTextarea {
+      width: 500px;
+      height: 100px;
+    }
+  }
+  
+  @media screen and (max-width: 700px) {
+    .refer-box {
+      display: block;
+    }
+    .hour {
+      width: 40%;
+    }
+    .refer:first-child {
+      margin-bottom: 3rem;
+    }
+  
+    .containerDivide {
+      grid-template-columns: 1fr;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  
+    .inputT {
+      width: 80%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+  
+      border-color: #878787;
+    }
+    .customTextarea {
+      width: auto;
+  
+      height: 100px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .hour {
+      width: 60%;
+    }
+    .refer:first-child {
+      margin-bottom: 3rem;
+    }
+  
+    .containerDivide {
+      grid-template-columns: 1fr;
+    
+    }
+    .formField:placeholder-shown ~ .formLabel {
+      font-size: 1rem;
+    }
+    .customTextarea {
+      margin-top: 15px;
+  
+      width: auto;
+      height: 80px;
+    }
+  
+    .infoTitle {
+      color: #000000;
+     
+      font-weight: bold;
+  
+      text-align: LEFT;
+      font-size: 1.2rem;
+      padding-top: 5px;
+    }
+  
+    .inputT {
+      width: 70%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+  
+      border-color: #878787;
+    }
+
+
+    .containerSec {
+        width: 95%;
+      }
+
+
+      .container {
+        /* Centra verticalmente */
+        place-items: center;
+    
+        display: grid;
+      
+        margin: 0px;
+      }
+
+
+}

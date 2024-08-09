@@ -1,19 +1,374 @@
+
+.containerFlex{
+
+
+display: flex;
+
+align-items: right;
+
+}
+
+
+
+
+
+
 .tableActivity{
-border: 1px black solid;
+
+
+
 padding: 20px;
 
-    background-color: gray;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
 }
 .thead{
-
-background-color: red;
-
-
+font-size: 1.1rem;
+border: solid 2px #bdbcbcc5;
+background-color:#bdbcbcc5;
 }
 .nameRow{
+    font-size: 1rem;
 
- background-color: rgba(0, 255, 225, 0.228);
- border: 1px black solid;
+    border: solid 2px #bdbcbcc5;
 margin-right: 10px;
 
 }
+
+
+.startDateRow{
+    font-size: 1rem;
+
+    border: solid 2px #bdbcbcc5;
+margin-right: 10px;
+
+}
+
+
+.endDateRow{
+    font-size: 1rem;
+
+    border: solid 2px #bdbcbcc5;
+margin-right: 10px;
+
+}
+.editionRow{
+    font-size: 1rem;
+
+    border: solid 2px #bdbcbcc5;
+margin-right: 10px;
+
+}
+
+
+
+
+
+
+
+.containerSec {
+    box-sizing: content-box;
+    width: auto;
+    border-radius: 13px;
+    padding-bottom: 20px;
+    padding: left;
+    width: 80%;
+    background-color: rgb(255, 255, 255);
+    border: solid 2px #bdbcbcc5;
+  }
+    
+  .container {
+    /* Centra verticalmente */
+    place-items: center;
+
+    display: grid;
+  
+    margin: 20px;
+  }
+  
+
+
+  .Links {
+ 
+  
+    cursor: pointer;
+
+    text-decoration: none;
+   
+   
+
+  }
+    /* BOTON DELETE  */
+
+
+
+
+
+
+    .buttonDelete {
+        
+
+
+        
+        width: 130px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        background: red;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+        background:  #e62222;
+       }
+       
+       .buttonDelete  span {
+        transition: 200ms;
+       }
+       
+       .buttonDelete .text {
+        transform: translateX(35px);
+        color: white;
+        font-weight: bold;
+       }
+       
+       .buttonDelete .icon {
+        position: absolute;
+        border-left: 1px solid  #c41b1b;
+        transform: translateX(90px);
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       }
+       
+        
+       .buttonDelete svg {
+        width: 15px;
+        fill: #eee;
+       }
+       
+       .buttonDelete:hover {
+        background:  #ff3636;
+       }
+       
+       .buttonDelete:hover .text {
+        color: transparent;
+       }
+       
+       .buttonDelete:hover .icon {
+        width: 130px;
+        border-left: none;
+        transform: translateX(0);
+       }
+       .buttonDelete:focus {
+        outline: none;
+       }
+       
+       .buttonDelete:active .icon svg {
+        transform: scale(0.8);
+       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* BOTON edit  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .buttonEdit {
+        
+
+   
+   
+        width: 130px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        background: rgb(67, 118, 213);
+        border: none;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+        background:  rgb(67, 118, 213);
+       }
+       
+       .buttonEdit  span {
+        transition: 200ms;
+       }
+       
+       .buttonEdit .text {
+        transform: translateX(35px);
+        color: white;
+        font-weight: bold;
+       }
+       
+       .buttonEdit .icon {
+        position: absolute;
+        border-left: 1px solid  rgb(59, 98, 172);
+        transform: translateX(90px);
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       }
+       
+       .buttonEdit svg {
+        width: 18px;
+    color: white;
+       }
+       
+       .buttonEdit:hover {
+        background: cornflowerblue
+       }
+       
+       .buttonEdit:hover .text {
+        color: transparent;
+       }
+       
+       .buttonEdit:hover .icon {
+        width: 130px;
+        border-left: none;
+        transform: translateX(0);
+       }
+       
+       .buttonEdit:focus {
+        outline: none;
+       }
+       
+       .buttonEdit:active .icon svg {
+        transform: scale(0.8);
+       }
+
+
+
+
+    /* Centra verticalmente */
+
+    .infoTitle {
+        color: #000000;
+        padding-left: 20px;
+        font-weight: bold;
+      
+        text-align: LEFT;
+        font-size: 1.7rem;
+        padding-top: 10px;
+      }
+
+
+  @media screen and (max-width: 1500px) {
+
+    .containerSec {
+
+        width: 80%;
+
+      }
+
+
+
+
+
+
+  }
+
+  @media screen and (max-width: 1000px) {
+
+    .containerSec {
+ 
+        width: 80%;
+   
+      }
+
+
+
+
+
+
+  }
+
+
+
+
+    @media screen and (max-width: 700px) {
+
+
+        .containerSec {
+      
+            width: 90%;
+       
+          }
+
+    }
+
+
+
+
+        @media screen and (max-width: 500px) {
+
+
+            .containerSec {
+                width: 95%;
+              }
+
+
+              .container {
+                /* Centra verticalmente */
+                place-items: center;
+            
+                display: grid;
+              
+                margin: 0px;
+              }
+
+
+        }

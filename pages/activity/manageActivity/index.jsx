@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { activityService } from "services";
 import Link from "next/link";
 import styles from "styles/manageActivity.module.css";
-
+import globals from "styles/globals.module.css";
 function ManageActivity() {
   const [activities, setActivities] = useState([]);
 
@@ -17,64 +17,105 @@ function ManageActivity() {
   }, []);
 
   function deleteActivity(id) {
-    activityService.delete(id).then(() => {
-      setActivities((prevActivities) => prevActivities.filter((x) => x.id !== id));
-    }).catch(error => {
-      console.error("Failed to delete activity:", error);
-    });
+    activityService
+      .delete(id)
+      .then(() => {
+        setActivities((prevActivities) =>
+          prevActivities.filter((x) => x.id !== id)
+        );
+      })
+      .catch((error) => {
+        console.error("Failed to delete activity:", error);
+      });
   }
 
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.containerSec}>
+     
 
-   <Link href="/activity/activityRegister" >
-  <button >
-  <svg viewBox="20 10 90 100" xmlns="http://www.w3.org/2000/svg">
-      <path
-        fill="#7D8590"
-        width="50" height="50"
-        d="m109.9 20.63a6.232 6.232 0 0 0 -8.588-.22l-57.463 51.843c-.012.011-.02.024-.031.035s-.023.017-.034.027l-4.721 4.722a1.749 1.749 0 0 0 0 2.475l.341.342-3.16 3.16a8 8 0 0 0 -1.424 1.967 11.382 11.382 0 0 0 -12.055 10.609c-.006.036-.011.074-.015.111a5.763 5.763 0 0 1 -4.928 5.41 1.75 1.75 0 0 0 -.844 3.14c4.844 3.619 9.4 4.915 13.338 4.915a17.14 17.14 0 0 0 11.738-4.545l.182-.167a11.354 11.354 0 0 0 3.348-8.081c0-.225-.02-.445-.032-.667a8.041 8.041 0 0 0 1.962-1.421l3.16-3.161.342.342a1.749 1.749 0 0 0 2.475 0l4.722-4.722c.011-.011.018-.025.029-.036s.023-.018.033-.029l51.844-57.46a6.236 6.236 0 0 0 -.219-8.589zm-70.1 81.311-.122.111c-.808.787-7.667 6.974-17.826 1.221a9.166 9.166 0 0 0 4.36-7.036 1.758 1.758 0 0 0 .036-.273 7.892 7.892 0 0 1 9.122-7.414c.017.005.031.014.048.019a1.717 1.717 0 0 0 .379.055 7.918 7.918 0 0 1 4 13.317zm5.239-10.131c-.093.093-.194.176-.293.26a11.459 11.459 0 0 0 -6.289-6.286c.084-.1.167-.2.261-.3l3.161-3.161 6.321 6.326zm7.214-4.057-9.479-9.479 2.247-2.247 9.479 9.479zm55.267-60.879-50.61 56.092-9.348-9.348 56.092-50.61a2.737 2.737 0 0 1 3.866 3.866z"
-      ></path>
-    </svg>
+        <h1 className={styles.infoTitle}>Actividades</h1>
 
-    Actividad
-  </button>
-  </Link>
+        <table className={styles.tableActivity}>
+          <thead className={styles.thead}>
+            <tr>
+              <th>Nombre de la actividad</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Finalizacion</th>
+              <th>Edicion</th>
+            </tr>
+          </thead>
+          <tbody >
+            {activities.length > 0 &&
+              activities.map((activity) => (
+                <tr key={activity.id} className={styles.nameRow}>
+                  <td className={styles.nameRow}>{activity.nameActivity}</td>
 
-
-      <h1>Actividades</h1>
-   
-      <table className={styles.tableActivity}>
-        <thead className={styles.thead}>
-          <tr >
-            <th>nombre</th>
-            <th>Fecha 1</th>
-            <th>Fecha 2</th>
-            <th>boton 1</th>
-          </tr>
-        </thead>
-        <tbody >
-          {activities.length > 0 &&
-            activities.map((activity) => (
-              <tr key={activity.id} className={styles.nameRow}>
+                  <td className={styles.startDateRow}>{activity.startDate }</td>
+                  <td className={styles.endDateRow}>{activity.endDate}</td>
+                  <td className={styles.editionRow}>
 
 
 
-                <td className={styles.nameRow}>{activity.nameActivity}</td>
 
+<div  className={styles.containerFlex}  >
 
-                <td>{activity.startDate}</td>
-                <td>{activity.endDate}</td>
-                <td>
-                <Link href={`/activity/edit/${activity.id}`} >Edit</Link>
-                  <button onClick={() => deleteActivity(activity.id)}>
-                    <span>Delete</span>
+<Link  className={styles.Links} href={`/activity/edit/${activity.id}`}>
+         
+         <button className={ styles.buttonEdit} >
+        
+                    <span  className={styles.text}>Editar</span>
+                    <span  className={styles.icon}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="3 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil-plus">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+<path d="M13.5 6.5l4 4" />
+<path d="M16 19h6" />
+<path d="M19 16v6" />
+</svg>
+                    </span>
                   </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+                  </Link>
+
+<button className={styles.buttonDelete} onClick={() => deleteActivity(activity.id)}>
+          
+          <span  className={styles.text}>Delete</span>
+          <span  className={styles.icon}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
+            </svg>
+          </span>
+        </button>
+
+
+
+
+
+        
+          
+
+
+
+  
+                    </div>
+
+               
+                  </td>
+                </tr>
+              ))}
+
+
+
+          </tbody>
+        </table>
+        
+      </div>
+
     </div>
   );
 }

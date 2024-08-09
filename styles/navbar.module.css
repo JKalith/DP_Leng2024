@@ -61,9 +61,22 @@ align-items: left;
     z-index: 10;
 
   }
-  
-  
-  
+
+  .valueAddActivity{
+    align-items: left;
+    margin-right: auto;
+    background-color: #0d1117;
+    display: absolute;
+    z-index: 10;
+
+  }
+  .valueActivity{
+
+
+
+
+    display: none;
+  }
   
   
   
@@ -269,6 +282,7 @@ align-items: left;
       overflow-x: hidden;
     }
     
+
  
     .nav-links {
       position: absolute;
@@ -302,6 +316,41 @@ align-items: left;
       border-radius: 10px 10px 10px 0px;
     }
     
+
+
+
+
+
+
+    .valueAddActivity{
+      display: none;
+   
+  
+    }
+    .valueActivity{
+  
+  display: contents;
+     align-items: left;
+      margin-right: auto;
+      background-color: #0d1117;
+      display: absolute;
+      z-index: 10;
+  
+  
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
     .value {
       background-color: transparent;
       border: none;
@@ -405,7 +454,7 @@ align-items: left;
       background-color: #0d1117;
       display: absolute;
       z-index: 10;
-  
+
     }
 
 
