@@ -2,10 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/activities": "pages/api/activities.js",
-  "/": "pages/index.js",
-  "/activity/manageActivity": "pages/activity/manageActivity.js",
-  "/api/users": "pages/api/users.js",
-  "/users": "pages/users.js",
-  "/activity": "pages/activity.js"
+  "/activity/activityRegister": "pages/activity/activityRegister.js"
 }

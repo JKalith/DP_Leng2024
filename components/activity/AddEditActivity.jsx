@@ -1,4 +1,4 @@
-import styles from "styles/";
+import styles from "styles/activityRegister.module.css";
 import { activityService, alertService, userService } from "services";
 import { useRouter } from "next/router";
 import InputField from "components/activity/inputField";
