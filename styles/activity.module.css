@@ -84,7 +84,7 @@ height: 60%;
     align-items: center;
     margin-left: 1%;
   
-    background-image: url('/components/account/Images/filter.png'); /* La ruta es relativa a la carpeta public */
+    
     padding: 10px 20px;
     background-color: #f9f9f9;
     color: rgb(12, 12, 12);
@@ -101,7 +101,7 @@ height: 60%;
   
   .filterIcon {
     margin-right: 10px;
-    background-image: url('/components/account/Images/filter.png'); /* La ruta es relativa a la carpeta public */
+   
   }
   
 

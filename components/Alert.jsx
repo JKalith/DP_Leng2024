@@ -1,13 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
+import styles from 'styles/alerts.module.css';
 import { alertService } from 'services';
-
+import Modal from './Modal';
 export { Alert };
 
 function Alert() {
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const router = useRouter();
     const [alert, setAlert] = useState(null);
+
+    const openModal = () => {
+      setIsModalVisible(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalVisible(false);
+    };
 
     useEffect(() => {
         // subscribe to new alert notifications
@@ -22,16 +31,21 @@ function Alert() {
         alertService.clear();
     }, [router]);
 
+    useEffect(() => {
+        if (alert) {
+            openModal(); // Abre el modal cuando se establece el alert
+        }
+    }, [alert]); // Este efecto se ejecuta cuando cambia el estado 'alert'
+
     if (!alert) return null;
 
     return (
-        <div >
-            <div >
-                <div className={`alert alert-dismissible ${alert.type}`}>
-                    {alert.message}
-                    <button type="button" className="btn-close" onClick={() => alertService.clear()}></button>
-                </div>
-            </div>
+        <div>
+            <Modal isVisible={isModalVisible} onClose={closeModal}>
+                <h2>Este es un modal</h2>
+                <p>Contenido del modal aquí.</p>
+            </Modal>
+          
         </div>
     );
 }

@@ -2,6 +2,9 @@ import styles from "styles/activityRegister.module.css";
 import { activityService, alertService, userService } from "services";
 import { useRouter } from "next/router";
 import InputField from "components/activity/inputField";
+import SectionCategory from "components/activity/SectionCategory";
+import Section from "components/activity/Section";
+import FullSection from "components/activity/FullSection";
 import { useForm } from "react-hook-form";
 import { uploadFile, deleteImageByUrl } from "/pages/firebase/config";
 import { useState, forwardRef, useEffect } from "react";
@@ -34,7 +37,6 @@ export default function data(props) {
   });
   useEffect(() => {
     if (activitytwo) {
-      // Cargar los datos existentes en el formulario
       reset({
         nameActivity: activitytwo.nameActivity,
         userId: activitytwo.userId,
@@ -52,7 +54,6 @@ export default function data(props) {
         activityDescription: activitytwo.activityDescription,
       });
 
-      // Cargar la ubicación
       const lat = parseFloat(activitytwo.latitude);
       const lng = parseFloat(activitytwo.longitude);
       if (!isNaN(lat) && !isNaN(lng)) {
@@ -62,17 +63,15 @@ export default function data(props) {
         });
       }
 
-      // Cargar imágenes
       const loadedImages = activitytwo.imageUrl.map((url, index) => ({
         index,
         name: `Imagen ${index + 1}`,
         url,
-        file: null, // No podemos recuperar el archivo original, solo la URL
-        isNew: false, // Marcar como imagen existente
+        file: null,
+        isNew: false,
       }));
       setImages(loadedImages);
 
-      // Configurar la imagen principal
       setMainImageIndex(activitytwo.indiceImagenPrincipal);
     }
   }, [activitytwo, reset]);
@@ -115,7 +114,7 @@ export default function data(props) {
         name: file.name,
         url,
         file,
-        isNew: true, // Marcar como nueva imagen
+        isNew: true,
       });
 
       indexInicial++;
@@ -127,14 +126,12 @@ export default function data(props) {
   function deleteImg(indice) {
     const imageToDelete = images.find((image) => image.index === indice);
 
-    // Si la imagen es existente (no nueva), agregar su URL a la lista de eliminadas
     if (!imageToDelete.isNew) {
       setDeletedImages((prev) => [...prev, imageToDelete.url]);
     }
 
     const newImgs = images.filter((element) => element.index !== indice);
 
-    // Update indices directly in the filtered array
     for (let i = 0; i < newImgs.length; i++) {
       newImgs[i].index = i;
     }
@@ -142,9 +139,9 @@ export default function data(props) {
     setImages(newImgs);
 
     if (mainImageIndex === indice) {
-      setMainImageIndex(0); // Clear main image index if deleted
+      setMainImageIndex(0);
     }
-    if (indice < mainImageIndex){
+    if (indice < mainImageIndex) {
       setMainImageIndex(mainImageIndex - 1);
     }
   }
@@ -171,23 +168,19 @@ export default function data(props) {
     try {
       let message;
 
-      // Separar imágenes nuevas y existentes
       const newImages = images.filter((img) => img.isNew);
       const existingImages = images.filter((img) => !img.isNew);
 
       if (newImages.length > 0) {
         const filesUrl = [];
 
-        // Subir solo las imágenes nuevas
         for (let i = 0; i < newImages.length; i++) {
           filesUrl[i] = await uploadFile(newImages[i].file);
           console.log("url " + filesUrl[i]);
         }
 
-        // Combinar URLs de imágenes nuevas y existentes
         data.imageUrl = [...existingImages.map((img) => img.url), ...filesUrl];
       } else {
-        // Solo URLs de imágenes existentes
         data.imageUrl = existingImages.map((img) => img.url);
       }
 
@@ -204,12 +197,11 @@ export default function data(props) {
         message = "Actividad agregada";
       }
 
-      // Eliminar las imágenes de Firebase después de actualizar o registrar la actividad
       for (let url of deletedImages) {
         await deleteImageByUrl(url);
       }
 
-      router.push("/users");
+      router.push("/activity/manageActivity");
       alertService.success(message, true);
     } catch (error) {
       alertService.error(error.message);
@@ -404,13 +396,13 @@ export default function data(props) {
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   stroke="currentColor"
                   height="24"
                   fill="none"
-                  class="svg"
+                  className="svg"
                 >
                   <line y2="19" y1="5" x2="12" x1="12"></line>
                   <line y2="12" y1="12" x2="19" x1="5"></line>
@@ -484,12 +476,12 @@ export default function data(props) {
               type="submit"
               className={globals.customBtn + " " + globals.btnSave}
             >
-              <span>Enviar</span>
+              <span>Guardar</span>
             </button>
             <button
               type="button"
               className={globals.customBtn + " " + globals.btnCancel}
-              onClick={() => reset()}
+              onClick={() => router.push("/activity")}
             >
               <span>Cancelar</span>
             </button>
@@ -498,29 +490,4 @@ export default function data(props) {
       </div>
     </div>
   );
-}
-
-function Section({ title, children }) {
-  return (
-    <div>
-      <h1 className={styles.infoTitle}>{title}</h1>
-      <div className={styles.containerDivide}>{children}</div>
-    </div>
-  );
-}
-
-function FullSection({ title, titleTwo, children }) {
-  return (
-    <div>
-      <div className={styles.containerDivide}>
-        <h1 className={styles.infoTitle}>{title}</h1>
-        <h1 className={styles.infoTitle}>{titleTwo}</h1>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function SectionCategory({ title, titleTwo, children }) {
-  return <div className={styles.containerCategory}>{children}</div>;
 }

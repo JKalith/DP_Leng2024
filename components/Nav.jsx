@@ -19,85 +19,63 @@ function Nav() {
   }, []);
 
   // Solo muestra la barra de navegación cuando el usuario está logueado
-  if (!user) return null;
+ // if (!user) return null;
 
   return (
     <nav>
+      <div className={styles.containerTop}>
+        <div className={styles.logo}>
+          <button onClick={userService.logout}>logout</button>
+          <NavLink href="/" exact className={styles.navLinks}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="icon icon-tabler icons-tabler-outline icon-tabler-brand-hipchat"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M17.802 17.292s.077 -.055 .2 -.149c1.843 -1.425 3 -3.49 3 -5.789c0 -4.286 -4.03 -7.764 -9 -7.764c-4.97 0 -9 3.478 -9 7.764c0 4.288 4.03 7.646 9 7.646c.424 0 1.12 -.028 2.088 -.084c1.262 .82 3.104 1.493 4.716 1.493c.499 0 .734 -.41 .414 -.828c-.486 -.596 -1.156 -1.551 -1.416 -2.29z" />
+              <path d="M7.5 13.5c2.5 2.5 6.5 2.5 9 0" />
+            </svg>
+          </NavLink>
 
+          <NavLink href="/" exact className={styles.navLinks}>
+            <p href="/users" className={styles.navLogo}>
+              Golfito Activo
+            </p>
+          </NavLink>
+        </div>
 
-<div className={styles.containerTop}>
-
-
-    
-<div className={styles.logo}>
-
-
-
-<NavLink
-                href="/"
-                exact
-                className={styles.navLinks }
-              >
-
-
-
-
-                
-
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-hipchat">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M17.802 17.292s.077 -.055 .2 -.149c1.843 -1.425 3 -3.49 3 -5.789c0 -4.286 -4.03 -7.764 -9 -7.764c-4.97 0 -9 3.478 -9 7.764c0 4.288 4.03 7.646 9 7.646c.424 0 1.12 -.028 2.088 -.084c1.262 .82 3.104 1.493 4.716 1.493c.499 0 .734 -.41 .414 -.828c-.486 -.596 -1.156 -1.551 -1.416 -2.29z" />
-  <path d="M7.5 13.5c2.5 2.5 6.5 2.5 9 0" />
-</svg>
-
-
-
-                   </NavLink>
-
-                   <NavLink
-                href="/"
-                exact
-                className={styles.navLinks }
-              >
-
-                   <p    href="/users" className={styles.navLogo}>Golfito Activo</p>
-
-
-                   </NavLink>
-              
-            </div>
-    
-
-            <NavLink
-                href="/users"
-                exact
-                className={styles.navLinks + " " + styles.valueAcount}
-              >
-                <button
-                  className={`${styles.value} ${
-                    router.pathname === "/users" ? styles.active : ""
-                  }`}
-                >
-                  {userService.userValue?.firstName}
-                  <svg
-                    viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg"
-                    data-name="Layer 2"
-                  >
-                    <path
-                      fill="#7D8590"
-                      d="m1.5 13v1a.5.5 0 0 0 .3379.4731 18.9718 18.9718 0 0 0 6.1621 1.0269 18.9629 18.9629 0 0 0 6.1621-1.0269.5.5 0 0 0 .3379-.4731v-1a6.5083 6.5083 0 0 0 -4.461-6.1676 3.5 3.5 0 1 0 -4.078 0 6.5083 6.5083 0 0 0 -4.461 6.1676zm4-9a2.5 2.5 0 1 1 2.5 2.5 2.5026 2.5026 0 0 1 -2.5-2.5zm2.5 3.5a5.5066 5.5066 0 0 1 5.5 5.5v.6392a18.08 18.08 0 0 1 -11 0v-.6392a5.5066 5.5066 0 0 1 5.5-5.5z"
-                    ></path>
-                  </svg>
-                </button>
-              </NavLink>
-
-
-              </div>
-
-
-         
-
+        <NavLink
+          href="/users"
+          exact
+          className={styles.navLinks + " " + styles.valueAcount}
+        >
+          <button
+            className={`${styles.value} ${
+              router.pathname === "/users" ? styles.active : ""
+            }`}
+          >
+            {userService.userValue?.firstName}
+            <svg
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              data-name="Layer 2"
+            >
+              <path
+                fill="#7D8590"
+                d="m1.5 13v1a.5.5 0 0 0 .3379.4731 18.9718 18.9718 0 0 0 6.1621 1.0269 18.9629 18.9629 0 0 0 6.1621-1.0269.5.5 0 0 0 .3379-.4731v-1a6.5083 6.5083 0 0 0 -4.461-6.1676 3.5 3.5 0 1 0 -4.078 0 6.5083 6.5083 0 0 0 -4.461 6.1676zm4-9a2.5 2.5 0 1 1 2.5 2.5 2.5026 2.5026 0 0 1 -2.5-2.5zm2.5 3.5a5.5066 5.5066 0 0 1 5.5 5.5v.6392a18.08 18.08 0 0 1 -11 0v-.6392a5.5066 5.5066 0 0 1 5.5-5.5z"
+              ></path>
+            </svg>
+          </button>
+        </NavLink>
+      </div>
 
       <div className={styles.wrapper}>
         <input type="checkbox" id="checkbox" className={styles.checkbox} />
@@ -107,80 +85,40 @@ function Nav() {
           <div className={`${styles.bars} ${styles.bar3}`} id="bar3"></div>
         </label>
 
-   
-
-
-
-
-
-
-      
-
-
         <div className={styles.sidebar}>
-     
-     
-     
           <div className={styles.containerFlex}>
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div className={styles.input}>
-
-
-
-
-
-            <NavLink
+              <NavLink
                 href="/activity/activityRegister"
                 exact
-                className={styles.navLinks + " " + styles .valueAddActivity}
+                className={styles.navLinks + " " + styles.valueAddActivity}
               >
                 <button
                   className={`${styles.value} ${
-                    router.pathname === "/activity/activityRegister" ? styles.active : ""
+                    router.pathname === "/activity/activityRegister"
+                      ? styles.active
+                      : ""
                   }`}
                 >
-                 <p>Nueva Actividad
-                  </p>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M12 5l0 14" />
-  <path d="M5 12l14 0" />
-</svg>
+                  <p>Nueva Actividad</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="icon icon-tabler icons-tabler-outline icon-tabler-plus"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 5l0 14" />
+                    <path d="M5 12l14 0" />
+                  </svg>
                 </button>
               </NavLink>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               <NavLink href="/" exact className={styles.navLinks}>
                 <button
@@ -195,10 +133,10 @@ function Nav() {
                     viewBox="2 4 20 20"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-home"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="icon icon-tabler icons-tabler-outline icon-tabler-home"
                   >
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
@@ -295,23 +233,15 @@ function Nav() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                       d="m11.9572 4.31201c-3.35401 0-6.00906 2.59741-6.00906 5.67742v3.29037c0 .1986-.05916.3927-.16992.5576l-1.62529 2.4193-.01077.0157c-.18701.2673-.16653.5113-.07001.6868.10031.1825.31959.3528.67282.3528h14.52603c.2546 0 .5013-.1515.6391-.3968.1315-.2343.1117-.4475-.0118-.6093-.0065-.0085-.0129-.0171-.0191-.0258l-1.7269-2.4194c-.121-.1695-.186-.3726-.186-.5809v-3.29037c0-1.54561-.6851-3.023-1.7072-4.00431-1.1617-1.01594-2.6545-1.67311-4.3019-1.67311zm-8.00906 5.67742c0-4.27483 3.64294-7.67742 8.00906-7.67742 2.2055 0 4.1606.88547 5.6378 2.18455.01.00877.0198.01774.0294.02691 1.408 1.34136 2.3419 3.34131 2.3419 5.46596v2.97007l1.5325 2.1471c.6775.8999.6054 1.9859.1552 2.7877-.4464.795-1.3171 1.4177-2.383 1.4177h-14.52603c-2.16218 0-3.55087-2.302-2.24739-4.1777l1.45056-2.1593zm4.05187 11.32257c0-.5523.44772-1 1-1h5.99999c.5523 0 1 .4477 1 1s-.4477 1-1 1h-5.99999c-.55228 0-1-.4477-1-1z"
                       fill="#7D8590"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                     ></path>
                   </svg>
                   Notifications
                 </button>
               </NavLink>
-              
-
-
-
-
-
-
-
 
               <NavLink
                 href="/activity/activityRegister"
@@ -320,39 +250,34 @@ function Nav() {
               >
                 <button
                   className={`${styles.value} ${
-                    router.pathname === "/activity/activityRegister" ? styles.active : ""
+                    router.pathname === "/activity/activityRegister"
+                      ? styles.active
+                      : ""
                   }`}
                 >
-             
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M12 5l0 14" />
-  <path d="M5 12l14 0" />
-</svg>
-<p>Nueva Actividad
-</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="icon icon-tabler icons-tabler-outline icon-tabler-plus"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 5l0 14" />
+                    <path d="M5 12l14 0" />
+                  </svg>
+                  <p>Nueva Actividad</p>
                 </button>
               </NavLink>
-
-
-
-
-
-
-
-
-
             </div>
           </div>
- 
         </div>
-
-
-    
-
-        </div>
-  
-       
+      </div>
     </nav>
   );
 }

@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import {getStorage, ref, uploadBytes, getDownloadURL, deleteObject} from 'firebase/storage';
 import {v4} from 'uuid';
 const firebaseConfig = {
-  apiKey: "AIzaSyCTSt6cXmLmOg3RlQqa2SByWsW88baRoaE",
-  authDomain: "activity-image-firebase.firebaseapp.com",
-  projectId: "activity-image-firebase",
-  storageBucket: "activity-image-firebase.appspot.com",
-  messagingSenderId: "500002022633",
-  appId: "1:500002022633:web:aca1cda4daa6cef028fc78"
+  apiKey:process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
