@@ -2,10 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/users/authenticate": "pages/api/users/authenticate.js",
-  "/users": "pages/users.js",
-  "/api/users": "pages/api/users.js",
-  "/activity": "pages/activity.js",
   "/account/login": "pages/account/login.js",
-  "/api/activities": "pages/api/activities.js"
+  "/api/users/authenticate": "pages/api/users/authenticate.js"
 }

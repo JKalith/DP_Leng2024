@@ -42,7 +42,7 @@ function Alert() {
     return (
         <div>
             <Modal isVisible={isModalVisible} onClose={closeModal}>
-                <h2>Este es un modal</h2>
+                <h2>Este es un</h2>
                 <p>Contenido del modal aquí.</p>
             </Modal>
           

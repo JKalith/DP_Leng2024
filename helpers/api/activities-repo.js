@@ -9,10 +9,15 @@ const Activities = db.Activity;
 export const activityRepo = {
     getAll,
     getById,
+    getByUserId,
     create,
     update,
     delete: _delete
 };
+
+async function getByUserId(userId) {
+    return await Activities.find({ userId: userId });
+} 
 
 async function getAll() {
     // Verificar si Activities está definido antes de usarlo

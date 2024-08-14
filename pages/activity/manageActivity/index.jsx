@@ -1,21 +1,38 @@
 import { useState, useEffect } from "react";
-import { activityService } from "services";
+import { activityService, userService } from "services";
 import Link from "next/link";
 import styles from "styles/manageActivity.module.css";
 import globals from "styles/globals.module.css";
 function ManageActivity() {
   const [activities, setActivities] = useState([]);
 
+  const [userId, setUserId] = useState(null);
   useEffect(() => {
-    activityService.getAll().then((data) => {
-      if (Array.isArray(data)) {
-        setActivities(data);
+    
+    const subscription = userService.user.subscribe(user => {
+      if (user) {
+        setUserId(user.id);
       } else {
-        console.error("Invalid data format", data);
+        setUserId(null);
       }
     });
-  }, []);
+    
+    
+    if (userId) {
+      activityService.getByUserId(userId).then((data) => {
+        if (Array.isArray(data)) {
+          setActivities(data);
+        } else {
+          console.error("Invalid data format", data);
+        }
+      }).catch(error => {
+        console.error("Failed to fetch activities:", error);
+      });
+    }
 
+  
+    return () => subscription.unsubscribe();
+  }, [userId]);
   function deleteActivity(id) {
     activityService
       .delete(id)

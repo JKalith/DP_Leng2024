@@ -15,6 +15,7 @@ export const activityService = {
     get activityValue() { return activitySubject.value },
     register,
     getAll,
+    getByUserId,
     getById,
     update,
     delete: _delete
@@ -29,7 +30,18 @@ async function register(activity) {
 async function getAll() {
     return await fetchActivity.get(baseUrl);
 }
-
+async function getByUserId(userId) {
+    try {
+        const response = await fetch(`${baseUrl}/activities?${new URLSearchParams({ userId })}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching persons by userId:', error);
+        throw error; // Re-lanzar el error para manejarlo en el componente
+    }
+}
 async function getById(id) {
     return await fetchActivity.get(`${baseUrl}/${id}`);
 }
