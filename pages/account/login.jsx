@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import styles from "styles/login.module.css";
 import { Layout } from "components/account";
 import { userService, alertService } from "services";
+import { showAlertModal } from 'components';
 import InputField from "components/activity/inputField";
 import globals from "styles/globals.module.css";
 
@@ -34,7 +35,7 @@ function Login() {
         const returnUrl = router.query.returnUrl || "/activity";
         router.push(returnUrl);
       })
-      .catch(alertService.error);
+      .catch(showAlertModal('login', 'error'));
   }
 
   return (

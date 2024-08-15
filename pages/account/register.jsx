@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { showAlertModal } from 'components';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -33,7 +34,7 @@ function Register() {
     function onSubmit(user) {
         return userService.register(user)
             .then(() => {
-                alertService.success('Registration successful', true);
+                showAlertModal('Registration', 'Registration successful');
                 router.push('login');
             })
             .catch(alertService.error);
